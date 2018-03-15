@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CocoaAsyncSocket简介CocoaAsyncSocket是谷歌的开发者基于BSD-Socket写的IM框架，为Mac和iOS提供了易于使用的强大的异步套接字库，对于tcp和udp协议，CocoaAsyncSocket分别封装了AsyncSocket和AsyncUdpSocket两个类，向上封装简单易用OC接口，省去了用户(程序员)面向socket(tcp)以及数据流(udp)编程的麻烦">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CocoaAsyncSocket">
+<meta property="og:url" content="http://yoursite.com/2018/01/23/CocoaAsyncSocket/index.html">
+<meta property="og:site_name" content="Road To Coder">
+<meta property="og:description" content="CocoaAsyncSocket简介CocoaAsyncSocket是谷歌的开发者基于BSD-Socket写的IM框架，为Mac和iOS提供了易于使用的强大的异步套接字库，对于tcp和udp协议，CocoaAsyncSocket分别封装了AsyncSocket和AsyncUdpSocket两个类，向上封装简单易用OC接口，省去了用户(程序员)面向socket(tcp)以及数据流(udp)编程的麻烦">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Users/gengshuchen/Desktop/statistics.png">
+<meta property="og:updated_time" content="2018-03-15T07:54:22.793Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CocoaAsyncSocket">
+<meta name="twitter:description" content="CocoaAsyncSocket简介CocoaAsyncSocket是谷歌的开发者基于BSD-Socket写的IM框架，为Mac和iOS提供了易于使用的强大的异步套接字库，对于tcp和udp协议，CocoaAsyncSocket分别封装了AsyncSocket和AsyncUdpSocket两个类，向上封装简单易用OC接口，省去了用户(程序员)面向socket(tcp)以及数据流(udp)编程的麻烦">
+<meta name="twitter:image" content="http://yoursite.com/Users/gengshuchen/Desktop/statistics.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/23/CocoaAsyncSocket/"/>
+
+
+
+
+
+  <title>CocoaAsyncSocket | Road To Coder</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Road To Coder</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/23/CocoaAsyncSocket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CocoaAsyncSocket</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-23T17:20:10+08:00">
+                2018-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="CocoaAsyncSocket简介"><a href="#CocoaAsyncSocket简介" class="headerlink" title="CocoaAsyncSocket简介"></a>CocoaAsyncSocket简介</h3><p>CocoaAsyncSocket是谷歌的开发者基于BSD-Socket写的IM框架，为Mac和iOS提供了易于使用的强大的异步套接字库，对于tcp和udp协议，CocoaAsyncSocket分别封装了AsyncSocket和AsyncUdpSocket两个类，向上封装简单易用OC接口，省去了用户(程序员)面向socket(tcp)以及数据流(udp)编程的麻烦。</p>
+<h3 id="GCD-vs-RunLoop"><a href="#GCD-vs-RunLoop" class="headerlink" title="GCD vs RunLoop"></a>GCD vs RunLoop</h3><h4 id="GCD版本"><a href="#GCD版本" class="headerlink" title="GCD版本"></a>GCD版本</h4><p>当前CocoaAsyncSocket框架基于GCD主要封装了GCDAsyncSocket和GCDAsyncUdpSocket两个类。</p>
+<h4 id="RunLoop版本"><a href="#RunLoop版本" class="headerlink" title="RunLoop版本"></a>RunLoop版本</h4><p>在7.5.0版本之前CocoaAsyncSocket有一个RunLoop版本，封装了AsyncSocket和AsyncUdpSocket两个类，从2016年的7.5.0版本起，考虑到功能相似等其他原因，为了投入更多精力在GCD版本上，开发者将RunLoop从该版本中移除，并不再提供维护(<a href="https://github.com/robbiehanson/CocoaAsyncSocket/issues/454" target="_blank" rel="noopener">github上相关issue</a>)，项目中相关的<a href="https://github.com/robbiehanson/CocoaAsyncSocket/wiki/Reference_AsyncSocket" target="_blank" rel="noopener">wiki</a>也已经被清空。<u><strong>从这一点来看，我们的项目进行版本的迁移非常有必要。</strong></u></p>
+<h4 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h4><p>GCDAsyncSocket版本完全依赖于GCD，从而保证了:</p>
+<ul>
+<li><p>线程安全</p>
+<p>委托回调方法均异步dispatch到初始化时指定的队列中，从而保证了socket和委托/处理的可并发性。</p>
+<p>socket运行在内部的socket queue中，因此是线程安全的，socket queue可在初始化时指定，若未指定socket queue，则自动创建。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * GCDAsyncSocket uses the standard delegate paradigm,</span><br><span class="line"> * but executes all delegate callbacks on a given delegate dispatch queue.</span><br><span class="line"> * This allows for maximum concurrency, while at the same time providing easy thread safety.</span><br><span class="line"> * </span><br><span class="line"> * You MUST set a delegate AND delegate dispatch queue before attempting to</span><br><span class="line"> * use the socket, or you will get an error.</span><br><span class="line"> * </span><br><span class="line"> * The socket queue is optional.</span><br><span class="line"> * If you pass NULL, GCDAsyncSocket will automatically create it&apos;s own socket queue.</span><br><span class="line"> * If you choose to provide a socket queue, the socket queue must not be a concurrent queue.</span><br><span class="line"> * If you choose to provide a socket queue, and the socket queue has a configured target queue,</span><br><span class="line"> * then please see the discussion for the method markSocketQueueTargetQueue.</span><br><span class="line"> * </span><br><span class="line"> * The delegate queue and socket queue can optionally be the same.</span><br><span class="line">**/</span><br><span class="line">- (instancetype)init;</span><br><span class="line">- (instancetype)initWithSocketQueue:(nullable dispatch_queue_t)sq;</span><br><span class="line">- (instancetype)initWithDelegate:(nullable id&lt;GCDAsyncSocketDelegate&gt;)aDelegate delegateQueue:(nullable dispatch_queue_t)dq;</span><br><span class="line">- (instancetype)initWithDelegate:(nullable id&lt;GCDAsyncSocketDelegate&gt;)aDelegate delegateQueue:(nullable dispatch_queue_t)dq socketQueue:(nullable dispatch_queue_t)sq;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>性能的提高<br>内部利用了大量技术如kqueue(macOS上高效的IO复用技术)来减少系统调用并优化了缓冲区分配，从而实现了更高的性能。</li>
+</ul>
+<p>AsyncSocket RunLoop版本则完全基于RunLoop</p>
+<ul>
+<li><p>线程安全</p>
+<p>框架提供了一个函数用于RunLoop的设置，当创建一个socket的时候，默认将socket添加到当前RunLoop中，同时框架允许将socket移到其他自定义的RunLoop和设置RunLoopModes中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * When you create an AsyncSocket, it is added to the runloop of the current thread.</span><br><span class="line"> * So for manually created sockets, it is easiest to simply create the socket on the thread you intend to use it.</span><br><span class="line"> * </span><br><span class="line"> * If a new socket is accepted, the delegate method onSocket:wantsRunLoopForNewSocket: is called to</span><br><span class="line"> * allow you to place the socket on a separate thread. This works best in conjunction with a thread pool design.</span><br><span class="line"> * </span><br><span class="line"> * If, however, you need to move the socket to a separate thread at a later time, this</span><br><span class="line"> * method may be used to accomplish the task.</span><br><span class="line"> * </span><br><span class="line"> * This method must be called from the thread/runloop the socket is currently running on.</span><br><span class="line"> * </span><br><span class="line"> * Note: After calling this method, all further method calls to this object should be done from the given runloop.</span><br><span class="line"> * Also, all delegate calls will be sent on the given runloop.</span><br><span class="line">**/</span><br><span class="line">- (BOOL)moveToRunLoop:(NSRunLoop *)runLoop;</span><br></pre></td></tr></table></figure>
+<p>框架提供了以下函数用于检查线程安全</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (void)checkForThreadSafety</span><br><span class="line">&#123;</span><br><span class="line">	if (theRunLoop &amp;&amp; (theRunLoop != CFRunLoopGetCurrent()))</span><br><span class="line">	&#123;</span><br><span class="line">		// AsyncSocket is RunLoop based.</span><br><span class="line">		// It is designed to be run and accessed from a particular thread/runloop.</span><br><span class="line">		// As such, it is faster as it does not have the overhead of locks/synchronization.</span><br><span class="line">		// </span><br><span class="line">		// However, this places a minimal requirement on the developer to maintain thread-safety.</span><br><span class="line">		// If you are seeing errors or crashes in AsyncSocket,</span><br><span class="line">		// it is very likely that thread-safety has been broken.</span><br><span class="line">		// This method may be enabled via the DEBUG_THREAD_SAFETY macro,</span><br><span class="line">		// and will allow you to discover the place in your code where thread-safety is being broken.</span><br><span class="line">		// </span><br><span class="line">		// Note:</span><br><span class="line">		// </span><br><span class="line">		// If you find you constantly need to access your socket from various threads,</span><br><span class="line">		// you may prefer to use GCDAsyncSocket which is thread-safe.</span><br><span class="line">		</span><br><span class="line">		[NSException raise:AsyncSocketException</span><br><span class="line">		            format:@&quot;Attempting to access AsyncSocket instance from incorrect thread.&quot;];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注释指出了RunLoop版本是为单个线程而设计的，因此不做锁/同步机制，以此保证了高性能，<u>线程的安全需要由用户(程序员)来保证</u>。</p>
+<p>​</p>
+</li>
+</ul>
+<h4 id="Which-one"><a href="#Which-one" class="headerlink" title="Which one?"></a>Which one?</h4><p><a href="https://groups.google.com/forum/#!topic/cocoaasyncsocket/l4JWV3R0_00" target="_blank" rel="noopener">groups.google.com</a>上作者Robbie的对于两个版本的观点如下，</p>
+<ul>
+<li>GCDAsyncSocket要求Mac OSX 10.6+ or iOS 4.0+，GCDAsyncSocket的性能大部分情况下远远优于AsyncSocket</li>
+<li>只有当在iOS上使用SSL/TLS时两者性能才比较接近。此时使用GCDAsyncSocket并不能带来很大的性能提升。</li>
+</ul>
+<p><strong>“[When I switched to GCDAsyncSocket] I ended up creating a dedicated queue to process the incoming data. … Which ended up moving all [processing] off the main thread. … My UI is now much smoother during the update process!”</strong></p>
+<h3 id="可行性"><a href="#可行性" class="headerlink" title="可行性"></a>可行性</h3><h4 id="iOS版本"><a href="#iOS版本" class="headerlink" title="iOS版本"></a>iOS版本</h4><p>iOS 4发布时间为2010年3月，根据<a href="https://developer.apple.com/support/app-store/" target="_blank" rel="noopener">苹果官方设备版本统计</a>如下图，目前在有93%的移动设备上iOS为iOS10以上。</p>
+<p><img src="/Users/gengshuchen/Desktop/statistics.png" alt="苹果官方设备系统版本统计"></p>
+<p>考虑到极少数地区设备较为落后，调研目前可能使用低于iOS4版本的设备如下</p>
+<table>
+<thead>
+<tr>
+<th>设备</th>
+<th>iPhone</th>
+<th>iPhone 3G</th>
+<th>iPhone 3GS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始版本操作系统</td>
+<td>iPhone OS 1.0</td>
+<td>iPhone OS. 2.0</td>
+<td>iPhone OS 3.0</td>
+</tr>
+<tr>
+<td>最新版本操作系统</td>
+<td>iPhone OS 3.1.3</td>
+<td>iOS 4.2.1</td>
+<td>iOS 6.1.6</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>设备</th>
+<th>iPod Touch(第一代)</th>
+<th>iPod Touch(第二代)</th>
+<th>iPod Touch(第三代)</th>
+<th>iPad(第一代)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始版本操作系统</td>
+<td>iPhone OS 1.1</td>
+<td>iPhone OS 2.1.1</td>
+<td>iPhone OS 3.1.1</td>
+<td>iPhone OS 3.2</td>
+</tr>
+<tr>
+<td>最新版本的操作系统</td>
+<td>iPhone OS 3.1.3</td>
+<td>iOS 4.2.1</td>
+<td>iOS 5.1.1</td>
+<td>iOS 5.1.1</td>
+</tr>
+</tbody>
+</table>
+<p><em>系统版本信息参考<a href="https://en.wikipedia.org/wiki/List_of_iOS_devices" target="_blank" rel="noopener">维基百科</a>，版本高于iPhone OS3的设备未列出(iOS4版本之前称为iphone OS)</em></p>
+<p><strong><u>综上，在采用GCDAsyncSocket时需要考虑上述设备的兼容。</u></strong></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>RunLoop版本目前已经不再维护，同时其线程安全需要由程序员保证，大部分情况下性能远低于GCD版本，因此对CocoaAsyncSocket的迁移是非常有必要的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/22/深入理解RunLoop/" rel="next" title="深入理解RunLoop">
+                <i class="fa fa-chevron-left"></i> 深入理解RunLoop
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/31/RunTime/" rel="prev" title="RunTime">
+                RunTime <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Bokice</p>
+              <p class="site-description motion-element" itemprop="description">记录学习历程，向开源大神看齐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CocoaAsyncSocket简介"><span class="nav-number">1.</span> <span class="nav-text">CocoaAsyncSocket简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCD-vs-RunLoop"><span class="nav-number">2.</span> <span class="nav-text">GCD vs RunLoop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GCD版本"><span class="nav-number">2.1.</span> <span class="nav-text">GCD版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RunLoop版本"><span class="nav-number">2.2.</span> <span class="nav-text">RunLoop版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对比"><span class="nav-number">2.3.</span> <span class="nav-text">对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Which-one"><span class="nav-number">2.4.</span> <span class="nav-text">Which one?</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可行性"><span class="nav-number">3.</span> <span class="nav-text">可行性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS版本"><span class="nav-number">3.1.</span> <span class="nav-text">iOS版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bokice</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

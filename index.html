@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="记录学习历程，向开源大神看齐">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Road To Coder">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Road To Coder">
+<meta property="og:description" content="记录学习历程，向开源大神看齐">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Road To Coder">
+<meta name="twitter:description" content="记录学习历程，向开源大神看齐">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/"/>
+
+
+
+
+
+  <title>Road To Coder</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Road To Coder</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/31/RunTime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/31/RunTime/" itemprop="url">RunTime</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-31T17:52:31+08:00">
+                2018-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Objc与Runtime系统进行交互</p>
+<pre><code>1.Objective-C源代码，消息的执行会使用到一些编译器为实现动态语言特性而创建的数据结构和函数，Objc中的类/方法/协议等在runtime中都由一些数据结构来定义。
+2.Foundation框架的NSObject类定义的方法，可以在运行时获得类的信息，并检查一些特性。
+3.对runtime函数的直接调用，Runtime系统是由一系列函数和数据结构组成，具有公共接口的动态共享库。
+</code></pre><p>Runtime基础数据结构    objc_msgSend:<br>    1.SEL，是selector在Objc中的表示类型，selector是方法选择器，可以理解为区分方法的ID，而这个ID的数据结构是SEL。是一个映射到方法的C字符串，可以用Objc编译器命令@selector()或者Runtime系统的sel_registerName函数来获得一个SEL类型的方法选择器。不同类中相同名字的方法对应的方法选择器是相同的，即使方法名字相同而变量类型不同也会导致他们具有相同的方法选择器，因此Objc中方法命名有时会带上参数类型<br>    2.id，指向类实例的指针，objc_object结构体包含isa指针，isa指针不总是指向实例对象所属的类，不能依靠它来确定类型，而是应该用class方法来确定实例对象的类。<br>    3.Class 指向objc_class结构的指针，objc_class继承于objc_object<br>        3.1.cache_t 优化方法调用的性能<br>            _buckets 存储IMP-&gt;bucket_t存储了指针与IMP的键值对<br>            _mask，_occpuied对应vtable<br>        3.2.class_data_bits_t</p>
+<pre><code>    3.3.class_ro_t 在class_rw_t中含对应的指针
+        method_list_t
+        ivar_list_t
+        property_list_t
+        protocol_list_t
+    3.4.class_rw_t 在class_data_bits_t中含对应的指针，提供了运行时对类扩展的能力，而class_ro_t存储的大多数是类在编译时就已经确定的信息，二者都存有类的方法/属性/协议等信息，不过存储他们的列表实现方式不同。
+        method_array_t
+        property_array_t
+        protocol_array_t
+        class_rw_t的内容可以在运行时被动态修改，可以说运行时对类的扩展大都是存储在这里的。
+    3.5.realizeClass
+        在某个类初始化之前，objc_class-&gt;class()返回的指针指向的其实是个class_ro_t结构体，等到realizeClass京台方法在类第一次初始化时被调用，它会开辟class_rw_t的空间，并将class_ro_t指针赋值给class_rw_t-&gt;ro，realizeClass函数处理的类才是真正的类，调用它时不能对类做写操作。
+4.Category 为现有类提供扩展性，category_t结构体的指针
+    存储了类别中可以扩展的实例方法/类方法/协议/实例属性和类属性，App启动镜像文件时，会在_read_images函数间接调用到attachCategories函数，完成向类中添加Category的工作，原理:向class_rw_t中的method_array_t,property_array_t,protocol_array_t数组中分别添加method_list_t,property_list_t,protocol_list_t指针，调用attachCategories函数之前，会先使用unattachedCategoriesForClass函数获取类中还未添加的类别列表。
+
+5.Method 是一种代表类中的某个方法的类型。存储了方法名，方法类型和方法实现。
+    SEL，方法名类型，相同名字的方法即使在不同类中定义，方法选择器也相同。
+    types，方法类型，char指针，存储着方法的参数类型和返回值类型
+    imp 指向了方法的实现，本质上是函数指针
+6.Ivar 代表类中实例变量的类型，是一个指向ivar_t结构体的指针
+7.objc_property_t，指向objc_property结构体的指针
+    可以通过class_copyPropertyList和protocol_copyPropertyList方法来获取类和协议中的属性，返回类型为指向指针的指针
+8.protocol_t
+9.IMP 函数指针，由编译器生成，发起一个objC之后，最终执行的代码，由该函数指针指定
+</code></pre><p>消息<br>    1.objc_msgSend函数<br>        消息发送步骤<br>            1.检测selector是否要忽略，如retain，release<br>            2.检测target是否nil对象，保证不crash<br>            3.开始查找类的IMP，从cache里找，找到了跳转到对应的函数执行<br>            4.找方法分发表<br>            5.找超类分发表，直到找到NSObject类为止<br>            6.进入动态方法分析<br>            PS：分发表指的是Class中的方法列表，将方法选择器和方法实现地址联系起来<br>            编译器会根据情况在objc_msgSend，objc_msgSend_stret，objc_msgSendSuper或objc_msgSendSuper_stret四个方法中选择一个来调用，如果消息是传递给超类的，那么会调用名字带有super的函数，如果消息返回时数据结构而不是简单值，那么会调用名字带有stret(struct return)的函数<br>    2.方法中的隐藏参数<br>        self的内容是在方法运行时被偷偷动态传入的。当objc_msgSend找到方法对应的实现时，它将直接调用该方法实现，并将消息中所又的参数都传递给方法实现，同时，它还将传递两个隐藏的参数，接收消息的对象和方法选择器。源代码方法的定义中并没有声明这两个参数，它们时在代码被编译时被插入实现中的，self是方法实现中访问消息接收者对象的实例变量的途径。当方法中的super关键字接收到消息时，编译器会创建一个objc_super结构体，知名消息应该被传递给特定超类的定义，但是recevier仍然时self本身，当想通过[self class]获取超类时，编译器只是将self的id指针和class的SEL传递给objc_msgSendSUper函数，因为只有在NSObjct类才能找到class方法，然后class方法调用object_getClass，接着调用objc_msgSend(objc_super-&gt;receiver,@selector(class))，传入的第一个参数是指向self的id指针，与调用[self class]相同，所以我们得到的永远都是self的类型<br>    3.获取方法地址<br>        NSObject类中有个methodForSelector实例方法，可以用它来获取某个方法选择器对应的IMP，将方法当作函数调用，需要明确给出两个隐藏参数。methodForSelector方法又Cocoa的Runtime系统提供，不是Objc自身的特性。<br>动态方法解析<br>    可以动态提供一个方法的实现，例如可以用@dynamic关键字在类的实现文件中修饰一个属性，表明会为这个属性动态提供存取方法，也就是说编译器不会再默认生成setPropertyName和protertyName方法，而需要我们动态提供，可以通过分别重载resolveInstanceMethod和resolveClassMethod方法来添加实例方法实现和类方法实现，因为当Runtime系统在Cache和方法分发表中找不到要执行的方法时，Runtime会调用resolveInstanceMethod或resolveClassMethod来给程序员一次动态添加方法实现的机会，需要用class_addMethod函数完成向特定类添加特定方法实现的操作。动态方法解析会在消息转发机制浸入前执行。<br>    当self为实例对象时，[self class]与object_getClass(self)等价，因为前者会调用后者，object_getClass([self class])得到元类<br>    当self为类对象时，[self class]返回值为自身，即self，object_getClass(self)与object_getClass([self class])等价。<br>消息转发<br>    1.重定向<br>        在消息转发机制执行前，Runtime系统会在给我们一次偷梁换柱的机会，即通过重载forwardingTargetForSelector:方法替换消息的接受者为其他对象<br>    2.转发<br>        当动态方法解析不作处理返回NO时，消息转发机制会被处罚，这时forwardInvocation方法会被执行，可以重写这个方法来定义转发逻辑，消息的唯一参数是NSInvocatoin类型的对象，该对象封装了原始的消息和消息的参数，可以实现forwardInvocation方法来对不能处理的消息做一些默认的处理，也可以将消息转发给其他对象来处理。在forwardInvocation消息发送前，runtime系统会向对象发送methodSignatureForSelector消息，并取到返回的方法签名用于生成NSInvocation对象，所以在重写forwardInvocation的同时也要重写methodSignatureForSelector方法，否则会抛异常。<br>        forwardInvocation方法像一个不能识别的消息的分发中心，将这些消息转发给不同接收对象，也可以像运输站将所有的消息都发送给同一个接收对象，可以将一个消息翻译成另外一个消息。forwardInvocation方法也可以对不同的消息提供同样的响应，这取决于方法的具体实现，该方法所提供是将不同对象连接到消息链的能力。<br>        forwardInvocation只有在消息接收对象中无法正常响应消息时才会被调用，如果我们希望一个对象将negotiate消息转发到其他对象，则这个对象不能有negotiate方法，否则forwardInvocation将不可能被调用。<br>    3.转发和多继承<br>        消息转发弥补了Objc不支持多继承的性质，也避免因为多继承导致单个类变得臃肿复杂<br>    4.替代者对象<br>        转发不仅能模拟多继承，也能使轻量级对象代表重量级对象。<br>    5.转发与继承<br>        NSObject不会将两者混淆，像respondsToSelector和isKindOfClass这类方法只会考虑继承体系，而不考虑转发链。<br>健壮的实例变量<br>    当一个类被编译时，实例变量的布局也就形成了，它表明访问类的实例变量的位置。从对象头部开始，实例变量依次根据自己所占空间而产生位移。在健壮的实例变量下编译器生成的实例变量布局跟以前一样，但是当runtime系统检测到与超类有部分重叠时会调整新添加的实例变量的位移，那样在子类中新添加成员就被保护起来了。<br>    健壮的实例变量下，不要使用sizeof(SomeClass)，而是用class_getInstanceSize([SomeClass class])代替，也不要使用offsetof(SomeClass,SomeIvar),而要用ivar_getOffset(class_getInstanceVariable([SomeClass class],”SomeIvar”))来代替。<br>Objective-C Associated Objects<br>    OSX 10.6 之后，Runtime系统让Objc支持向对象动态添加变量，涉及到的函数有以下三个，objc_setAssociatedObject，objc_getAssociatedObject，objc_removeAssociatedObjects，这些方法以键值对的形式动态地向对象添加/获取/删除关联值，关联策略由枚举变量确定。<br>Method Swizzling<br>​    </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/23/CocoaAsyncSocket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/23/CocoaAsyncSocket/" itemprop="url">CocoaAsyncSocket</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-23T17:20:10+08:00">
+                2018-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="CocoaAsyncSocket简介"><a href="#CocoaAsyncSocket简介" class="headerlink" title="CocoaAsyncSocket简介"></a>CocoaAsyncSocket简介</h3><p>CocoaAsyncSocket是谷歌的开发者基于BSD-Socket写的IM框架，为Mac和iOS提供了易于使用的强大的异步套接字库，对于tcp和udp协议，CocoaAsyncSocket分别封装了AsyncSocket和AsyncUdpSocket两个类，向上封装简单易用OC接口，省去了用户(程序员)面向socket(tcp)以及数据流(udp)编程的麻烦。</p>
+<h3 id="GCD-vs-RunLoop"><a href="#GCD-vs-RunLoop" class="headerlink" title="GCD vs RunLoop"></a>GCD vs RunLoop</h3><h4 id="GCD版本"><a href="#GCD版本" class="headerlink" title="GCD版本"></a>GCD版本</h4><p>当前CocoaAsyncSocket框架基于GCD主要封装了GCDAsyncSocket和GCDAsyncUdpSocket两个类。</p>
+<h4 id="RunLoop版本"><a href="#RunLoop版本" class="headerlink" title="RunLoop版本"></a>RunLoop版本</h4><p>在7.5.0版本之前CocoaAsyncSocket有一个RunLoop版本，封装了AsyncSocket和AsyncUdpSocket两个类，从2016年的7.5.0版本起，考虑到功能相似等其他原因，为了投入更多精力在GCD版本上，开发者将RunLoop从该版本中移除，并不再提供维护(<a href="https://github.com/robbiehanson/CocoaAsyncSocket/issues/454" target="_blank" rel="noopener">github上相关issue</a>)，项目中相关的<a href="https://github.com/robbiehanson/CocoaAsyncSocket/wiki/Reference_AsyncSocket" target="_blank" rel="noopener">wiki</a>也已经被清空。<u><strong>从这一点来看，我们的项目进行版本的迁移非常有必要。</strong></u></p>
+<h4 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h4><p>GCDAsyncSocket版本完全依赖于GCD，从而保证了:</p>
+<ul>
+<li><p>线程安全</p>
+<p>委托回调方法均异步dispatch到初始化时指定的队列中，从而保证了socket和委托/处理的可并发性。</p>
+<p>socket运行在内部的socket queue中，因此是线程安全的，socket queue可在初始化时指定，若未指定socket queue，则自动创建。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * GCDAsyncSocket uses the standard delegate paradigm,</span><br><span class="line"> * but executes all delegate callbacks on a given delegate dispatch queue.</span><br><span class="line"> * This allows for maximum concurrency, while at the same time providing easy thread safety.</span><br><span class="line"> * </span><br><span class="line"> * You MUST set a delegate AND delegate dispatch queue before attempting to</span><br><span class="line"> * use the socket, or you will get an error.</span><br><span class="line"> * </span><br><span class="line"> * The socket queue is optional.</span><br><span class="line"> * If you pass NULL, GCDAsyncSocket will automatically create it&apos;s own socket queue.</span><br><span class="line"> * If you choose to provide a socket queue, the socket queue must not be a concurrent queue.</span><br><span class="line"> * If you choose to provide a socket queue, and the socket queue has a configured target queue,</span><br><span class="line"> * then please see the discussion for the method markSocketQueueTargetQueue.</span><br><span class="line"> * </span><br><span class="line"> * The delegate queue and socket queue can optionally be the same.</span><br><span class="line">**/</span><br><span class="line">- (instancetype)init;</span><br><span class="line">- (instancetype)initWithSocketQueue:(nullable dispatch_queue_t)sq;</span><br><span class="line">- (instancetype)initWithDelegate:(nullable id&lt;GCDAsyncSocketDelegate&gt;)aDelegate delegateQueue:(nullable dispatch_queue_t)dq;</span><br><span class="line">- (instancetype)initWithDelegate:(nullable id&lt;GCDAsyncSocketDelegate&gt;)aDelegate delegateQueue:(nullable dispatch_queue_t)dq socketQueue:(nullable dispatch_queue_t)sq;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>性能的提高<br>内部利用了大量技术如kqueue(macOS上高效的IO复用技术)来减少系统调用并优化了缓冲区分配，从而实现了更高的性能。</li>
+</ul>
+<p>AsyncSocket RunLoop版本则完全基于RunLoop</p>
+<ul>
+<li><p>线程安全</p>
+<p>框架提供了一个函数用于RunLoop的设置，当创建一个socket的时候，默认将socket添加到当前RunLoop中，同时框架允许将socket移到其他自定义的RunLoop和设置RunLoopModes中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * When you create an AsyncSocket, it is added to the runloop of the current thread.</span><br><span class="line"> * So for manually created sockets, it is easiest to simply create the socket on the thread you intend to use it.</span><br><span class="line"> * </span><br><span class="line"> * If a new socket is accepted, the delegate method onSocket:wantsRunLoopForNewSocket: is called to</span><br><span class="line"> * allow you to place the socket on a separate thread. This works best in conjunction with a thread pool design.</span><br><span class="line"> * </span><br><span class="line"> * If, however, you need to move the socket to a separate thread at a later time, this</span><br><span class="line"> * method may be used to accomplish the task.</span><br><span class="line"> * </span><br><span class="line"> * This method must be called from the thread/runloop the socket is currently running on.</span><br><span class="line"> * </span><br><span class="line"> * Note: After calling this method, all further method calls to this object should be done from the given runloop.</span><br><span class="line"> * Also, all delegate calls will be sent on the given runloop.</span><br><span class="line">**/</span><br><span class="line">- (BOOL)moveToRunLoop:(NSRunLoop *)runLoop;</span><br></pre></td></tr></table></figure>
+<p>框架提供了以下函数用于检查线程安全</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (void)checkForThreadSafety</span><br><span class="line">&#123;</span><br><span class="line">	if (theRunLoop &amp;&amp; (theRunLoop != CFRunLoopGetCurrent()))</span><br><span class="line">	&#123;</span><br><span class="line">		// AsyncSocket is RunLoop based.</span><br><span class="line">		// It is designed to be run and accessed from a particular thread/runloop.</span><br><span class="line">		// As such, it is faster as it does not have the overhead of locks/synchronization.</span><br><span class="line">		// </span><br><span class="line">		// However, this places a minimal requirement on the developer to maintain thread-safety.</span><br><span class="line">		// If you are seeing errors or crashes in AsyncSocket,</span><br><span class="line">		// it is very likely that thread-safety has been broken.</span><br><span class="line">		// This method may be enabled via the DEBUG_THREAD_SAFETY macro,</span><br><span class="line">		// and will allow you to discover the place in your code where thread-safety is being broken.</span><br><span class="line">		// </span><br><span class="line">		// Note:</span><br><span class="line">		// </span><br><span class="line">		// If you find you constantly need to access your socket from various threads,</span><br><span class="line">		// you may prefer to use GCDAsyncSocket which is thread-safe.</span><br><span class="line">		</span><br><span class="line">		[NSException raise:AsyncSocketException</span><br><span class="line">		            format:@&quot;Attempting to access AsyncSocket instance from incorrect thread.&quot;];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注释指出了RunLoop版本是为单个线程而设计的，因此不做锁/同步机制，以此保证了高性能，<u>线程的安全需要由用户(程序员)来保证</u>。</p>
+<p>​</p>
+</li>
+</ul>
+<h4 id="Which-one"><a href="#Which-one" class="headerlink" title="Which one?"></a>Which one?</h4><p><a href="https://groups.google.com/forum/#!topic/cocoaasyncsocket/l4JWV3R0_00" target="_blank" rel="noopener">groups.google.com</a>上作者Robbie的对于两个版本的观点如下，</p>
+<ul>
+<li>GCDAsyncSocket要求Mac OSX 10.6+ or iOS 4.0+，GCDAsyncSocket的性能大部分情况下远远优于AsyncSocket</li>
+<li>只有当在iOS上使用SSL/TLS时两者性能才比较接近。此时使用GCDAsyncSocket并不能带来很大的性能提升。</li>
+</ul>
+<p><strong>“[When I switched to GCDAsyncSocket] I ended up creating a dedicated queue to process the incoming data. … Which ended up moving all [processing] off the main thread. … My UI is now much smoother during the update process!”</strong></p>
+<h3 id="可行性"><a href="#可行性" class="headerlink" title="可行性"></a>可行性</h3><h4 id="iOS版本"><a href="#iOS版本" class="headerlink" title="iOS版本"></a>iOS版本</h4><p>iOS 4发布时间为2010年3月，根据<a href="https://developer.apple.com/support/app-store/" target="_blank" rel="noopener">苹果官方设备版本统计</a>如下图，目前在有93%的移动设备上iOS为iOS10以上。</p>
+<p><img src="/Users/gengshuchen/Desktop/statistics.png" alt="苹果官方设备系统版本统计"></p>
+<p>考虑到极少数地区设备较为落后，调研目前可能使用低于iOS4版本的设备如下</p>
+<table>
+<thead>
+<tr>
+<th>设备</th>
+<th>iPhone</th>
+<th>iPhone 3G</th>
+<th>iPhone 3GS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始版本操作系统</td>
+<td>iPhone OS 1.0</td>
+<td>iPhone OS. 2.0</td>
+<td>iPhone OS 3.0</td>
+</tr>
+<tr>
+<td>最新版本操作系统</td>
+<td>iPhone OS 3.1.3</td>
+<td>iOS 4.2.1</td>
+<td>iOS 6.1.6</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>设备</th>
+<th>iPod Touch(第一代)</th>
+<th>iPod Touch(第二代)</th>
+<th>iPod Touch(第三代)</th>
+<th>iPad(第一代)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始版本操作系统</td>
+<td>iPhone OS 1.1</td>
+<td>iPhone OS 2.1.1</td>
+<td>iPhone OS 3.1.1</td>
+<td>iPhone OS 3.2</td>
+</tr>
+<tr>
+<td>最新版本的操作系统</td>
+<td>iPhone OS 3.1.3</td>
+<td>iOS 4.2.1</td>
+<td>iOS 5.1.1</td>
+<td>iOS 5.1.1</td>
+</tr>
+</tbody>
+</table>
+<p><em>系统版本信息参考<a href="https://en.wikipedia.org/wiki/List_of_iOS_devices" target="_blank" rel="noopener">维基百科</a>，版本高于iPhone OS3的设备未列出(iOS4版本之前称为iphone OS)</em></p>
+<p><strong><u>综上，在采用GCDAsyncSocket时需要考虑上述设备的兼容。</u></strong></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>RunLoop版本目前已经不再维护，同时其线程安全需要由程序员保证，大部分情况下性能远低于GCD版本，因此对CocoaAsyncSocket的迁移是非常有必要的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/22/深入理解RunLoop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/22/深入理解RunLoop/" itemprop="url">深入理解RunLoop</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T16:17:48+08:00">
+                2018-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>拜读ibireme大神的博客<a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">深入理解RunLoop</a>  ，此为手记，希望后续有更深的理解</em></p>
+<h3 id="RunLoop概念"><a href="#RunLoop概念" class="headerlink" title="RunLoop概念"></a>RunLoop概念</h3><p>​    Event Loop模型:让线程能随时处理时间但并不退出，基本代码逻辑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function loop()&#123;</span><br><span class="line">  initialize();</span><br><span class="line">  do&#123;</span><br><span class="line">    var message=get_next_message();</span><br><span class="line">    process_message(message);</span><br><span class="line">  &#125;while(message!=quit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现关键点:如何管理事件/消息，如何让线程在没有处理消息时休眠以避免资源占用，在有消息到来时立刻被唤醒。</p>
+<p>因此RunLoop实际上是一个对象，管理了需要处理的事件和消息，并提供了一个入口函数来执行上面Event Loop的逻辑。</p>
+<p>OSX/IOS系统中，提供了两个这样的对象，NSRunLoop和CFRunLoopRef</p>
+<ul>
+<li>CFRunLoopRef 基于CoreFoundation框架内，提供了纯C函数的API，所有这些API都是线程安全的。</li>
+<li>NSRunLoop 基于CFRunLoopRef封装，提供了面向对象的API，API非线程安全</li>
+</ul>
+<h3 id="RunLoop与线程的关系"><a href="#RunLoop与线程的关系" class="headerlink" title="RunLoop与线程的关系"></a>RunLoop与线程的关系</h3><p>IOS开发中的线程对象:pthread_t和NSThread</p>
+<ul>
+<li>pthread_t:<ul>
+<li>Pthread_main_thread_np()</li>
+<li>pthread_self()</li>
+</ul>
+</li>
+<li>NSThread:<ul>
+<li>[NSThread mainThread]</li>
+<li>[NSThread currentThread]</li>
+</ul>
+</li>
+</ul>
+<p>CFRunLoop是基于pthread来管理的，苹果不允许 直接创建RunLoop，而提供自动获取的函数，CFRunLoopGetMain()和CFRunLoopGetCurrent()，从其内部实现可以看出，线程创建时不会有RunLoop，RunLoop的创建发生在第一次获取时，而RunLoop的销毁发生在线程结束时，因此只能在线程的内部获取其RunLoop(因为只能调用CFRunLoopGetCurrent接口，主线程除外)</p>
+<h3 id="RunLoop对外的接口"><a href="#RunLoop对外的接口" class="headerlink" title="RunLoop对外的接口"></a>RunLoop对外的接口</h3><p>CoreFoundation关于RunLoop的类有:</p>
+<ul>
+<li>CFRunLoopRef</li>
+<li>CFRunLoopModeRef:对外不暴露，只是通过CFRunLoopRef的接口进行了封装</li>
+<li>CFRunLoopSourceRef</li>
+<li>CFRunLoopTimerRef</li>
+<li>CFRunLoopObserverRef</li>
+</ul>
+<p>一个RunLoop包含了若干个Mode，每个Mode包含若干个Source/Timer/Observer，每次调用RunLoop的主函数时，只能制定其中一个Mode，这个Mode被称作CurrentMode，如果需要切换Mode，只能退出Loop，再重新制定一个Mode进入，从而分隔开不同组的Source/Timer/Observer，让其互不影响。</p>
+<h4 id="CFRunLoopSourceRef"><a href="#CFRunLoopSourceRef" class="headerlink" title="CFRunLoopSourceRef"></a>CFRunLoopSourceRef</h4><p>事件产生的地方，Source有两个版本，Source0和Source1 。</p>
+<ul>
+<li>Source0只包含一个回调函数指针，并不能主动触发事件。使用时需要线调用CFRunLoopSourceSignal(source)，将source标记为待处理，然后手动调用CFRunLoopWakeUp(runloop)来唤醒RunLoop，让其处理这个事件。</li>
+<li>Source1包含了一个mach_port和一个回调函数指针，被用于通过内核和其他线程相互发送消息，这种Source能主动唤醒RunLoop的线程。</li>
+</ul>
+<h4 id="CFRunLoopTimerRef"><a href="#CFRunLoopTimerRef" class="headerlink" title="CFRunLoopTimerRef"></a>CFRunLoopTimerRef</h4><p>基于时间的触发器，和NSTimer是toll-free bridged的，可以混用，包含一个时间长度和一个回调函数指针，当加入到RunLoop时，RunLoop会注册对应的时间点，当时间点到时，RunLoop会被唤醒来执行这个回调。</p>
+<h4 id="CFRunLoopObserverRef"><a href="#CFRunLoopObserverRef" class="headerlink" title="CFRunLoopObserverRef"></a>CFRunLoopObserverRef</h4><p>观察者，每个Observer都包含一个回调函数指针，当RunLoop的状态发生变化时，观察者能通过回调接受到这个变化。可以观察的时间点有</p>
+<ul>
+<li>kCFRunLoopEntry</li>
+<li>kCFRunLoopBeforeTimers</li>
+<li>kCFRunLoopBeforeSources</li>
+<li>kCFRunLoopBeforeWaiting</li>
+<li>kCFRunLoopAfterWaiting</li>
+<li>kCFRunLoopExit</li>
+</ul>
+<p>上述的Source/Timer/Observer统称为mode item，一个item可以被同时加入多个mode，但是一个item被重复加入同一个mode时不会有效果的，如果一个mode中一个item都没有，则RunLoop会直接退出，不进入循环。</p>
+<h3 id="RunLoop的Mode"><a href="#RunLoop的Mode" class="headerlink" title="RunLoop的Mode"></a>RunLoop的Mode</h3><p>CFRunLoopMode:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoopMode&#123;</span><br><span class="line">  CFStringRef _name;</span><br><span class="line">  CFMutableSetRef _sources0;</span><br><span class="line">  CFMutableSetRef _sources1;</span><br><span class="line">  CFMutableArrayRef _observers;</span><br><span class="line">  CFMutableArrayRef _timers;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>CFRunLoop:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoop&#123;</span><br><span class="line">  CFMutableSetRef _commonModes;</span><br><span class="line">  CFMutableSetRef _commonModeItems;</span><br><span class="line">  CFRunLoopModeRef _currentMode;</span><br><span class="line">  CFMutableSetRef _modes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CommonModes:一个Mode将自己标记为”Common”属性(具体实现是将其ModeName添加到RunLoop的”commonModes”中)。每当RunLoop的内容发生变化时，RunLoop都会自动将_commonModeItems里的Source/Observer/Timer同步到具有”Common”标记的所有Mode里。</p>
+<p>若想要一个Timer在两个Mode中都能得到回调，一种方法是将Timer分别加入到这两个Mode中，另一种方法是将Timer加入到顶层RunLoop的”commonModeItems”中，”commonModeItems”北RunLoop自动更新到所有具有”Common”属性的Mode里去。</p>
+<p>CFRunLoop对外暴露的管理Mode接口只有两个，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CFRunLoopAddCommonMode(CFRunLoopRef runloop,CFStringRef modeName);</span><br><span class="line">CFRunLoopRunInMode(CFStringRef modeName,...);</span><br></pre></td></tr></table></figure>
+<p>Mode暴露的管理mode item的接口有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CFRunLoopAddSource(CFRunLoopRef rl,CFRunLoopSourceRef source,CFStringRef modeName);</span><br><span class="line">CFRunLoopAddObserver(CFRunLoopRef rl,CFRunLoopObserverRef observer,CFStringRef modeName);</span><br><span class="line">CFRunLoopAddTimer(CFRunLoopRef rl,CFRunLoopTimerRef timer,CFStringRef mode);</span><br><span class="line">CFRunLoopRemoveSource(CFRunLoopRef rl,CFRunLoopSourceRef source,CFStringRef modeName);</span><br><span class="line">CFRunLoopRemoveObserver(CFRunLoopRef rl,CFRunLoopObserverRef observer,CFStringRef modeName);</span><br><span class="line">CFRunLoopRemoveTimer(CFRunLoopRef rl,CFRunLoopTimerRef timer,CFStringRef mode);</span><br></pre></td></tr></table></figure>
+<p>只能通过mode name来操作内部的mode，当传入一个新的mode name但RunLoop内部没有对应的mode时，RunLoop会自动创建对应的CFRunLoopModeRef，对于一个RunLoop来说，其内部的mode只能增加不能删除。</p>
+<p>苹果公开提供的Mode有两个，</p>
+<ul>
+<li>kCFRunLoopDefaultMode(NSDefaultRunLoopMode)</li>
+<li>UITrackingRunLoopMode</li>
+</ul>
+<p>可以用这两个Mode Name来操作对应的Mode。</p>
+<p>同时苹果还提供了一个操作COmmon标记的字符串，kCFRunLoopCommonModes(NSRunLoopCommonModes)，可以用这个字符串来操作Common Items或标记一个Mode为”Common”,需要注意区分”Common”和其他mode name</p>
+<h3 id="RunLoop的内部逻辑"><a href="#RunLoop的内部逻辑" class="headerlink" title="RunLoop的内部逻辑"></a>RunLoop的内部逻辑</h3><h3 id="RunLoop的底层实现"><a href="#RunLoop的底层实现" class="headerlink" title="RunLoop的底层实现"></a>RunLoop的底层实现</h3><p>RunLoop的核心是基于mach port的，其进入休眠时调用的函数是mach_msg(),虾面介绍OSX/IOS的系统架构。</p>
+<p>苹果官方将整个系统大致划分为4个层次，</p>
+<ul>
+<li>应用层 包括用户能接触到的图形应用</li>
+<li>应用框架层 开发人员接触到的Cocoa等框架</li>
+<li>核心框架层包括各种核心框架/OpenGL等内容</li>
+<li>Darwin即操作系统的核心，包括系统内核/驱动/shell等内容，此层为开源。</li>
+</ul>
+<p>Darwin在硬件层上的组成部分为Mach/BSD/IOKit，共同组成XNU内核。</p>
+<ul>
+<li>XNU内核的内环被称作Mach，其作为微内核，仅提供了诸如处理器调度，IPC等非常少量的基础业务。</li>
+<li>BSD层可以看作是围绕Mach层的一个外环，其提供了诸如进程管理/文件系统和网络等功能。</li>
+<li>IOKit层是为设备驱动提供了一个面向对象的一个框架。</li>
+</ul>
+<p>Mach中，所有东西都是通过自己的对象实现的，进程/线程/虚拟内存都被称为对象，Mach的对象间不能直接调用，只能通过消息传递的方式实现对象间的通信，”消息”是Mach中最基础的概念，消息在两个端口之间传递，就是Mach的IPC的核心。</p>
+<p>Mach消息实际上是一个二进制数据包(BLOB)，其头部定义了当前端口local_port和目标端口remote_port，发送和接收消息是通过同一个API进行的，其option标记了消息传递的方向，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mach_msg_return_t mach_msg(</span><br><span class="line">	mach_msg_header_t *msg,</span><br><span class="line">	mach_msg_option_t option,</span><br><span class="line">	mach_msg_size_t send_size,</span><br><span class="line">	mach_msg_size_t rcv_size,</span><br><span class="line">	mach_port_name_t rcv_name,</span><br><span class="line">	mach_msg_timeout_t timeout,</span><br><span class="line">	mach_port_name_t notify</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>为了实现消息的发送和接收，mach_msg()函数实际上调用了一个Mach陷阱，即函数mach_msg_trap()，在用户态调用mach_msg_trap()时会触发陷阱机制，切换到内核态，内核态中内核实现的mach_msg()函数会完成实际的工作。</p>
+<p>RunLoop的核心是一个mach_msg()，RunLoop调用这个函数去接收消息，如果没有别人发送port消息过来，内核会将线程置于等待状态。</p>
+<h3 id="苹果用RunLoop实现的功能"><a href="#苹果用RunLoop实现的功能" class="headerlink" title="苹果用RunLoop实现的功能"></a>苹果用RunLoop实现的功能</h3><p>App 启动后，系统默认注册了5个Mode，</p>
+<ul>
+<li>kCFRunLoopDefaultMode:App的默认Mode，通常主线程是在这个Mode下运行的</li>
+<li>UITrackingRunLoopMode:界面跟踪Mode，用于ScrollView跟踪触摸华东，保证界面滑动时不受其他Mode影响。</li>
+<li>UIInitializationRunLoopMode:在刚启动App时进入的第一个Mode，启动完成后不再使用。</li>
+<li>GSEventReceiveRunLoopMode:接收系统时间的内部Mode，通常用不到</li>
+<li>kCFRunLoopCommonModes，占位Mode，没有实际作用</li>
+</ul>
+<p>当RunLoop进行回调时，一般都是通过一个很长的函数调用出去的，</p>
+<h4 id="AutoreleasePool"><a href="#AutoreleasePool" class="headerlink" title="AutoreleasePool"></a>AutoreleasePool</h4><p>​    todo</p>
+<h4 id="事件响应"><a href="#事件响应" class="headerlink" title="事件响应"></a>事件响应</h4><p>​    苹果注册了一个基于mach port的Source1来接收系统事件，当一个硬件事件(触摸/锁屏/摇晃)发生后，首先由IOKit.framework生成一个IOHIDEvent事件并由SpringBoard接收，SpringBoard只接收按键/触摸/加速/接近传感器这几种Event，随后用mach port转发给需要的App进程，随后苹果注册的这个Source1就会触发回调，并调用响应的函数进行内部的分发。</p>
+<h4 id="手势识别"><a href="#手势识别" class="headerlink" title="手势识别"></a>手势识别</h4><p>​    todo</p>
+<h4 id="界面更新"><a href="#界面更新" class="headerlink" title="界面更新"></a>界面更新</h4><p>​    当在操作UI时，如果改变了Frame，更新了UIView/CALayer的层次，或者手动调用了相关方法，UIView/CALayer就被标记为待处理，并被提交到一个全局的容器去，苹果注册了一个Observer监听BeforeWaiting和Exit事件，回调执行一个函数，在函数中遍历所有待处理的UIView/CALayer以执行实际的绘制和调整，并更新UI界面。</p>
+<h4 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h4><p>​    NSTimer(与CFRunLoopTimerRef时toll-free bridged的)注册到RunLoop后，RunLoop会为其重复的时间点注册好时间，RunLoop会在Tolerance之内回调Timer，若超时则等待下一个时间点。CADisplayLink与此类似，实现原理不同。</p>
+<h4 id="PerfromSelector"><a href="#PerfromSelector" class="headerlink" title="PerfromSelector"></a>PerfromSelector</h4><p>​    调用该方法实际上内部创建了一个NSTimer添加到当前线程的RunLoop中，如果当前线程没有RunLoop，则方法失效。(存疑)</p>
+<h4 id="关于GCD"><a href="#关于GCD" class="headerlink" title="关于GCD"></a>关于GCD</h4><p>​    GCD提供的某些接口用到了RunLoop，例如dispatch_async()到主线程时，libsDispatch会唤醒主线程的RunLoop，并在回调里执行对象的block，dispatch到其他线程由libDispatch处理，与上述机制不同。</p>
+<h4 id="关于网络请求"><a href="#关于网络请求" class="headerlink" title="关于网络请求"></a>关于网络请求</h4><p>​    iOS中网络请求的接口层次如下:</p>
+<ul>
+<li>CFSocket 最底层的接口，只负责socket通信</li>
+<li>CFNetwork 基于CFSocket等接口的上层封装，ASIHttpRequest工作与这一层</li>
+<li>NSURLConnection 基于CFNetwork的更高层的封装，提供面向对象的接口，AFNetworking工作与这一层</li>
+<li>NSURLSession iOS7新增的接口，底层用到了NSURLConnection的部分功能。AFNetworking2和Alamofire工作于这一层</li>
+</ul>
+<h5 id="NSURLConnection的工作过程"><a href="#NSURLConnection的工作过程" class="headerlink" title="NSURLConnection的工作过程"></a>NSURLConnection的工作过程</h5><p>使用NSURLConnection时，通常会传入一个Delegate，当调用了[connection start]后，这个Delegate会不停收到时间回调，实际上，start这个函数内部会获取CurrentRunLoop，然后在其中的DefaultMoe添加4个Source0，CFMultiplexerSource时负责各种Delegate回调的，CFHTTPCookieStorage时处理各种cookie的。</p>
+<p>当开始网络传输时，NSURLConnection创建了两个新线程，NSURLConnectionLoader和CFSocket，其中CFSocket线程用于处理底层socket连接，NSURLCOnnectionLoader线程内部使用RunLoop来接收底层socket的事件，并通过之前添加的Source0通知上层的Delegate。</p>
+<p>NSURLConnectionLoader中的RunLoop通过一些基于mach port的Source接收来自底层CFSocket的通知，当收到通知后，其会在何时的时机向CFMultiplexerSource等Source0发送通知，同时唤醒Delegate线程的RunLoop来让其处理这些通知，CFMultiplexerSource会在Delegate线程的RunLoop对Delegate执行实际的回调。</p>
+<h3 id="RunLoop的实际应用举例"><a href="#RunLoop的实际应用举例" class="headerlink" title="RunLoop的实际应用举例"></a>RunLoop的实际应用举例</h3><h4 id="AFNetworking"><a href="#AFNetworking" class="headerlink" title="AFNetworking"></a>AFNetworking</h4><p>​    todo</p>
+<h4 id="AsyncDisplayKit"><a href="#AsyncDisplayKit" class="headerlink" title="AsyncDisplayKit"></a>AsyncDisplayKit</h4><p>​    todo</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/22/Hello-Blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/22/Hello-Blog/" itemprop="url">Hello,Blog</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T11:36:23+08:00">
+                2018-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/记事/" itemprop="url" rel="index">
+                    <span itemprop="name">记事</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近开始看各种大神的博客。</p>
+<p>这几个月的经历真是神奇，莫名其妙工作，莫名其妙进了Bigo，莫名其妙成了IOS开发，莫名其妙加入基础平台组。</p>
+<p>一开始以为YYKit是YY内部的库，上周发现居然是ibireme大神写的，开始找各种大神的博客，装了pocket，希望能利用空闲的时间把博客都撸一遍，有时间争取看看源码，看看大神的成长路径，学习大神的学习习惯。</p>
+<p>清掉了以往的几篇没什么大意义的博客，选择gitpages是因为目前还没有自己的服务器，腾讯的学生服务器过几个月就要过期了，不可靠，免得到时还要迁移。过去也搭建过几次gitpages，终是不能坚持，一是迷茫，一是懒惰，往者不可追，未来的时光，希望能够坚持，就如ibireme大神在他的第一篇博客里写的，“谁知道呢”，不问前程，但行好事～</p>
+<p>还有两周回家，毕设已经开始在搞，毕设导师一点技术不懂，全靠手下的工作人员带我，工作人员人还行，环境配好了，几个算法搞清楚基本上就能搞定吧，希望这周能够做出原型。</p>
+<p>读大神的博客产生的感慨是，当一个新的技术诞生的时候，第一批参与者并非绝对是水平顶尖的人，但绝对是敢于尝试的人，他们后来的精力投入和付出，促成了新技术的发展，也使得技术的门槛越来越高，后来者加入的难度也就越来越高，而自身也就成为了所谓的大牛，由此看来时势诚然重要，看准时势同样重要，把握好时势并付出个人的努力更加重要。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Bokice</p>
+              <p class="site-description motion-element" itemprop="description">记录学习历程，向开源大神看齐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bokice</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

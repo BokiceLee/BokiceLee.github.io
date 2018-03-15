@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Mach-O文件格式分析Mach-O是OS X和iOS的可执行文件、库文件、Dsym文件、动态库、动态连接器式。其组成结构为Header、Load commands、Data。使用MachOView开源工具可以查看gcc编译生成的.out文件的具体格式 Header的数据结构32位123456789struct mach_header&amp;#123;  uint32_t magic;  cpu_typ">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mach-O文件格式分析">
+<meta property="og:url" content="http://yoursite.com/2018/03/15/Mach-O文件格式分析/index.html">
+<meta property="og:site_name" content="Road To Coder">
+<meta property="og:description" content="Mach-O文件格式分析Mach-O是OS X和iOS的可执行文件、库文件、Dsym文件、动态库、动态连接器式。其组成结构为Header、Load commands、Data。使用MachOView开源工具可以查看gcc编译生成的.out文件的具体格式 Header的数据结构32位123456789struct mach_header&amp;#123;  uint32_t magic;  cpu_typ">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-15T08:41:35.519Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mach-O文件格式分析">
+<meta name="twitter:description" content="Mach-O文件格式分析Mach-O是OS X和iOS的可执行文件、库文件、Dsym文件、动态库、动态连接器式。其组成结构为Header、Load commands、Data。使用MachOView开源工具可以查看gcc编译生成的.out文件的具体格式 Header的数据结构32位123456789struct mach_header&amp;#123;  uint32_t magic;  cpu_typ">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/15/Mach-O文件格式分析/"/>
+
+
+
+
+
+  <title>Mach-O文件格式分析 | Road To Coder</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Road To Coder</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/Mach-O文件格式分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mach-O文件格式分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T16:41:06+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Mach-O文件格式分析"><a href="#Mach-O文件格式分析" class="headerlink" title="Mach-O文件格式分析"></a>Mach-O文件格式分析</h3><p>Mach-O是OS X和iOS的可执行文件、库文件、Dsym文件、动态库、动态连接器式。其组成结构为Header、Load commands、Data。使用MachOView开源工具可以查看gcc编译生成的.out文件的具体格式</p>
+<h4 id="Header的数据结构"><a href="#Header的数据结构" class="headerlink" title="Header的数据结构"></a>Header的数据结构</h4><h5 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct mach_header&#123;</span><br><span class="line">  uint32_t magic;</span><br><span class="line">  cpu_type_t cputype;</span><br><span class="line">  cpu_subtype_t cpusubtype;</span><br><span class="line">  uint32_t filetype;</span><br><span class="line">  uint32_t ncmds;</span><br><span class="line">  uint32_t sizeofcmds;</span><br><span class="line">  uint32_t flags;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="64位"><a href="#64位" class="headerlink" title="64位"></a>64位</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">struct mach_header_64&#123;</span><br><span class="line">  uint32_t magic;</span><br><span class="line">  cpu_type_t cputype;</span><br><span class="line">  cpu_subtype_t cpusubtype;</span><br><span class="line">  uint32_t filetype;</span><br><span class="line">  uint32_t ncmds;</span><br><span class="line">  uint32_t sizeofcmds;</span><br><span class="line">  uint32_t flags;</span><br><span class="line">  uint32_t reserved;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="字段含义"><a href="#字段含义" class="headerlink" title="字段含义"></a>字段含义</h5><p>magic:魔数，用于快速确认该文件用于64位还是32位</p>
+<p>cputype:CPU类型</p>
+<p>cpusubtype:对应的具体类型</p>
+<p>filetype:文件类型，比如可执行文件、库文件、Dsym文件等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MH_OBJECT 0x1 relocatable object file //可重定位的对象文件</span><br><span class="line">MH_EXECUTE 0x2 demand paged executable file //按需分页的可执行文件</span><br><span class="line">MH_FVMLIB 0x3 fixed VM shared library file</span><br><span class="line">MH_CORE 0x4 core file</span><br><span class="line">MH_PRELOAD 0x5 preloaded executable file</span><br><span class="line">MH_DYLIB 0x6 dynamically bound shared library</span><br><span class="line">MH_DYLINKER 0x7 dynamic link editor</span><br><span class="line">MH_BUNDLE 0x8 dynamically bound bundle file</span><br><span class="line">MH_DYLIB_STUB 0x9 shared library stub for static</span><br><span class="line">MH_DSYM 0xa companion file with only debug</span><br><span class="line">MH_KEXT_BUNDLE 0xb x86_64 kexts</span><br></pre></td></tr></table></figure>
+<p>ncmds:加载命令条数</p>
+<p>sizeofcmds:所有加载命令的大小</p>
+<p>reserved:保留字段</p>
+<p>flags:标志位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MH_NOUNDEFS 0x1 目前没有未定义的符号，不存在链接依赖</span><br><span class="line">MH_DYLDLINK 0x4 该文件是dyld(动态链接器，当内核执行LC_DYLINKER时，连接器会启动，查找进程所依赖的动态库，并加载到内存中)的输入文件，无法被再次静态链接</span><br><span class="line">MH_PIE 0x200000 加载程序在随机的地址空间，只在MH_EXECUTE中使用</span><br><span class="line">MH_TWOLEVEL 0x80 两级名称空间(dyld的独有特性，说是符号空间中还包括所在库的信息，使得两个不同的库导出相同的符号，对应平坦名称空间)</span><br></pre></td></tr></table></figure>
+<h4 id="Load-commands"><a href="#Load-commands" class="headerlink" title="Load commands"></a>Load commands</h4><p>Load commands加载指令清晰地告诉加载器如何处理二进制数据，有些命令由内核处理，有些由动态链接器处理。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">将文件的32位或64位的段映射到进程地址空间，加载的主要命令，负责指导内核来设置进程的内存空间</span><br><span class="line">LC_SEGMENT 0x1</span><br><span class="line">LC_SEGMENT_64 0x19</span><br><span class="line"></span><br><span class="line">唯一的UUID，标识二进制文件</span><br><span class="line">LC_UUID 0x1b</span><br><span class="line"></span><br><span class="line">启动动态加载链接器</span><br><span class="line">LC_LOAD_DYLINKER 0xe</span><br><span class="line"></span><br><span class="line">代码签名和加密</span><br><span class="line">LC_CODE_SIGNATURE 0x1d</span><br><span class="line">LC_ENCRYPTION_INFO 0x21</span><br></pre></td></tr></table></figure>
+<h5 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct load_command&#123;</span><br><span class="line">  uint32_t cmd;//type of load command</span><br><span class="line">  uint32_t cmdsize;//total size of command in bytes</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="示例-LC-SEGMENT-64"><a href="#示例-LC-SEGMENT-64" class="headerlink" title="示例:LC_SEGMENT_64"></a>示例:LC_SEGMENT_64</h5><p>LC_SEGMENT和LC_SEGMENT_64是加载的主要命令，负责指导内核来设置进程的内存空间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct segment_command_64&#123;// for 64-bit architectures</span><br><span class="line">  uint32_t cmd;//LC_SEGMENT_64</span><br><span class="line">  uint32_t cmdsize;//includes sizeof section_64 structs，load command的大小</span><br><span class="line">  char segname[16];//segment name，段的名称</span><br><span class="line">  uint64_t vmaddr;//memory address of this segment，段的虚拟内存地址</span><br><span class="line">  uint64_t vmsize;//memory size of this segment，段的虚拟内存大小</span><br><span class="line">  uint64_t fileoff;//file offset of this segment，段在文件中的偏移量</span><br><span class="line">  uint64_t filesize;//amount to map from file，段在文件中的大小</span><br><span class="line">  vm_prot_t maxprot;//maximum VM protection</span><br><span class="line">  vm_prot_t initprot;//initial VM protection</span><br><span class="line">  uint32_t nsects;//number of sections in segment，标示了segment有多少个section</span><br><span class="line">  uint32_t flags;//flags</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将该段对应的文件内容加载到内存中:从offset处加载file size大小到虚拟内存vmaddr处</p>
+<h4 id="Segments"><a href="#Segments" class="headerlink" title="Segments"></a>Segments</h4><p>端数据Segments包含多个segment，每个segment定义了一些Mach-O文件的数据、地址和内存保护属性，这些数据在动态链接器加载程序时被映射到虚拟内存中。每个段都有不同的功能，一般包括:</p>
+<ul>
+<li>_PAGEZEOR:空指针陷阱段，映射到虚拟内存空间的第一页，用于捕捉对NULL指针的引用。</li>
+<li>__TEXT:包含了执行代码以及其他只读数据。为了让内核将它直接从可执行文件映射到共享内存，静态链接器设置该段的虚拟内存权限为不允许写，当该段被映射到内存后，可以被所有进程共享。(主要用在framworks，bundles和共享库等程序中，也可以为同一个可执行文件的多个进程拷贝使用)</li>
+<li>__DATA:包含了程序数据，该段可写</li>
+<li>__OBJC:Objective-C运行时支持库</li>
+<li>__LINKEDIT:含有为动态链接库使用的原始数据，比如符号，字符串，重定位表条目等等。</li>
+</ul>
+<p>一般段会按不同的功能划分为几个区(section)。</p>
+<h5 id="Section的数据结构"><a href="#Section的数据结构" class="headerlink" title="Section的数据结构"></a>Section的数据结构</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct section&#123;</span><br><span class="line">  char sectname[16];//name of this section，如_text,stubs</span><br><span class="line">  char segname[16];//segment this section goes in，该section所属的segment，如__TEXT</span><br><span class="line">  uint32_t addr;//memory address of this section，该section在内存的起始位置</span><br><span class="line">  uint32_t size;//size in bytes of this section，该section的大小</span><br><span class="line">  uint32_t offset;//file offset of this section，该section的文件位移</span><br><span class="line">  uint32_t align;//section alignment，字节大小对齐</span><br><span class="line">  uint32_t reloff;//file offset of relocation entries，重定位入口的文件偏移</span><br><span class="line">  uint32_t nreloc;//number of relocation entries，需要重定位的入口数量</span><br><span class="line">  uint32_t flags;//section 的 type and attributes</span><br><span class="line">  uint32_t reserved1;//reserved (for offset or index)</span><br><span class="line">  uint32_t reserved2;//reserved (for count or size)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>段中可能包含的section:</p>
+<p>__TEXT段:</p>
+<p>__text(实际上的代码部分),__cstring,__picsymbol_stub,__symbol_stub,__const,__litera14,__litera18</p>
+<p>__DATA段:</p>
+<p>__data(实际的初始数据),__la_symbol_ptr,__nl_symbol_ptr,__dyld,__const,__mod_init_func,__mod_term_func,__bss,__common</p>
+<p>__IMPORT段:</p>
+<p>__jump_table,__pointers</p>
+<h3 id="加载过程"><a href="#加载过程" class="headerlink" title="加载过程"></a>加载过程</h3><p>在linux中通过fork来创建子进程，然后执行exec来替换为另一个可执行程序。</p>
+<p>原因:fork创建子进程时，拷贝文本、数据和bss段、堆以及用户栈，但是新的线程只会复制调用了fork的线程，其他线程不复制。在多线程中，该线程可能并不拥有锁，最终将导致死锁问题和内存泄漏。在线程中调用exec函数，可以废弃掉锁，从而避免死锁。</p>
+<p>我们在用户态会通过exec*系列函数来加载一个可执行文件，同时exec*都只是对系统调用execve的封装，那我们加载Mach-O的流程，就从execve说起。Mach-O有多种文件类型，比如MH_DYLIB文件、MH_BUNDLE文件，MH_EXECUTE文件(这些需要dyld动态加载)，MH_OBJECT(内核加载)等，所以一个进程往往不是只需要内核加载器就可以完成加载的，还需要dyld来进行动态加载配合。考虑内核加载和dyld加载两种情况，有如下流程:</p>
+<p>execve()-&gt;_mac_execve()-&gt;exec_active_image()-&gt;exec_mach_imgact-&gt;</p>
+<p>1.load_machfile()-&gt;parse_machfile()-&gt;load_dylinker()-&gt;dyld-&gt;main()</p>
+<p>2.dyld-&gt;main()</p>
+<h5 id="execve"><a href="#execve" class="headerlink" title="execve()"></a>execve()</h5><p>只是直接调用__mac_execve()</p>
+<h5 id="mac-execve"><a href="#mac-execve" class="headerlink" title="__mac_execve()"></a>__mac_execve()</h5><p>主要为加载镜像进行数据的初始化，以及资源相关的操作，在其内部会执行exec_activate_image()，镜像加载的工作都是由它完成的。</p>
+<h5 id="exec-activate-image"><a href="#exec-activate-image" class="headerlink" title="exec_activate_image"></a>exec_activate_image</h5><p>主要拷贝可执行文件到内存中，并根据不同的可执行文件类型选择不同的加载函数，所有的镜像的加载要么终止在一个错误上，要么最终完成加载镜像。OS X中专门处理可执行文件格式的程序叫execsw镜像加载器。</p>
+<p>OS X有三种可执行文件</p>
+<p>mach-o由exec_mach_imgact处理</p>
+<p>fat binary由exec_fat_imgact处理</p>
+<p>interpreter由exec_shell_imgact处理</p>
+<h5 id="exec-mach-imgact"><a href="#exec-mach-imgact" class="headerlink" title="exec_mach_imgact"></a>exec_mach_imgact</h5><p>主要用来对Mach-O做检测，会检测Mach-O头部，解析其架构，检查imgp等内容，并拒绝Dylib和Bundle这样的文件(由dyld负责加载)，然后把Mach-O映射到内存中去，调用load_machfile()。</p>
+<p>主要完成以下几个过程:</p>
+<p>1.为vfork生成新的线程</p>
+<p>2.把Mach-O映射进内存</p>
+<p>3.签名、uid等权限处理，dyld相关的处理工作</p>
+<p>4.释放资源</p>
+<h5 id="load-machfile"><a href="#load-machfile" class="headerlink" title="load_machfile"></a>load_machfile</h5><p>加载Mach-O中的各种load command命令，在其内部会禁止数据段执行，防止溢出漏洞攻击，同时设置地址空间布局随机化(ASLR)，还有一些映射的调整。</p>
+<h5 id="parse-machfile-真正负责对加载命令解析"><a href="#parse-machfile-真正负责对加载命令解析" class="headerlink" title="parse_machfile:真正负责对加载命令解析"></a>parse_machfile:真正负责对加载命令解析</h5><p>parse_machfile会根据load_command的种类选择不同的函数来加载。</p>
+<p>对命令的加载会进行多次扫描，当扫描三次之后，并且存在dylinker_command命令时，会执行load_dylinker()，启动动态链接器(dyld)</p>
+<h4 id="动态链接过程"><a href="#动态链接过程" class="headerlink" title="动态链接过程"></a>动态链接过程</h4><p>动态链接也有区分，一种是加载主程序，是由load commands指定的dylib，以静态的方式存放在二进制文件里。一种是由DYLD_INSERT_LIBRARIES动态指定。</p>
+<h3 id="名词解析"><a href="#名词解析" class="headerlink" title="名词解析"></a>名词解析</h3><p>Mach:微内核，主要实现基本的进程，虚拟内存管理，任务调度，进程通信和消息机制。</p>
+<p>Mach-O:苹果系操作系统的可执行文件格式</p>
+<p>BSD:类Unix操作系统中的一个分支的总称，iOS中的BSD是指对Mach层的封装和扩展，它提供了更现代的API和对POSIX的兼容性，比如Mach层fork、vfork可用来创建进程，而BSD层则定义了posix_spawn来进行进程创建，还有进程结构proc是BSD层的进程结构，扩展了Mach层的task进程结构。</p>
+<p>POSIX:可移植操作系统接口(Portable Operation System Interface of UNIX)，POSIX标准定义了操作系统应该为应用程序提供的接口标准，是IEEE为要在各种UNIX操作系统上运行的软件而定义的一系列API标准的总称。</p>
+<p>XNU:最底层包括Mach、BSD、主要基于开源技术的驱动器等组成了XNU。</p>
+<p>Darwin:苹果操作系统内核的内部代号，由XNU和Darwin库等组成</p>
+<p>dyld:动态库加载器，负责将动态库加载进内存。</p>
+<p>dlopen:dlopen函数是以指定模式打开指定的动态库文件，并返回一个句柄给调用进程。若调用成功，指定的动态库就会被加载进内存中。</p>
+<p>mmap:将一个文件或者其他对象映射进内存。</p>
+<p>虚拟内存:</p>
+<p>ASLR:Address space layout randomization是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，从而增加攻击者预测目的地址的难度。</p>
+<p>用户态和内核态:出于安全考虑，需要限制不同程序之间的访问能力、获取其他程序的数据，防止访问外围设备等，所以区分了用户态和内核态。用户态只能受限地访问内存，且不允许访问外围设备，内核态可以访问内存所有数据，包括外围设备，用户态如果需要做一些内核态的事情，需要通过系统调用机制从用户态切换到内核态。</p>
+<h3 id="XNU源码分析"><a href="#XNU源码分析" class="headerlink" title="XNU源码分析"></a>XNU源码分析</h3><p>MacOS X 中的X指的就是XNU，即X is not Unix，XNU中的Mach是基于Unix的一个内核，上层封装了BSD和其他库组成了Darwin，Darwin上层依次还有核心框架层、应用框架层、用户体验层等。</p>
+<p>XNU主要由4部分组成</p>
+<ul>
+<li><p>Mach</p>
+<p>微内核，主要实现基本的进程、虚拟内存管理、任务调度、进程通信和消息机制</p>
+</li>
+</ul>
+<ul>
+<li><p>BSD</p>
+<p>对Mach层的封装和扩展</p>
+</li>
+<li><p>libkern</p>
+<p>IOKit的驱动程序</p>
+</li>
+<li><p>IOKit</p>
+<p>设备驱动程序运行时环境，如设备的电源信息、内存信息、CPU信息等都是在IOKit进行管理的。</p>
+</li>
+</ul>
+<h3 id="XNU加载Mach-O和dyld流程"><a href="#XNU加载Mach-O和dyld流程" class="headerlink" title="XNU加载Mach-O和dyld流程"></a>XNU加载Mach-O和dyld流程</h3><p>大体流程:</p>
+<p>1.创建进程</p>
+<p>2.创建虚拟内存空间</p>
+<p>3.解析和映射Mach-O</p>
+<p>4.解析映射dyld</p>
+<h3 id="虚拟内存分布"><a href="#虚拟内存分布" class="headerlink" title="虚拟内存分布"></a>虚拟内存分布</h3><p>共享动态库其实就是共享的物理内存中的那份动态库，App虚拟内存中的共享动态库并未正式分配物理内存，使用时虚拟内存会访问同一份物理内存达到共享动态库的目的。</p>
+<p>以ARM64为例，App最大的虚拟内存空间为64GB，一个默认的PAGEZERO捕获空指针异常区4GB，Mach-O和dyld的ASLR，共享动态库的随机slide等，大体可以得出App的虚拟内存分布如下:</p>
+<table>
+<thead>
+<tr>
+<th>未分配的内存空间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>共享动态库的内存空间</td>
+</tr>
+<tr>
+<td>*dyld_shared_cache随机偏移slide</td>
+</tr>
+<tr>
+<td>dyld的用户态内存空间</td>
+</tr>
+<tr>
+<td>*dyld的随机偏移ASLR</td>
+</tr>
+<tr>
+<td>Mach-O的内存空间</td>
+</tr>
+<tr>
+<td>*主程序mach-o的随机偏移ASLR</td>
+</tr>
+<tr>
+<td>PAGEZERO</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dyld源码分析"><a href="#dyld源码分析" class="headerlink" title="dyld源码分析"></a>dyld源码分析</h3><p>动态库也是一个静态的文件，文件格式也是Mach-O，其本身不能直接运行，需要加载器(即dyld，路径为/usr/lib/dyld)将其加载进内存空间。dyld承担了将动态库以镜像的方式映射进内存的工作。</p>
+<h3 id="沙盒权限和代码签名"><a href="#沙盒权限和代码签名" class="headerlink" title="沙盒权限和代码签名"></a>沙盒权限和代码签名</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/15/基础知识之Runtime/" rel="next" title="基础知识之Runtime">
+                <i class="fa fa-chevron-left"></i> 基础知识之Runtime
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/15/基础知识之Block/" rel="prev" title="基础知识之Block">
+                基础知识之Block <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Bokice</p>
+              <p class="site-description motion-element" itemprop="description">记录学习历程，向开源大神看齐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mach-O文件格式分析"><span class="nav-number">1.</span> <span class="nav-text">Mach-O文件格式分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Header的数据结构"><span class="nav-number">1.1.</span> <span class="nav-text">Header的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#32位"><span class="nav-number">1.1.1.</span> <span class="nav-text">32位</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#64位"><span class="nav-number">1.1.2.</span> <span class="nav-text">64位</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字段含义"><span class="nav-number">1.1.3.</span> <span class="nav-text">字段含义</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Load-commands"><span class="nav-number">1.2.</span> <span class="nav-text">Load commands</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据结构"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-LC-SEGMENT-64"><span class="nav-number">1.2.2.</span> <span class="nav-text">示例:LC_SEGMENT_64</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Segments"><span class="nav-number">1.3.</span> <span class="nav-text">Segments</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Section的数据结构"><span class="nav-number">1.3.1.</span> <span class="nav-text">Section的数据结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载过程"><span class="nav-number">2.</span> <span class="nav-text">加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#execve"><span class="nav-number">2.0.1.</span> <span class="nav-text">execve()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mac-execve"><span class="nav-number">2.0.2.</span> <span class="nav-text">__mac_execve()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#exec-activate-image"><span class="nav-number">2.0.3.</span> <span class="nav-text">exec_activate_image</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#exec-mach-imgact"><span class="nav-number">2.0.4.</span> <span class="nav-text">exec_mach_imgact</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#load-machfile"><span class="nav-number">2.0.5.</span> <span class="nav-text">load_machfile</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#parse-machfile-真正负责对加载命令解析"><span class="nav-number">2.0.6.</span> <span class="nav-text">parse_machfile:真正负责对加载命令解析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态链接过程"><span class="nav-number">2.1.</span> <span class="nav-text">动态链接过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#名词解析"><span class="nav-number">3.</span> <span class="nav-text">名词解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XNU源码分析"><span class="nav-number">4.</span> <span class="nav-text">XNU源码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XNU加载Mach-O和dyld流程"><span class="nav-number">5.</span> <span class="nav-text">XNU加载Mach-O和dyld流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存分布"><span class="nav-number">6.</span> <span class="nav-text">虚拟内存分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dyld源码分析"><span class="nav-number">7.</span> <span class="nav-text">dyld源码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#沙盒权限和代码签名"><span class="nav-number">8.</span> <span class="nav-text">沙盒权限和代码签名</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bokice</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

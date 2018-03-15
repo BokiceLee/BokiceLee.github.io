@@ -252,6 +252,1322 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/基础知识之Block/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/15/基础知识之Block/" itemprop="url">基础知识之Block</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T16:41:56+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h1><h2 id="block结构"><a href="#block结构" class="headerlink" title="block结构"></a>block结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int main(int argc,const char* argv[])&#123;</span><br><span class="line">  @autoreleasepool&#123;</span><br><span class="line">    ^&#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="block编译转换结构"><a href="#block编译转换结构" class="headerlink" title="block编译转换结构"></a>block编译转换结构</h3><p>对上述代码执行clang -rewrite-objc编译转换成C++实现如下，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">block_impl</span>&#123;</span></span><br><span class="line">  <span class="keyword">void</span> *isa;<span class="comment">//指针，指向所属类，即block的类型</span></span><br><span class="line">  <span class="keyword">int</span> Flags;<span class="comment">//标志变量，在实现block的内部操作时用到</span></span><br><span class="line">  <span class="keyword">int</span> Reserved;<span class="comment">//保留变量</span></span><br><span class="line">  <span class="keyword">void</span> *FuncPtr;<span class="comment">//block执行时调用的函数指针</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">main_block_impl_0</span>&#123;</span><span class="comment">//block的C++实现，其中的0表示main中的第几个block</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> __<span class="title">block_impl</span> <span class="title">impl</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> __<span class="title">main_block_desc_0</span>* <span class="title">Desc</span>;</span></span><br><span class="line">  __main_block_impl_0(<span class="keyword">void</span> *fp,struct __main_block_desc_0 *desc,<span class="keyword">int</span> flags=<span class="number">0</span>)&#123;<span class="comment">//显示构造函数</span></span><br><span class="line">    impl.isa=&amp;_NSConcreteStackBlock;</span><br><span class="line">    impl.Flags=flags;</span><br><span class="line">    impl.FuncPtr=fp;</span><br><span class="line">    Desc=desc;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __main_block_func_0(struct __main_block_impl_0 *__cself)&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> __<span class="title">main_block_desc_0</span>&#123;</span></span><br><span class="line">  <span class="keyword">size_t</span> reserved;<span class="comment">//保留字段</span></span><br><span class="line">  <span class="keyword">size_t</span> Block_size;<span class="comment">//块大小</span></span><br><span class="line">&#125; __main_block_desc_0_DATA=&#123;<span class="number">0</span>,<span class="keyword">sizeof</span>(struct __main_block_impl_0)&#125;;<span class="comment">//定义结构体的同时创建了__main_block_desc_0_DATA，并赋值，以供下面main函数中对__main_block_impl_0的初始化</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span></span>&#123;</span><br><span class="line">  <span class="comment">/*@autoreleasepool*/</span>&#123;__AtAutoreleasePool __autoreleasepool;</span><br><span class="line">  	(<span class="keyword">void</span> (*))&amp;__main_block_impl_0((<span class="keyword">void</span> *)__main_block_func_0,&amp;__main_block_desc_0_DATA);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="block实际结构"><a href="#block实际结构" class="headerlink" title="block实际结构"></a>block实际结构</h3><p>Block_private.h文件中对block相关结构体的真实定义如下:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Block_descriptor</span>&#123;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">int</span> reserved;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">int</span> size;</span><br><span class="line">  <span class="keyword">void</span> (*copy)(<span class="keyword">void</span> *dst,<span class="keyword">void</span> *src);<span class="comment">//辅助拷贝函数</span></span><br><span class="line">  <span class="keyword">void</span> (*dispose)(<span class="keyword">void</span> *);<span class="comment">//辅助销毁函数，此两函数在处理block范围外的变量时使用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Block_layout</span>&#123;</span></span><br><span class="line">  <span class="keyword">void</span> *isa;</span><br><span class="line">  <span class="keyword">int</span> flags;</span><br><span class="line">  <span class="keyword">int</span> reserved;</span><br><span class="line">  <span class="keyword">void</span> (*invoke)(<span class="keyword">void</span> *,...);</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Block_descriptor</span> *<span class="title">descriptor</span>);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>综上，block就是一个里面存储了<u>指向函数体中包含block时?的代码块的函数指针</u>，以及<u>block外部上下文变量</u>等信息的结构体。</p>
+<h2 id="block类型"><a href="#block类型" class="headerlink" title="block类型"></a>block类型</h2><h3 id="NSConcreteGlobalBlock和NSConcreteStackBlock"><a href="#NSConcreteGlobalBlock和NSConcreteStackBlock" class="headerlink" title="NSConcreteGlobalBlock和NSConcreteStackBlock"></a>NSConcreteGlobalBlock和NSConcreteStackBlock</h3><p>Block.h中声明</p>
+<p>在全局区域创建，编译后isa指向&amp;_NSConcreteGlobalBlock，变量存储在全局数据存储区。</p>
+<p>在函数体中创建，编译后isa指向&amp;_NSConcreteStackBlock，变量存储在栈区。</p>
+<h3 id="NSConcreteMallocBlock"><a href="#NSConcreteMallocBlock" class="headerlink" title="NSConcreteMallocBlock"></a>NSConcreteMallocBlock</h3><p>Block_private.h中声明，无法直接创建该类型block，由NSConcreteStackBlock拷贝得到。block的拷贝通过调用一下函数实现:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> *_Block_copy_internal(<span class="keyword">const</span> <span class="keyword">void</span> *arg,<span class="keyword">const</span> <span class="keyword">int</span> flags)&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Block_layout</span> *<span class="title">aBlock</span>;</span></span><br><span class="line">  ...</span><br><span class="line">  aBlock=(struct Block_layout *)arg;</span><br><span class="line">  <span class="keyword">if</span>(!isGC)&#123;</span><br><span class="line">    <span class="comment">//申请block堆内存</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Block_layout</span> *<span class="title">result</span> = <span class="title">malloc</span>(<span class="title">aBlock</span>-&gt;<span class="title">descriptor</span>-&gt;<span class="title">size</span>);</span></span><br><span class="line">    <span class="keyword">if</span>(!result)<span class="keyword">return</span> (<span class="keyword">void</span>*)<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//拷贝栈中block到刚申请的堆内存中</span></span><br><span class="line">    memmove(result,aBlock,aBlock-&gt;descriptor-&gt;size);<span class="comment">//bitcopy first</span></span><br><span class="line">    <span class="comment">//reset refcount 重置引用数</span></span><br><span class="line">    result-&gt;flags &amp;= ~(BLOCK_REFCOUNT_MASK);</span><br><span class="line">    result-&gt;flags |= BLOCK_NEEDS_FREE | <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//改变isa指向_NSConcreteMallocBlock，即堆类型</span></span><br><span class="line">    result-&gt;isa = _NSConcreteMallocBlock;</span><br><span class="line">    <span class="keyword">if</span> (result-&gt;flags &amp; BLOCK_HAS_COPY_DISPOSE)&#123;</span><br><span class="line">      (*aBlock-&gt;descriptor-&gt;copy)(result,aBlock);<span class="comment">//调用拷贝辅助函数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="捕捉变量对block结构的影响"><a href="#捕捉变量对block结构的影响" class="headerlink" title="捕捉变量对block结构的影响"></a>捕捉变量对block结构的影响</h2><h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)test&#123;</span><br><span class="line">  int a;</span><br><span class="line">  ^&#123;a;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译转换得到:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_impl_0</span>&#123;</span></span><br><span class="line">  strut __block_impl impl;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_desc_0</span>* <span class="title">Desc</span>;</span></span><br><span class="line">  <span class="keyword">int</span> a;<span class="comment">//添加了成员变量，因为是值传递，所以赋值无意义，若传递指针，则可行，但如果block的调用在局部变量的作用域外则会出现野指针。</span></span><br><span class="line">  __Person__test_block_impl_0(<span class="keyword">void</span> *fp,struct __Person__test_block_desc_0 *desc,<span class="keyword">int</span> _a,<span class="keyword">int</span> flags=<span class="number">0</span>) : a(_a)&#123;</span><br><span class="line">    impl.isa=&amp;_NSConcreteStackBlock;</span><br><span class="line">    impl.Flags=flags;</span><br><span class="line">    impl.FuncPtr=fp;</span><br><span class="line">    Desc=desc;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">sstatic <span class="keyword">void</span> __Person__test_block_func_0(struct __Person__test_block_impl_0 *__cself)&#123;</span><br><span class="line">  <span class="keyword">int</span> a = __cself-&gt;a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_desc_0</span>&#123;</span></span><br><span class="line">  <span class="keyword">size_t</span> reserved;</span><br><span class="line">  <span class="keyword">size_t</span> Block_size;</span><br><span class="line">&#125; __Person__test_block_desc_0_DATA = &#123;<span class="number">0</span>,<span class="keyword">sizeof</span>(struct __Person__test_block_impl_0)&#125;;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> _I_Person_test(Person *self,SEL _cmd)&#123;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  (<span class="keyword">void</span> (*)())&amp;__Person__test_block_impl_0((<span class="keyword">void</span> *)__Person__test_block_func_0, &amp;__Person__test_block_desc_0_DATA,a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">static int a;</span><br><span class="line">int b;</span><br><span class="line">- (void)test&#123;</span><br><span class="line">  ^&#123;</span><br><span class="line">    a=10;</span><br><span class="line">    b=10;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译转换:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">int</span> b;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_impl_0</span>&#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> __<span class="title">block_impl</span> <span class="title">impl</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_desc_0</span> *<span class="title">Desc</span>;</span></span><br><span class="line">  __Person__test_block_impl_0(<span class="keyword">void</span> *fp,struct __Person_test_block_desc_0 *desc, <span class="keyword">int</span> flags=<span class="number">0</span>)&#123;</span><br><span class="line">    impl.isa = &amp;_NSConcreteStackBlock;</span><br><span class="line">    impl.Flags = flags;</span><br><span class="line">    impl.FuncPtr = = fp;</span><br><span class="line">    Desc = desc;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __Person__test_block_func_0(struct __Person__test_block_impl_0 *__cself)&#123;</span><br><span class="line">  a = <span class="number">10</span>;</span><br><span class="line">  b = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_desc_0</span>&#123;</span></span><br><span class="line">  <span class="keyword">size_t</span> reserved;</span><br><span class="line">  <span class="keyword">size_t</span> Block_size;</span><br><span class="line">&#125; __Person_test__block_desc_0_DATA = &#123; <span class="number">0</span>, <span class="keyword">sizeof</span>(struct __Person__test_block_impl_0)&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> _I_Person_test(Person *self,SEL _cmd)&#123;</span><br><span class="line">  (<span class="keyword">void</span> (*)())&amp;__Person__test_block_impl_0((<span class="keyword">void</span> *)__Person__test_block_func_0, &amp;__Person__test_block_desc_0_DATA);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为全局变量存储在静态数据存储区，程序结束前不会销毁，因此直接访问，不用预留位置。</p>
+<h3 id="局部静态变量"><a href="#局部静态变量" class="headerlink" title="局部静态变量"></a>局部静态变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)test&#123;</span><br><span class="line">  static int a;</span><br><span class="line">  ^&#123;</span><br><span class="line">    a=10;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译转换:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_impl_0</span>&#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> __<span class="title">block_impl</span> <span class="title">impl</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_desc_0</span> *<span class="title">Desc</span>;</span></span><br><span class="line">  <span class="keyword">int</span> *a;</span><br><span class="line">  __Person__test_block_impl_0(<span class="keyword">void</span> *fp, struct __Person_test_block_desc_0 *desc, <span class="keyword">int</span> *_a, <span class="keyword">int</span> flags=<span class="number">0</span>): a(_a) &#123;</span><br><span class="line">    impl.isa = &amp;_NSConcreteStatckBlock;</span><br><span class="line">    impl.Flags = flags;</span><br><span class="line">    impl.FuncPtr = fp;</span><br><span class="line">    Desc = desc;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __Person__test_block_func_0(struct __Person__test_block_impl_0 *__cself)&#123;</span><br><span class="line">  <span class="keyword">int</span> *a = __cself-&gt;a;</span><br><span class="line">  (*a) = <span class="number">10</span>;<span class="comment">//通过地址进行修改</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_desc_0</span> &#123;</span></span><br><span class="line">  <span class="keyword">size_t</span> reserved;</span><br><span class="line">  <span class="keyword">size_t</span> Block_size;</span><br><span class="line">&#125; __Person__test_block_desc_0_DATA = &#123; <span class="number">0</span>, <span class="keyword">sizeof</span>(struct __Person__test_block_impl_0)&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> _I_Persion_test(Person *self, SEL cmd)&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line">  (<span class="keyword">void</span> (*)())&amp;__Person__test_block_impl_0((<span class="keyword">void</span> *)__Person__test_block_func_0, &amp;__Person__test_block_desc_0_DATA, &amp;a);<span class="comment">//传入地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然静态局部变量存储在静态数据存储区，生命周期与程序一样，但是其作用范围局限于定义它的函数中，所以block只能通过其地址进行访问。</p>
+<h3 id="block修饰的变量"><a href="#block修饰的变量" class="headerlink" title="__block修饰的变量"></a>__block修饰的变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)test&#123;</span><br><span class="line">  __block int a;</span><br><span class="line">  ^&#123;</span><br><span class="line">    a = 10;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译转换:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">Block_byref_a_0</span>&#123;</span><span class="comment">//用于包装局部变量a结构体</span></span><br><span class="line">  <span class="keyword">void</span> *__isa;<span class="comment">//是个对象</span></span><br><span class="line">  __Block_byref_a_0 *__forwarding;<span class="comment">//用来指向它在堆中的拷贝，保证操作的值始终是堆中的拷贝</span></span><br><span class="line">  <span class="keyword">int</span> __flags;</span><br><span class="line">  <span class="keyword">int</span> __size;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">Person_test_block_impl_0</span>&#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> __<span class="title">block_impl</span> <span class="title">impl</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_desc_0</span> *<span class="title">Desc</span>;</span></span><br><span class="line">  __Block_byref_a_0 *a;<span class="comment">//block内部会保存一个byref的指针，指向传进来的byref的forwarding</span></span><br><span class="line">  __Person__test_block_impl_0(<span class="keyword">void</span> *fp, struct __Person__test_block_desc_0 *desc, __Block_byref_a_0 *_a, <span class="keyword">int</span> flags) : a(_a-&gt;__forwarding)&#123;</span><br><span class="line">   impl.isa = &amp;_NSConcreteStackBlock;</span><br><span class="line">   impl.Flags = flags;</span><br><span class="line">   impl.FuncPtr = fp;</span><br><span class="line">   Desc = desc;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __Person__test_block_func_0(struct __Person__test_impl_0 *__cself)&#123;</span><br><span class="line">  __Block_byref_a_0 *a = __cself-&gt;a;</span><br><span class="line">  (a-&gt;__forwarding-&gt;a) = <span class="number">10</span>;<span class="comment">//修改的是forwarding指向的值</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __Person__test_block_copy_0(struct __Person__test_block_impl_0 *dst,struct __Person__test_block_impl_0 *src)&#123;</span><br><span class="line">  _Block_object_assign_copy((<span class="keyword">void</span>*)&amp;dst-&gt;a,(<span class="keyword">void</span>*)&amp;src-&gt;a,<span class="number">8</span>);</span><br><span class="line">&#125;<span class="comment">//当block被copy到堆中时，该函数会将__Block_byref_a_0拷贝到堆中，所以即使局部变量所在的栈被销毁，block依然能对堆中的局部变量进行操作</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __Person__test_block_dispose_0(struct __Person_test_block_impl_0 *src)&#123;</span><br><span class="line">  _Block_object_dispose((<span class="keyword">void</span> *)src-&gt;a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> __<span class="title">Person__test_block_desc_0</span>&#123;</span></span><br><span class="line">  <span class="keyword">size_t</span> reserved;</span><br><span class="line">  <span class="keyword">size_t</span> Block_size;</span><br><span class="line">  <span class="keyword">void</span> (*copy)(struct __Person__test_block_impl_0*,struct __Person__test_block_impl_0*);</span><br><span class="line">  <span class="keyword">void</span> (*dispose)(struct __Person_test_block_impl_0*);</span><br><span class="line">&#125;__Person__test_block_desc_0_DATA = &#123;<span class="number">0</span>, <span class="keyword">sizeof</span>(struct __Person__test_block_impl_0),__Person_test_block_copy_0,__Person_test_block_dispose_0&#125;;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> _I_Person_test(Person * self, SEL _cmd)&#123;</span><br><span class="line">  __attribute__((__blocks__(byref))) __Block_byref_a_0 a= &#123;(<span class="keyword">void</span> *)<span class="number">0</span>, (__Block_byref_a_0 *)&amp;a, <span class="number">0</span>, <span class="keyword">sizeof</span>(__Block_byref_a_0)&#125;;<span class="comment">//栈上的byref的forwarding指向自己</span></span><br><span class="line">  (<span class="keyword">void</span> (*)())&amp;__Person__test_block_impl_0((<span class="keyword">void</span> *)__Person__test_block_func_0, &amp;__Person__test_block_desc_0_DATA, (__Block_byref_a_0 *)&amp;a,<span class="number">570425344</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static void _Block_byref_assign_copy(void *dst,const void *arg, const int flags)&#123;</span><br><span class="line">  struct Block_byref **destp = (struct Block_byref **)dst;</span><br><span class="line">  struct Block_byref *src = (struct Block_byref *)arg;</span><br><span class="line">  copy-&gt;forwarding = copy;//拷贝后堆中的forwarding还是指向自己</span><br><span class="line">  src-&gt;forwarding = copy;//拷贝后栈的的forwarding指向堆中的拷贝</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="self隐式循环引用"><a href="#self隐式循环引用" class="headerlink" title="self隐式循环引用"></a>self隐式循环引用</h3><h2 id="不同类型block的复制"><a href="#不同类型block的复制" class="headerlink" title="不同类型block的复制"></a>不同类型block的复制</h2><p>block的复制代码在_Block_copy_internal函数中</p>
+<h3 id="栈block"><a href="#栈block" class="headerlink" title="栈block"></a>栈block</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> *_Block_copy_internal(<span class="keyword">const</span> <span class="keyword">void</span> *arg,<span class="keyword">const</span> <span class="keyword">int</span> flags)&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Block_layout</span> *<span class="title">aBlock</span>;</span></span><br><span class="line">  ...</span><br><span class="line">  aBlock=(struct Block_layout *)arg;</span><br><span class="line">  <span class="keyword">if</span>(!isGC)&#123;</span><br><span class="line">    <span class="comment">//申请block堆内存</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Block_layout</span> *<span class="title">result</span> = <span class="title">malloc</span>(<span class="title">aBlock</span>-&gt;<span class="title">descriptor</span>-&gt;<span class="title">size</span>);</span></span><br><span class="line">    <span class="keyword">if</span>(!result)<span class="keyword">return</span> (<span class="keyword">void</span>*)<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//拷贝栈中block到刚申请的堆内存中</span></span><br><span class="line">    memmove(result,aBlock,aBlock-&gt;descriptor-&gt;size);<span class="comment">//bitcopy first</span></span><br><span class="line">    <span class="comment">//reset refcount 重置引用数</span></span><br><span class="line">    result-&gt;flags &amp;= ~(BLOCK_REFCOUNT_MASK);</span><br><span class="line">    result-&gt;flags |= BLOCK_NEEDS_FREE | <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//改变isa指向_NSConcreteMallocBlock，即堆类型</span></span><br><span class="line">    result-&gt;isa = _NSConcreteMallocBlock;</span><br><span class="line">    <span class="keyword">if</span> (result-&gt;flags &amp; BLOCK_HAS_COPY_DISPOSE)&#123;</span><br><span class="line">      (*aBlock-&gt;descriptor-&gt;copy)(result,aBlock);<span class="comment">//调用拷贝辅助函数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考前面的代码可知，栈block的赋值不仅仅复制了内容，还添加了</p>
+<ul>
+<li>往flags中并入了BLOCK_NEEDS_FREE(表明了block需要释放，在release以及再次拷贝时会用到)</li>
+<li>如果有辅助copy函数，则调用(用于拷贝block捕获的变量)</li>
+</ul>
+<h3 id="堆block"><a href="#堆block" class="headerlink" title="堆block"></a>堆block</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(aBlock-&gt;flags &amp; BLOCK_NEEDS_FREE)&#123;</span><br><span class="line">  latching_incr_int(&amp;aBlock-&gt;flags);</span><br><span class="line">  <span class="keyword">return</span> aBlock;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>堆中block的拷贝只是单纯地改变了引用计数</p>
+<h3 id="全局block"><a href="#全局block" class="headerlink" title="全局block"></a>全局block</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(aBlock-&gt;flags &amp; BLOCK_IS_GLOBAL)&#123;</span><br><span class="line">  <span class="keyword">return</span> aBlock;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>直接返回</p>
+<h2 id="block辅助函数"><a href="#block辅助函数" class="headerlink" title="block辅助函数"></a>block辅助函数</h2><p>在捕获__block修饰的变量时，block才会有copy和dispose两个辅助函数</p>
+<p>捕捉变量拷贝函数为__Block_object_assign，在调用复制block的函数_Block_copy_internal时，会根据block有无辅助函数来对捕捉变量拷贝函数进行调用。而在该函数中，也会通过判断捕捉变量包装而成的对象是否有辅助函数来进行调用。</p>
+<h3 id="block修饰的基本类型的辅助函数"><a href="#block修饰的基本类型的辅助函数" class="headerlink" title="__block修饰的基本类型的辅助函数"></a>__block修饰的基本类型的辅助函数</h3><h3 id="对象的辅助函数"><a href="#对象的辅助函数" class="headerlink" title="对象的辅助函数"></a>对象的辅助函数</h3><h2 id="ARC中block的工作"><a href="#ARC中block的工作" class="headerlink" title="ARC中block的工作"></a>ARC中block的工作</h2><h3 id="block实验"><a href="#block实验" class="headerlink" title="block实验"></a>block实验</h3><h3 id="block作为参数传递"><a href="#block作为参数传递" class="headerlink" title="block作为参数传递"></a>block作为参数传递</h3><h3 id="block作为返回值"><a href="#block作为返回值" class="headerlink" title="block作为返回值"></a>block作为返回值</h3><p>非ARC情况下，如果返回值是block，一般按以下进行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return [[block copy] autorelease];</span><br></pre></td></tr></table></figure>
+<h3 id="block属性"><a href="#block属性" class="headerlink" title="block属性"></a>block属性</h3><p>ARC会自动帮strong类型且捕获外部变量的block进行copy，所以在定义block类型的属性时，也可以使用strong，不一定使用copy。</p>
+<p>若block不捕获外部变量，则block变为全局类型，也脱离了栈声明周期的约束?</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/Mach-O文件格式分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/15/Mach-O文件格式分析/" itemprop="url">Mach-O文件格式分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T16:41:06+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Mach-O文件格式分析"><a href="#Mach-O文件格式分析" class="headerlink" title="Mach-O文件格式分析"></a>Mach-O文件格式分析</h3><p>Mach-O是OS X和iOS的可执行文件、库文件、Dsym文件、动态库、动态连接器式。其组成结构为Header、Load commands、Data。使用MachOView开源工具可以查看gcc编译生成的.out文件的具体格式</p>
+<h4 id="Header的数据结构"><a href="#Header的数据结构" class="headerlink" title="Header的数据结构"></a>Header的数据结构</h4><h5 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct mach_header&#123;</span><br><span class="line">  uint32_t magic;</span><br><span class="line">  cpu_type_t cputype;</span><br><span class="line">  cpu_subtype_t cpusubtype;</span><br><span class="line">  uint32_t filetype;</span><br><span class="line">  uint32_t ncmds;</span><br><span class="line">  uint32_t sizeofcmds;</span><br><span class="line">  uint32_t flags;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="64位"><a href="#64位" class="headerlink" title="64位"></a>64位</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">struct mach_header_64&#123;</span><br><span class="line">  uint32_t magic;</span><br><span class="line">  cpu_type_t cputype;</span><br><span class="line">  cpu_subtype_t cpusubtype;</span><br><span class="line">  uint32_t filetype;</span><br><span class="line">  uint32_t ncmds;</span><br><span class="line">  uint32_t sizeofcmds;</span><br><span class="line">  uint32_t flags;</span><br><span class="line">  uint32_t reserved;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="字段含义"><a href="#字段含义" class="headerlink" title="字段含义"></a>字段含义</h5><p>magic:魔数，用于快速确认该文件用于64位还是32位</p>
+<p>cputype:CPU类型</p>
+<p>cpusubtype:对应的具体类型</p>
+<p>filetype:文件类型，比如可执行文件、库文件、Dsym文件等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MH_OBJECT 0x1 relocatable object file //可重定位的对象文件</span><br><span class="line">MH_EXECUTE 0x2 demand paged executable file //按需分页的可执行文件</span><br><span class="line">MH_FVMLIB 0x3 fixed VM shared library file</span><br><span class="line">MH_CORE 0x4 core file</span><br><span class="line">MH_PRELOAD 0x5 preloaded executable file</span><br><span class="line">MH_DYLIB 0x6 dynamically bound shared library</span><br><span class="line">MH_DYLINKER 0x7 dynamic link editor</span><br><span class="line">MH_BUNDLE 0x8 dynamically bound bundle file</span><br><span class="line">MH_DYLIB_STUB 0x9 shared library stub for static</span><br><span class="line">MH_DSYM 0xa companion file with only debug</span><br><span class="line">MH_KEXT_BUNDLE 0xb x86_64 kexts</span><br></pre></td></tr></table></figure>
+<p>ncmds:加载命令条数</p>
+<p>sizeofcmds:所有加载命令的大小</p>
+<p>reserved:保留字段</p>
+<p>flags:标志位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MH_NOUNDEFS 0x1 目前没有未定义的符号，不存在链接依赖</span><br><span class="line">MH_DYLDLINK 0x4 该文件是dyld(动态链接器，当内核执行LC_DYLINKER时，连接器会启动，查找进程所依赖的动态库，并加载到内存中)的输入文件，无法被再次静态链接</span><br><span class="line">MH_PIE 0x200000 加载程序在随机的地址空间，只在MH_EXECUTE中使用</span><br><span class="line">MH_TWOLEVEL 0x80 两级名称空间(dyld的独有特性，说是符号空间中还包括所在库的信息，使得两个不同的库导出相同的符号，对应平坦名称空间)</span><br></pre></td></tr></table></figure>
+<h4 id="Load-commands"><a href="#Load-commands" class="headerlink" title="Load commands"></a>Load commands</h4><p>Load commands加载指令清晰地告诉加载器如何处理二进制数据，有些命令由内核处理，有些由动态链接器处理。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">将文件的32位或64位的段映射到进程地址空间，加载的主要命令，负责指导内核来设置进程的内存空间</span><br><span class="line">LC_SEGMENT 0x1</span><br><span class="line">LC_SEGMENT_64 0x19</span><br><span class="line"></span><br><span class="line">唯一的UUID，标识二进制文件</span><br><span class="line">LC_UUID 0x1b</span><br><span class="line"></span><br><span class="line">启动动态加载链接器</span><br><span class="line">LC_LOAD_DYLINKER 0xe</span><br><span class="line"></span><br><span class="line">代码签名和加密</span><br><span class="line">LC_CODE_SIGNATURE 0x1d</span><br><span class="line">LC_ENCRYPTION_INFO 0x21</span><br></pre></td></tr></table></figure>
+<h5 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct load_command&#123;</span><br><span class="line">  uint32_t cmd;//type of load command</span><br><span class="line">  uint32_t cmdsize;//total size of command in bytes</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="示例-LC-SEGMENT-64"><a href="#示例-LC-SEGMENT-64" class="headerlink" title="示例:LC_SEGMENT_64"></a>示例:LC_SEGMENT_64</h5><p>LC_SEGMENT和LC_SEGMENT_64是加载的主要命令，负责指导内核来设置进程的内存空间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct segment_command_64&#123;// for 64-bit architectures</span><br><span class="line">  uint32_t cmd;//LC_SEGMENT_64</span><br><span class="line">  uint32_t cmdsize;//includes sizeof section_64 structs，load command的大小</span><br><span class="line">  char segname[16];//segment name，段的名称</span><br><span class="line">  uint64_t vmaddr;//memory address of this segment，段的虚拟内存地址</span><br><span class="line">  uint64_t vmsize;//memory size of this segment，段的虚拟内存大小</span><br><span class="line">  uint64_t fileoff;//file offset of this segment，段在文件中的偏移量</span><br><span class="line">  uint64_t filesize;//amount to map from file，段在文件中的大小</span><br><span class="line">  vm_prot_t maxprot;//maximum VM protection</span><br><span class="line">  vm_prot_t initprot;//initial VM protection</span><br><span class="line">  uint32_t nsects;//number of sections in segment，标示了segment有多少个section</span><br><span class="line">  uint32_t flags;//flags</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将该段对应的文件内容加载到内存中:从offset处加载file size大小到虚拟内存vmaddr处</p>
+<h4 id="Segments"><a href="#Segments" class="headerlink" title="Segments"></a>Segments</h4><p>端数据Segments包含多个segment，每个segment定义了一些Mach-O文件的数据、地址和内存保护属性，这些数据在动态链接器加载程序时被映射到虚拟内存中。每个段都有不同的功能，一般包括:</p>
+<ul>
+<li>_PAGEZEOR:空指针陷阱段，映射到虚拟内存空间的第一页，用于捕捉对NULL指针的引用。</li>
+<li>__TEXT:包含了执行代码以及其他只读数据。为了让内核将它直接从可执行文件映射到共享内存，静态链接器设置该段的虚拟内存权限为不允许写，当该段被映射到内存后，可以被所有进程共享。(主要用在framworks，bundles和共享库等程序中，也可以为同一个可执行文件的多个进程拷贝使用)</li>
+<li>__DATA:包含了程序数据，该段可写</li>
+<li>__OBJC:Objective-C运行时支持库</li>
+<li>__LINKEDIT:含有为动态链接库使用的原始数据，比如符号，字符串，重定位表条目等等。</li>
+</ul>
+<p>一般段会按不同的功能划分为几个区(section)。</p>
+<h5 id="Section的数据结构"><a href="#Section的数据结构" class="headerlink" title="Section的数据结构"></a>Section的数据结构</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct section&#123;</span><br><span class="line">  char sectname[16];//name of this section，如_text,stubs</span><br><span class="line">  char segname[16];//segment this section goes in，该section所属的segment，如__TEXT</span><br><span class="line">  uint32_t addr;//memory address of this section，该section在内存的起始位置</span><br><span class="line">  uint32_t size;//size in bytes of this section，该section的大小</span><br><span class="line">  uint32_t offset;//file offset of this section，该section的文件位移</span><br><span class="line">  uint32_t align;//section alignment，字节大小对齐</span><br><span class="line">  uint32_t reloff;//file offset of relocation entries，重定位入口的文件偏移</span><br><span class="line">  uint32_t nreloc;//number of relocation entries，需要重定位的入口数量</span><br><span class="line">  uint32_t flags;//section 的 type and attributes</span><br><span class="line">  uint32_t reserved1;//reserved (for offset or index)</span><br><span class="line">  uint32_t reserved2;//reserved (for count or size)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>段中可能包含的section:</p>
+<p>__TEXT段:</p>
+<p>__text(实际上的代码部分),__cstring,__picsymbol_stub,__symbol_stub,__const,__litera14,__litera18</p>
+<p>__DATA段:</p>
+<p>__data(实际的初始数据),__la_symbol_ptr,__nl_symbol_ptr,__dyld,__const,__mod_init_func,__mod_term_func,__bss,__common</p>
+<p>__IMPORT段:</p>
+<p>__jump_table,__pointers</p>
+<h3 id="加载过程"><a href="#加载过程" class="headerlink" title="加载过程"></a>加载过程</h3><p>在linux中通过fork来创建子进程，然后执行exec来替换为另一个可执行程序。</p>
+<p>原因:fork创建子进程时，拷贝文本、数据和bss段、堆以及用户栈，但是新的线程只会复制调用了fork的线程，其他线程不复制。在多线程中，该线程可能并不拥有锁，最终将导致死锁问题和内存泄漏。在线程中调用exec函数，可以废弃掉锁，从而避免死锁。</p>
+<p>我们在用户态会通过exec*系列函数来加载一个可执行文件，同时exec*都只是对系统调用execve的封装，那我们加载Mach-O的流程，就从execve说起。Mach-O有多种文件类型，比如MH_DYLIB文件、MH_BUNDLE文件，MH_EXECUTE文件(这些需要dyld动态加载)，MH_OBJECT(内核加载)等，所以一个进程往往不是只需要内核加载器就可以完成加载的，还需要dyld来进行动态加载配合。考虑内核加载和dyld加载两种情况，有如下流程:</p>
+<p>execve()-&gt;_mac_execve()-&gt;exec_active_image()-&gt;exec_mach_imgact-&gt;</p>
+<p>1.load_machfile()-&gt;parse_machfile()-&gt;load_dylinker()-&gt;dyld-&gt;main()</p>
+<p>2.dyld-&gt;main()</p>
+<h5 id="execve"><a href="#execve" class="headerlink" title="execve()"></a>execve()</h5><p>只是直接调用__mac_execve()</p>
+<h5 id="mac-execve"><a href="#mac-execve" class="headerlink" title="__mac_execve()"></a>__mac_execve()</h5><p>主要为加载镜像进行数据的初始化，以及资源相关的操作，在其内部会执行exec_activate_image()，镜像加载的工作都是由它完成的。</p>
+<h5 id="exec-activate-image"><a href="#exec-activate-image" class="headerlink" title="exec_activate_image"></a>exec_activate_image</h5><p>主要拷贝可执行文件到内存中，并根据不同的可执行文件类型选择不同的加载函数，所有的镜像的加载要么终止在一个错误上，要么最终完成加载镜像。OS X中专门处理可执行文件格式的程序叫execsw镜像加载器。</p>
+<p>OS X有三种可执行文件</p>
+<p>mach-o由exec_mach_imgact处理</p>
+<p>fat binary由exec_fat_imgact处理</p>
+<p>interpreter由exec_shell_imgact处理</p>
+<h5 id="exec-mach-imgact"><a href="#exec-mach-imgact" class="headerlink" title="exec_mach_imgact"></a>exec_mach_imgact</h5><p>主要用来对Mach-O做检测，会检测Mach-O头部，解析其架构，检查imgp等内容，并拒绝Dylib和Bundle这样的文件(由dyld负责加载)，然后把Mach-O映射到内存中去，调用load_machfile()。</p>
+<p>主要完成以下几个过程:</p>
+<p>1.为vfork生成新的线程</p>
+<p>2.把Mach-O映射进内存</p>
+<p>3.签名、uid等权限处理，dyld相关的处理工作</p>
+<p>4.释放资源</p>
+<h5 id="load-machfile"><a href="#load-machfile" class="headerlink" title="load_machfile"></a>load_machfile</h5><p>加载Mach-O中的各种load command命令，在其内部会禁止数据段执行，防止溢出漏洞攻击，同时设置地址空间布局随机化(ASLR)，还有一些映射的调整。</p>
+<h5 id="parse-machfile-真正负责对加载命令解析"><a href="#parse-machfile-真正负责对加载命令解析" class="headerlink" title="parse_machfile:真正负责对加载命令解析"></a>parse_machfile:真正负责对加载命令解析</h5><p>parse_machfile会根据load_command的种类选择不同的函数来加载。</p>
+<p>对命令的加载会进行多次扫描，当扫描三次之后，并且存在dylinker_command命令时，会执行load_dylinker()，启动动态链接器(dyld)</p>
+<h4 id="动态链接过程"><a href="#动态链接过程" class="headerlink" title="动态链接过程"></a>动态链接过程</h4><p>动态链接也有区分，一种是加载主程序，是由load commands指定的dylib，以静态的方式存放在二进制文件里。一种是由DYLD_INSERT_LIBRARIES动态指定。</p>
+<h3 id="名词解析"><a href="#名词解析" class="headerlink" title="名词解析"></a>名词解析</h3><p>Mach:微内核，主要实现基本的进程，虚拟内存管理，任务调度，进程通信和消息机制。</p>
+<p>Mach-O:苹果系操作系统的可执行文件格式</p>
+<p>BSD:类Unix操作系统中的一个分支的总称，iOS中的BSD是指对Mach层的封装和扩展，它提供了更现代的API和对POSIX的兼容性，比如Mach层fork、vfork可用来创建进程，而BSD层则定义了posix_spawn来进行进程创建，还有进程结构proc是BSD层的进程结构，扩展了Mach层的task进程结构。</p>
+<p>POSIX:可移植操作系统接口(Portable Operation System Interface of UNIX)，POSIX标准定义了操作系统应该为应用程序提供的接口标准，是IEEE为要在各种UNIX操作系统上运行的软件而定义的一系列API标准的总称。</p>
+<p>XNU:最底层包括Mach、BSD、主要基于开源技术的驱动器等组成了XNU。</p>
+<p>Darwin:苹果操作系统内核的内部代号，由XNU和Darwin库等组成</p>
+<p>dyld:动态库加载器，负责将动态库加载进内存。</p>
+<p>dlopen:dlopen函数是以指定模式打开指定的动态库文件，并返回一个句柄给调用进程。若调用成功，指定的动态库就会被加载进内存中。</p>
+<p>mmap:将一个文件或者其他对象映射进内存。</p>
+<p>虚拟内存:</p>
+<p>ASLR:Address space layout randomization是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，从而增加攻击者预测目的地址的难度。</p>
+<p>用户态和内核态:出于安全考虑，需要限制不同程序之间的访问能力、获取其他程序的数据，防止访问外围设备等，所以区分了用户态和内核态。用户态只能受限地访问内存，且不允许访问外围设备，内核态可以访问内存所有数据，包括外围设备，用户态如果需要做一些内核态的事情，需要通过系统调用机制从用户态切换到内核态。</p>
+<h3 id="XNU源码分析"><a href="#XNU源码分析" class="headerlink" title="XNU源码分析"></a>XNU源码分析</h3><p>MacOS X 中的X指的就是XNU，即X is not Unix，XNU中的Mach是基于Unix的一个内核，上层封装了BSD和其他库组成了Darwin，Darwin上层依次还有核心框架层、应用框架层、用户体验层等。</p>
+<p>XNU主要由4部分组成</p>
+<ul>
+<li><p>Mach</p>
+<p>微内核，主要实现基本的进程、虚拟内存管理、任务调度、进程通信和消息机制</p>
+</li>
+</ul>
+<ul>
+<li><p>BSD</p>
+<p>对Mach层的封装和扩展</p>
+</li>
+<li><p>libkern</p>
+<p>IOKit的驱动程序</p>
+</li>
+<li><p>IOKit</p>
+<p>设备驱动程序运行时环境，如设备的电源信息、内存信息、CPU信息等都是在IOKit进行管理的。</p>
+</li>
+</ul>
+<h3 id="XNU加载Mach-O和dyld流程"><a href="#XNU加载Mach-O和dyld流程" class="headerlink" title="XNU加载Mach-O和dyld流程"></a>XNU加载Mach-O和dyld流程</h3><p>大体流程:</p>
+<p>1.创建进程</p>
+<p>2.创建虚拟内存空间</p>
+<p>3.解析和映射Mach-O</p>
+<p>4.解析映射dyld</p>
+<h3 id="虚拟内存分布"><a href="#虚拟内存分布" class="headerlink" title="虚拟内存分布"></a>虚拟内存分布</h3><p>共享动态库其实就是共享的物理内存中的那份动态库，App虚拟内存中的共享动态库并未正式分配物理内存，使用时虚拟内存会访问同一份物理内存达到共享动态库的目的。</p>
+<p>以ARM64为例，App最大的虚拟内存空间为64GB，一个默认的PAGEZERO捕获空指针异常区4GB，Mach-O和dyld的ASLR，共享动态库的随机slide等，大体可以得出App的虚拟内存分布如下:</p>
+<table>
+<thead>
+<tr>
+<th>未分配的内存空间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>共享动态库的内存空间</td>
+</tr>
+<tr>
+<td>*dyld_shared_cache随机偏移slide</td>
+</tr>
+<tr>
+<td>dyld的用户态内存空间</td>
+</tr>
+<tr>
+<td>*dyld的随机偏移ASLR</td>
+</tr>
+<tr>
+<td>Mach-O的内存空间</td>
+</tr>
+<tr>
+<td>*主程序mach-o的随机偏移ASLR</td>
+</tr>
+<tr>
+<td>PAGEZERO</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dyld源码分析"><a href="#dyld源码分析" class="headerlink" title="dyld源码分析"></a>dyld源码分析</h3><p>动态库也是一个静态的文件，文件格式也是Mach-O，其本身不能直接运行，需要加载器(即dyld，路径为/usr/lib/dyld)将其加载进内存空间。dyld承担了将动态库以镜像的方式映射进内存的工作。</p>
+<h3 id="沙盒权限和代码签名"><a href="#沙盒权限和代码签名" class="headerlink" title="沙盒权限和代码签名"></a>沙盒权限和代码签名</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/基础知识之Runtime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/15/基础知识之Runtime/" itemprop="url">基础知识之Runtime</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T16:39:50+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h1><h1 id="what-is-Runtime"><a href="#what-is-Runtime" class="headerlink" title="what is Runtime"></a>what is Runtime</h1><p>Objective-C Runtime是一个将C语言转化为面向对象语言的扩展。C++和Objective-C都是在C的基础上加入面向对象的特性扩充而成的程序设计语言，但是C++是基于静态类型而Objective-C是基于动态运行时类型的。用C++编写的程序通过编译器直接把函数地址硬编码进入可执行文件，而Objective-C无法通过编译器直接把函数地址硬编码进入可执行文件，而是在函数运行的时候，利用Rumtime根据条件判断做出决定。函数标识与函数过程的真正内容之间的关联可以动态修改。</p>
+<h2 id="Objective-C相关基础"><a href="#Objective-C相关基础" class="headerlink" title="Objective-C相关基础"></a>Objective-C相关基础</h2><h3 id="id-amp-Class"><a href="#id-amp-Class" class="headerlink" title="id &amp; Class"></a>id &amp; Class</h3><p>objc.h文件中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> !OBJC_TYPES_DEFINED</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_class</span> *<span class="title">Class</span>;</span><span class="comment">//Class是指向objc_class结构体的指针</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_object</span>&#123;</span></span><br><span class="line">  Class isa OBJC_ISA_AVAILABILITY;<span class="comment">//isa是Class，即是指向objc_class结构体的指针</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_object</span> *<span class="title">id</span>;</span><span class="comment">//id是指向objc_object结构体的指针</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>runtime.h文件中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_class</span> *<span class="title">Class</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_class</span>&#123;</span></span><br><span class="line">  Class isa					OBJC_ISA_AVAILABILITY;<span class="comment">//metaClass</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">if</span> !__OBJC2__</span></span><br><span class="line">  Class supe_class			OBJC2_UNAVAILABLE;<span class="comment">//父类</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *name			OBJC2_UNAVAILABLE;<span class="comment">//类名</span></span><br><span class="line">  <span class="keyword">long</span> verson			OBJC2_UNAVAILABLE;<span class="comment">//类的版本信息，默认为0，可以通过runtime函数class_setVersion或者class_getVersion进行修改、读取</span></span><br><span class="line">  <span class="keyword">long</span> info			OBJC2_UNAVAILABLE;<span class="comment">//类信息，供运行时使用的一些位标识，如CLS_CLASS表示该类为普通class，其中包含示例方法和变量;CLS_META表示该类为metaClass，其中包含类方法</span></span><br><span class="line">  <span class="keyword">long</span> instance_size			OBJC2_UNAVAILABLE;<span class="comment">//该类的示例变量大小，其中包括从父类继承下来的实例变量</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">objc_ivar_list</span> *<span class="title">ivars</span>			<span class="title">OBJC2_UNAVAILABLE</span>;</span><span class="comment">//该类的成员变量地址列表</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">objc_method_list</span> **<span class="title">methodLists</span>			<span class="title">OBJC2_UNAVAILABLE</span>;</span><span class="comment">//方法地址列表，与info的标志位有关，如果是CLS_CLASS，则存储实例方法，如果是CLS_META，则存储类方法</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">objc_cache</span> *<span class="title">cache</span>			<span class="title">OBJC2_UNAVAILABLE</span>;</span><span class="comment">//缓存最近使用的方法地址，用于提升效率</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">objc_protocol_list</span> *<span class="title">protocols</span>			<span class="title">OBJC2_UNAVAILABLE</span>;</span><span class="comment">//存储该类声明遵守的协议的列表</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类和对象的区别就是类比对象多了很多特征成员。类也可以当做一个objc_object来对待，即类和对象都是对象，分别称作类对象(class object)和实例对象(instance object)</p>
+<ul>
+<li><p>isa</p>
+<p>objc_object(实例对象)中isa指针指向的类结构称为class(也就是该对象所属的类)，其中存放着普通成员变量与动态方法(“-“开头的方法)，而此处isa指针指向的类结构称为metaclass，其中存放着static类型的成员变量与static类型的方法(“+”开头的方法)。</p>
+</li>
+</ul>
+<ul>
+<li><p>super_class</p>
+<p>指向该类的父类的指针，如果该类是根类(NSObject\NSProxy)，则super_class为nil</p>
+</li>
+</ul>
+<p><strong>所有的metaclass中的isa指针都是指向根metaclass的，而根metaclass则指向自身。metaclass通过继承根类产生，与根class结构体成员一致，不同的是根metaclass的isa指针指向自己</strong></p>
+<h3 id="SEL"><a href="#SEL" class="headerlink" title="SEL"></a>SEL</h3><p>SEL是selector在Objective-C中的表示类型，selector可以理解为区别方法的ID</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_selector</span> *<span class="title">SEL</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_selector</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span> *name; OBJC2_UNAVAILABLE;<span class="comment">//名称</span></span><br><span class="line">  <span class="keyword">char</span> *types; OBJC2_UNAVAILABLE;<span class="comment">//类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="IMP"><a href="#IMP" class="headerlink" title="IMP"></a>IMP</h3><p>objc.h中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">id</span> <span class="params">(*IMP)</span><span class="params">(id, SEL, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>IMP是implementation的缩写，是由编译器生成的一个函数指针，当发起一个消息后，该函数指针决定了最终指向哪段代码。</p>
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_method</span> *<span class="title">Method</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_method</span>&#123;</span></span><br><span class="line">  SEL method_name OBJC_UNAVAILABLE;<span class="comment">//方法名</span></span><br><span class="line">  <span class="keyword">char</span> *method_types OBJC_UNAVAILABLE;<span class="comment">//方法类型，存储了方法的参数类型和返回值类型</span></span><br><span class="line">  IMP method_imp OBJC_UNAVAILABLE;<span class="comment">//方法实现</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Ivar"><a href="#Ivar" class="headerlink" title="Ivar"></a>Ivar</h3><p>类中示例变量的类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_ivar *Ivar;</span><br><span class="line">struct objc_ivar&#123;</span><br><span class="line">  char *ivar_name OBJC2_UNAVAILABLE;//变量名</span><br><span class="line">  char *ivar_type OBJC2_UNAVAILABLE;//变量类型</span><br><span class="line">  int ivar_offset OBJC2_UNAVAILABLE;//基地址偏移字节</span><br><span class="line">  #ifdef __LP64__</span><br><span class="line">  int space OBJC2_UNAVAILABLE;//占用空间</span><br><span class="line">  #endif</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="objc-property-t"><a href="#objc-property-t" class="headerlink" title="objc_property_t"></a>objc_property_t</h3><p>objc_property_t 是属性</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_property</span> *<span class="title">objc_property_t</span>;</span></span><br></pre></td></tr></table></figure>
+<p>objc_property是内置的类型，与之关联的是objc_property_attribute_t，是对属性的名称、编码类型、原子类型等的描述</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *name;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *value;</span><br><span class="line">&#125; <span class="keyword">objc_property_attribute_t</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_cache</span> *<span class="title">Cache</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_cache</span>&#123;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> mask OBJC2_UNAVAILABLE;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> occupied OBJC2_UNAVAILABLE;</span><br><span class="line">  Method buckets[<span class="number">1</span>] OBJC2_UNAVAILABLE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>mask:指定分配cache buckets的总数</p>
+<p>occupied:实际占用cache buckets的总数</p>
+<p>buckets:指定Method数据结构指针的数组，包含不超过mask+1个元素。</p>
+<p>objc_msgSend每次调用一次方法后，就会把该方法缓存到cache列表中，下次直接优先从cache列表中寻找，若未找到再到methodLists中查找方法。</p>
+<h3 id="Category"><a href="#Category" class="headerlink" title="Category"></a>Category</h3><p>动态为已存在的类添加方法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_category</span> *<span class="title">Category</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_category</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span> *category_name;<span class="comment">//类别名</span></span><br><span class="line">  <span class="keyword">char</span> *class_name;<span class="comment">//类名</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">objc_method_list</span> *<span class="title">instance_methods</span>;</span><span class="comment">//实例方法名</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">objc_method_list</span> *<span class="title">class_method</span>;</span><span class="comment">//类方法名</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">objc_protocol_list</span> *<span class="title">protocols</span>;</span><span class="comment">//协议列表</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Objective-C的消息传递"><a href="#Objective-C的消息传递" class="headerlink" title="Objective-C的消息传递"></a>Objective-C的消息传递</h2><h3 id="基本消息传递"><a href="#基本消息传递" class="headerlink" title="基本消息传递"></a>基本消息传递</h3><p>Runtime会根据类型自动转换成以下函数之一</p>
+<ul>
+<li>objc_msgSend:普通消息</li>
+<li>objc_msgSend_stret:消息中有数据结构作为返回值</li>
+<li>objc_msgSendSuper:将消息发送给父类</li>
+<li>objc_msgSendSuper_stret</li>
+</ul>
+<p>objc_msgSend函数的调用过程</p>
+<ol>
+<li>检测selector是否要忽略</li>
+<li>检测target是否nil对象</li>
+<li>调用实例方法时，先在自身isa指向的类的methodLists中查找该方法，如果找不到则通过class的super_class指针找到父类的类对象结构体，在父类的methodLists中查找该方法，直到根class;</li>
+<li>若调用的是类方法，则在其metaclass中执行步骤3.</li>
+<li>动态方法解析</li>
+</ol>
+<h3 id="消息动态解析"><a href="#消息动态解析" class="headerlink" title="消息动态解析"></a>消息动态解析</h3><ol>
+<li><p>resolveInstanceMethod</p>
+<p>决定是否动态添加方法，是则通过class_addMethod动态添加方法，否则继续</p>
+</li>
+<li><p>forwardingTargetForSelector</p>
+<p>指定备选对象(不能是self)响应这个selector，如果返回nil，则继续</p>
+</li>
+<li><p>methodSignatureForSelector</p>
+<p>通过该方法进行签名，如果返回nil，则消息无法处理，如果返回methodSignature，则继续</p>
+</li>
+<li><p>forwardInvocation</p>
+<p>通过anInvocation对象做很多处理，如修改实现方法，修改响应对象等，如果方法调用成功则结束，如果失败则进入doesNotRecognizeSelector方法</p>
+</li>
+</ol>
+<h1 id="———————分割线——————————"><a href="#———————分割线——————————" class="headerlink" title="———————分割线——————————"></a>———————分割线——————————</h1><h2 id="成员变量与属性"><a href="#成员变量与属性" class="headerlink" title="成员变量与属性"></a>成员变量与属性</h2><h3 id="类型编码"><a href="#类型编码" class="headerlink" title="类型编码"></a>类型编码</h3><p>   编译器将每个方法的返回值和参数类型编码为一个字符串，并将其与方法的selector关联到一起，这种编码防范在其他情况下也是非常有用的，可以使用@encode编译器指令来获取，当给定一个类型时，@encode返回该类型的字符串编码。这些类型可以是注入int、指针这样的基本类型，也可以是结构体、类等类型。任何可以作为sizeof()操作参数的类型都可以用于@encode()。</p>
+<p>   类型编码大多与用于存档和分发的编码类型是相同的，但有一些不能在存档时使用。</p>
+<p>   另外还有一些编码类型，@encode虽然不会直接返回他们，但他们可以作为协议中声明的方法的类型限定符。</p>
+<p>   对于属性而言，还有一些特殊的类型编码，以表明属性是只读、拷贝、retain等。</p>
+<h3 id="关联对象"><a href="#关联对象" class="headerlink" title="关联对象"></a>关联对象</h3><p>   针对分类不能添加新的成员变量，Objective-C提供的解决方案，即Associated Object。</p>
+<p>   可以将关联对象想象成一个Objctive-C对象，这个对象通过给定的key连接到类的一个实例上，由于使用的是C接口，所以key是一个void指针。并通过指定一个内存管理策略，告诉Runtime如何管理这个对象的内存，内存管理策略可以由以下值指定:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OBJC_ASSOCIATION_ASSIGN</span><br><span class="line">OBJC_ASSOCIATION_RETAIN_NONATOMIC</span><br><span class="line">OBJC_ASSOCIATION_COPY_NONATOMIC</span><br><span class="line">OBJC_ASSOCIATION_RETAIN</span><br><span class="line">OBJC_ASSOCIATION_COPY</span><br></pre></td></tr></table></figure>
+<p>当宿主对象被释放时，会根据指定的内存管理策略来处理关联对象，如果指定的策略时assign，当宿主释放时，关联对象不会被释放，如果指定的是retain或copy，则宿主释放时，关联对象会被释放。</p>
+<p>将一个对象连接到其他对象所需要做的就是以下两行代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static char myKey;</span><br><span class="line">objc_setAssociatedObject(self, &amp;myKey, anObject, OBJC_ASSOCIATION_RETAIN);</span><br></pre></td></tr></table></figure>
+<p>当使用同一个key来关联另一个对象时，会自动释放之前关联的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id anObject = objc_getAssociatedObject(self, &amp;myKey);</span><br></pre></td></tr></table></figure>
+<p>可以使用objc_removeAssociatedObjects函数来移除一个关联对象，或者使用objc_setAssociatedObject函数将key指定的关联对象设置为nil。</p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><h4 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//获取成员变量名</span><br><span class="line">const char * ivar_getName(Ivar v);</span><br><span class="line">//获取成员变量类型编码</span><br><span class="line">const char * ivar_getTypeEncoding(Ivar v);</span><br><span class="line">//获取成员变量的偏移量，对于类型id或其他对象类型的实例变量，可以调用object_getIvar和object_setIvar来直接访问成员变量，而不是偏移量</span><br><span class="line">ptrdiff_t ivar_getOffset(Ivar v);</span><br></pre></td></tr></table></figure>
+<h4 id="关联对象-1"><a href="#关联对象-1" class="headerlink" title="关联对象"></a>关联对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy);</span><br><span class="line">void objc_getAssociatedObject(id object, const void *key);</span><br><span class="line">void objc_removeAssociatedObjects(id object);</span><br></pre></td></tr></table></figure>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取属性名</span><br><span class="line">const char * property_getName(objc_property_t property);</span><br><span class="line">//获取属性特性描述字符串</span><br><span class="line">const char * property_getAttributes(objc_property_t property);</span><br><span class="line">//获取属性中指定的特定</span><br><span class="line">char * property_copyAttributeValue(objc_property_t property,const char *attributeName);</span><br><span class="line">//获取属性的特性列表，返回的char*在使用完后要调用free()释放掉</span><br><span class="line">objc_property_attribute_t * property_copyAttributeList(objc_property_t property, unsigned int *outCount);</span><br></pre></td></tr></table></figure>
+<h2 id="方法与消息"><a href="#方法与消息" class="headerlink" title="方法与消息"></a>方法与消息</h2><p>方法的selector用于表示运行时方法的名字，Objective-C在编译时会依据每一个方法的名字、参数序列，生成一个唯一的整型标识(int类型的地址)，这个标识就是SEL。</p>
+<p>任何两个类，只要方法名相同，那么方法的SEL就是一样的。所以在Objective-C同一个类中，不能存在两个同名方法，参数类型不同也不行。从而导致了Objective-C在处理相同方法名且参数个数相同但类型不同的方法方面的能力很差。</p>
+<p>不同的类可以拥有相同的selector，因为不同类的实例对象执行相同的selector时，会在格子的方法列表中取根据selector去寻找自己对应的IMP。</p>
+<p>在方法集合中查找方法时通过查找相应的SEL即可，而SEL实际上是根据方法名hash化了的字符串，而对于字符串的比较仅仅比较其地址即可。然而数量增多会导致性能下降，而SEL仅仅使用函数名可以使总量减少。</p>
+<p>可以在运行时添加新的selector，也可以在运行时获取已存在的selector，可以通过以下三种方法来获取SEL</p>
+<ol>
+<li>sel_registerName函数</li>
+<li>Objective-C编译器提供的@selector()</li>
+<li>NSSelectorFromString()方法</li>
+</ol>
+<h3 id="IMP-1"><a href="#IMP-1" class="headerlink" title="IMP"></a>IMP</h3><p>实际上是一个函数指针，指向方法实现的首地址。</p>
+<p>这个函数是用当前CPU架构实现的标准的C调用约定。第一个参数指向self的指针(如果是实例方法，则指向类实例的内存地址，如果是类方法，则指向元类内存地址)，第二个参数是方法选择器(selector)，接下来是方法的实际参数列表。</p>
+<p>SEL是为了查找方法的最终实现IMP。每个方法的SEL唯一，因此可以通过SEL方便快速准确地获取其对应的IMP，即获得了执行这个方法代码的入口点。</p>
+<p>通过取得IMP，可以跳过Runtime的消息传递机制，直接执行IMP指向的函数实现，省去了Runtime消息传递过程中所做的一系列查找操作，会比直接向对象发送消息高效一些。</p>
+<h3 id="方法相关操作函数"><a href="#方法相关操作函数" class="headerlink" title="方法相关操作函数"></a>方法相关操作函数</h3><h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//调用指定方法的实现</span><br><span class="line">id method_invoke(id receiver, Method m, ...);</span><br><span class="line">//调用返回一个数据结构的方法的实现</span><br><span class="line">void method_invoke_stret(id receiver, Method m, ...);</span><br><span class="line">//获取方法名</span><br><span class="line">SEL method_getName(Method m);</span><br><span class="line">//返回方法的实现</span><br><span class="line">IMP method_getImplementation(Method m);</span><br><span class="line">//获取描述方法参数和返回值类型的字符串</span><br><span class="line">const char * method_getTypeEncoding(Method m);</span><br><span class="line">//获取方法的返回值类型的字符串</span><br><span class="line">char * method_copyReturnType(Method m);</span><br><span class="line">//获取方法的指定位置的类型字符串</span><br><span class="line">char * method_copyArgumentType(Method m, unsigned int index);</span><br><span class="line">//通过引用返回方法的返回值类型字符串</span><br><span class="line">void method_getReturnType(Method m, char *dst, size_t dst_len);</span><br><span class="line">//返回方法的参数的个数</span><br><span class="line">unsigned int method_getNumberOfArguments(Method m);</span><br><span class="line">//通过引用返回方法指定位置参数的类型字符串</span><br><span class="line">void Method_getArgumentType(Method m, Unsigned int index, char *dst, size_t dst_len);</span><br><span class="line">//返回指定方法的方法描述结构体</span><br><span class="line">struct objc_method_description * method_getDescription(Method m);</span><br><span class="line">//设置方法的实现，返回值是old实现</span><br><span class="line">IMP method_setImplementation(Method m, IMP imp);</span><br><span class="line">//交换两个方法的实现</span><br><span class="line">void method_exchangeImplementations(Method m1, Method m2);</span><br></pre></td></tr></table></figure>
+<h4 id="方法选择器"><a href="#方法选择器" class="headerlink" title="方法选择器"></a>方法选择器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//返回给定选择器指定的方法的名称</span><br><span class="line">const char * sel_getName(SEL sel);</span><br><span class="line">//注册一个方法，将方法名映射到一个选择器，并返回这个选择器。在将一个方法添加到类定义时，必须在objective-C Runtime系统中注册方法名以获取方法的选择器</span><br><span class="line">SEL sel_registerName(const char *str);</span><br><span class="line">//注册一个方法</span><br><span class="line">SEL sel_getUid(const char *str);</span><br><span class="line">//比较两个选择器</span><br><span class="line">BOOL sel_isEqual(SEL lhs, SEL rhs);</span><br></pre></td></tr></table></figure>
+<h3 id="方法调用流程"><a href="#方法调用流程" class="headerlink" title="方法调用流程"></a>方法调用流程</h3><h4 id="隐藏参数"><a href="#隐藏参数" class="headerlink" title="隐藏参数"></a>隐藏参数</h4><p>objc_msgSend有两个隐藏参数</p>
+<ol>
+<li>消息接收对象</li>
+<li>方法的selector</li>
+</ol>
+<p>在定义方法的源代码中没有声明，是在编译期间被插入实现代码的。</p>
+<p>虽然这两个参数没有显式声明，但是在代码中仍然可以引用。可以通过self来引用接收者对象，用_cmd来引用选择器。</p>
+<h4 id="获取方法地址"><a href="#获取方法地址" class="headerlink" title="获取方法地址"></a>获取方法地址</h4><p>Runtime中方法的动态绑定让我们写代码时更具灵活性，例如将消息转发给我们想要的对象，或者随意交换一个方法的实现。然而方法实现的查找带来性能的损耗，尽管方法的缓存能在一定程度上降低这种损耗。</p>
+<p>如果要避开动态绑定方式，可以获取方法实现的地址，然后像调用函数一样来直接调用它，特别是当需要在一个循环内频繁地调用一个特定的方法时，通过这种方式可以提高程序的性能。</p>
+<p>NSObjecti类提供了methodForSelector方法让我们可以获取方法的指针，然后通过这个指针来调用实现代码，使用时需要将methodForSelector返回的指针转换为合适的函数类型，函数参数和返回值都需要匹配。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">void (*setter)(id, SEL, BOOL);</span><br><span class="line">int i;</span><br><span class="line">setter = (void (*)(id,SEL,BOOL))[target methodForSelector:@selector(setFilled:)];</span><br><span class="line">for(i=0;i&lt;1000;i++)&#123;</span><br><span class="line">  setter(targetList[i],@selector(setFilled:),YES);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数的前两个参数必须是id和SEL</p>
+<p>这种方式只适用于在类似于for循环这种情况下频繁调用同一方法来提高性能的情况。</p>
+<p>methodForSelector:是由Cocoa运行时提供的，不是Objective-C语言的特性</p>
+<h3 id="消息转发"><a href="#消息转发" class="headerlink" title="消息转发"></a>消息转发</h3><p>默认情况下，如果以[object message]的方式调用方法，如果object无法响应message消息时，编译器会报错。如果以perform…的形式来调用，则需要等到运行时才能确定object是否能结束message。</p>
+<p>当一个对象无法接受某一消息时，会启动消息转发机制。</p>
+<p>消息转发机制基本上分三个步骤:</p>
+<ol>
+<li>动态方法解析</li>
+<li>备用接收者</li>
+<li>完整转发</li>
+</ol>
+<h4 id="动态方法解析"><a href="#动态方法解析" class="headerlink" title="动态方法解析"></a>动态方法解析</h4><p>对象在接收到未知消息时，首先会调用所属类的类方法+resolveInstanceMethod或者 +resolveClassMethod。在这个方法中将有机会为该未知消息新增一个处理方法，不过使用该方法的前提是提前实现该方法。这需要在运行时通过class_addMethod函数动态添加到类里面。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">void functionForMethod1(id self, SEL _cmd)&#123;</span><br><span class="line">  NSLog(@&quot;%@,%p&quot;, self, _cmd);</span><br><span class="line">&#125;</span><br><span class="line">+(BOOL)resolveInstanceMethod:(SEL)sel&#123;</span><br><span class="line">  NSString *selectorString = NSStringFromSelector(sel);</span><br><span class="line">  if([selectorString isEqualToString:@&quot;method1&quot;])&#123;</span><br><span class="line">    class_addMethod(self.class,@selector(method1),(IMP)functionForMethod1,&quot;@:&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  return [super resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方案更多是为了实现@dynamic属性</p>
+<h4 id="备用接收者"><a href="#备用接收者" class="headerlink" title="备用接收者"></a>备用接收者</h4><p>如果上一步无法处理消息，Runtime会继续调用以下方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(id)forwardingTargetForSelector:(SEL)aSelector</span><br></pre></td></tr></table></figure>
+<p>如果一个对象实现了这个方法，并返回一个非nil的结果，则这个对象会作为消息的新接收者，且消息会被分发到这个对象。指定self将导致无线循环。</p>
+<p>使用这个方法通常是在对象内部，可能还有一些列其他对象能处理该消息，便可以这些对象来处理消息并返回。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">@interface SUTRuntimeMethodHelper : NSObject</span><br><span class="line"></span><br><span class="line">-(void)method2;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation SUTRuntimeMethodHelper</span><br><span class="line"></span><br><span class="line">-(void) method2 &#123;</span><br><span class="line">  NSLog(@&quot;%@,%p&quot;,self,_cmd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line">  </span><br><span class="line">#pragma mark -</span><br><span class="line">  </span><br><span class="line">@interface SUTRuntimeMethod()&#123;</span><br><span class="line"> SUTRuntimeMethodHelper *_helper;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation SUTRuntimeMethod</span><br><span class="line"></span><br><span class="line">+(instancetype)object&#123;</span><br><span class="line">  return [[self alloc] init];</span><br><span class="line">&#125;</span><br><span class="line">-(instancetype)init&#123;</span><br><span class="line">  self=[super init];</span><br><span class="line">  if(self!=nil)&#123;</span><br><span class="line">    _helper=[[SUTRuntimeMethodHelper alloc] init];</span><br><span class="line">  &#125;</span><br><span class="line">  return self;</span><br><span class="line">&#125;</span><br><span class="line">-(void)test&#123;</span><br><span class="line">  [self performSelector:@selector(method2)];</span><br><span class="line">&#125;</span><br><span class="line">-(void)forwardingTargetForSelector:(SEL)aSelector&#123;</span><br><span class="line">  NSLog(@&quot;forwardingTargetForSelector&quot;);</span><br><span class="line">  NSString *selectorString = NSStringFroSelector(aSelector);</span><br><span class="line">  if([selectorString isEqualToString:@&quot;method2&quot;])&#123;</span><br><span class="line">    return _helper;</span><br><span class="line">  &#125;</span><br><span class="line">  return [super forwardingTargetForSelector:aSelecotr];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>适合于指向将消息转发到另一个能处理该消息的对象上，但这一步无法对消息进行处理，如操作消息的参数和返回值。</p>
+<h4 id="完整消息转发"><a href="#完整消息转发" class="headerlink" title="完整消息转发"></a>完整消息转发</h4><p>如果上一步无法处理未知消息，唯一能做的就是启用完整的消息转发机制，此时调用一下方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)forwardInvocation:(NSInvocation *)anInvocation</span><br></pre></td></tr></table></figure>
+<p>运行时系统会在这一步给消息接收者最后一次机会将消息转发给其他对象。对象会创建一个表示消息的NSInvocation对象，把尚未处理的消息相关的消息有改观的全部细节都封装在anInvocation中，包括selector，目标target和参数，我们可以在forwardInvocation方法中选择将消息转发给其他对象。</p>
+<p>forwardInvocation方法的实现有两个任务:</p>
+<ol>
+<li>定位可以相应封装在anInvocation中的消息的独享，这个对象不需要能处理所有未知消息</li>
+<li>使用anInvocation作为参数，将消息发送到选中的对象。anInvocation将会保留调用结果，运行时系统会提取这一结果并将其发送到消息的原始发送者。</li>
+</ol>
+<p>在这个方法中可以实现一些更复杂的功能，可以对消息的内容进行修改。</p>
+<p>此外，必须重写以下方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector</span><br></pre></td></tr></table></figure>
+<p>消息转发机制使用从这个方法中获取的信息来创建NSInvocation对象，因此需要重写这个方法为给定的selector提供一个合适的方法签名。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-(NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector&#123;</span><br><span class="line">  NSMethodSignature *signature=[super methodSignatureForSelector:aSelector];</span><br><span class="line">  if(!signature)&#123;</span><br><span class="line">    if([SUTRuntimeMethodHelper instancesRespondToSelector:aSelector])&#123;</span><br><span class="line">      </span><br><span class="line">    &#125;signature=[SUTRuntimeMethodHelper instanceMethodSignatureForSelector:aSelector];</span><br><span class="line">  &#125;</span><br><span class="line">  return signature;</span><br><span class="line">&#125;</span><br><span class="line">-(void)forwardInvocation:(NSInvocation *)anInvocation&#123;</span><br><span class="line">  if([SUTRuntimeMethodHelper instancesResponedToSelector:anInvocation.selector])&#123;</span><br><span class="line">    [anInvocation invokeWithTarget:_helper];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>NSObject的forwardingInvocation方法实现知识简单调用了doesNotRecognizeSelector:方法，不会转发任何消息，所以将导致异常。</p>
+<h4 id="消息转发与多重继承"><a href="#消息转发与多重继承" class="headerlink" title="消息转发与多重继承"></a>消息转发与多重继承</h4><p>消息转发虽然类似于继承，但NSObject的一些方法还是能区分两者，如respondsToSelector:和isKindOfClass:只能用于继承体系而不能用于转发链。</p>
+<h2 id="Method-Swizzling"><a href="#Method-Swizzling" class="headerlink" title="Method Swizzling"></a>Method Swizzling</h2><p>Method swizzling是改变一个selector的实际实现的技术。通过这一技术，可以在运行时修改类的分发表中selector对应的函数，来修改方法的实现。</p>
+<h3 id="swizzling应该总是在-load中执行"><a href="#swizzling应该总是在-load中执行" class="headerlink" title="swizzling应该总是在+load中执行"></a>swizzling应该总是在+load中执行</h3><p>Objective-C运行时会自动调用每个类的两个方法，+load会在类初始加载时调用，+initialize会在第一次调用类的类方法或实例方法之前被调用。这两个方法都是可选的 ，且只有在实现了他们时才会被调用。由于method swizzling会影响到类的全局状态，因此尽量避免在并发处理中出现竞争的情况。+load能保证在类的初始化过程中被加载，并保证这种改变应用级别的行为的一致性。相比之下initialize在其执行时不提供这种保证。</p>
+<h3 id="swizzling应该总是在dispatch-once中执行"><a href="#swizzling应该总是在dispatch-once中执行" class="headerlink" title="swizzling应该总是在dispatch_once中执行"></a>swizzling应该总是在dispatch_once中执行</h3><p>确保代码之执行一次</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>总是调用方法的原始实现。</li>
+<li>避免冲突</li>
+</ol>
+<h2 id="协议与分类"><a href="#协议与分类" class="headerlink" title="协议与分类"></a>协议与分类</h2><h3 id="Category-1"><a href="#Category-1" class="headerlink" title="Category"></a>Category</h3><p>见上</p>
+<h3 id="Protocol"><a href="#Protocol" class="headerlink" title="Protocol"></a>Protocol</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_object Protocol;</span><br></pre></td></tr></table></figure>
+<p>即Protocol其实是一个对象结构体</p>
+<h3 id="操作函数"><a href="#操作函数" class="headerlink" title="操作函数"></a>操作函数</h3><h4 id="category"><a href="#category" class="headerlink" title="category"></a>category</h4><p>可以通过针对objc_class的操作函数来获取分类的信息。</p>
+<h4 id="protocol"><a href="#protocol" class="headerlink" title="protocol"></a>protocol</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">//返回指定协议，如果仅声明了协议而未在任何类中实现该协议，则函数返回nil</span><br><span class="line">Protocol * objc_getProtocol(const char *name);</span><br><span class="line">//获取运行时所知道的所有协议的数组，获取到的数组需要使用free来释放</span><br><span class="line">Protocol ** objc_copyProtocolList(unsigned int *outCount);</span><br><span class="line">//创建新的协议实例，如果同名的协议已存在，则返回nil</span><br><span class="line">Protocol * objc_allocateProtocol(const char *name);</span><br><span class="line">//在运行时中注册新创建的协议，创建一个新的协议后，必须调用该函数以在运行时中注册新的协议，协议注册后便可以使用，但不能再做修改，即无法再调用protocol_addMethodDescription/protocol_addProtocol/protocol_addProperty方法</span><br><span class="line">void objc_registerProtocol(Protocol *proto);</span><br><span class="line">//为协议添加方法</span><br><span class="line">void protocol_addMethodDescription(Protocol *proto, SEL name, const char *type, BOOL isRequiredMethod, BOOL isInstanceMethod);</span><br><span class="line">//添加一个已注册的协议到协议中</span><br><span class="line">void protocol_addProtocol(Protocol *proto, Protocol *addition);</span><br><span class="line">//为协议添加属性</span><br><span class="line">void protocol_addProperty(Protocol *proto, const char *name, const objc_property_attribute_t *attributes, unsigned int attributeCount, BOOL isRequiredProperty, BOOL isInstanceProperty);</span><br><span class="line">//返回协议名</span><br><span class="line">const char * protocol_getName(Protocol *p);</span><br><span class="line">//测试两个协议是否相等</span><br><span class="line">BOOL protocol_isEqul(Protocol *proto, Protocol *other);</span><br><span class="line">//获取协议中指定条件的方法的方法描述数组</span><br><span class="line">struct objc_method_description * protocol_copyMethodDescriptionList(Protocol *p, BOOL isRequireMethod, BOOL isInstanceMethod, unsigned int *outCount);</span><br><span class="line">//获取协议中指定方法的方法描述</span><br><span class="line">struct objc_method_description protocol_getMethodDescriptiion(Protocol *p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod);</span><br><span class="line">//获取协议中的属性列表</span><br><span class="line">objc_proprety_t * protocol_copyPropertyList (Protocol *proto,unsigned int *outCount);</span><br><span class="line">//获取协议的指定属性</span><br><span class="line">objc_property_t protocol_getProperty(Protocol *proto, const char *name, BOOL isRequiredProperty, BOOL isInstanceProperty);</span><br><span class="line">//获取协议采用的协议</span><br><span class="line">Protocol ** protocol_copyProtocolList(Protocol *proto,unsigned int *outCount);</span><br><span class="line">//查看协议是否采用了另一个协议</span><br><span class="line">BOOL protocol_conformsToProtocol(Protocol *proto, Protocol *other);</span><br></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="super"><a href="#super" class="headerlink" title="super"></a>super</h3><p>self是类的隐藏参数，super不是类的隐藏参数而是编译器标示符，负责告诉编译器去调用父类的方法，而消息的接收者仍是self。即发送消息时，调用的是objc_msgSendSuper函数。</p>
+<p>参考</p>
+<p><a href="http://southpeak.github.io/" target="_blank" rel="noopener">http://southpeak.github.io/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/禅与Objective-C编程艺术笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/15/禅与Objective-C编程艺术笔记/" itemprop="url">禅与Objective-C编程艺术笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T16:38:35+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="禅与Objective-c编程艺术"><a href="#禅与Objective-c编程艺术" class="headerlink" title="禅与Objective-c编程艺术"></a>禅与Objective-c编程艺术</h1><h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><ul>
+<li><p>使用大括号</p>
+</li>
+<li><p>不用尤达表达式</p>
+</li>
+<li><p>nil和bool的检查使用！而不是==</p>
+</li>
+<li><p>避免将方法重要的部分嵌套到分支上</p>
+</li>
+<li><p>复杂表达式赋值给变量</p>
+</li>
+<li><p>三元运算符:object?:[self createObject];</p>
+</li>
+<li><p>错误处理:先对方法返回值进行判断而不是处理错误变量，因为成功情况下会对error参数写入垃圾值，此时如果检查error将导致错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSError *error=nil;</span><br><span class="line">if(![self trySomethingWithError:&amp;error])&#123;</span><br><span class="line">  //handle Error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Case语句"><a href="#Case语句" class="headerlink" title="Case语句"></a>Case语句</h2><ul>
+<li>多行语句时需要加大括号</li>
+<li>使用enum时使用NS_ENUM</li>
+</ul>
+<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h2><ul>
+<li>推荐使用长的，描述性的方法和变量名</li>
+<li>Constants常量应该使用驼峰命名法，并用相关类名作为前缀，推荐使用 static const 声明</li>
+<li>方法<ul>
+<li>方法类型后应有一个空格</li>
+<li>方法段之间应有一个空格</li>
+<li>参数名称之前应该有一个描述性关键词</li>
+<li>and不应用作阐明有多个参数</li>
+</ul>
+</li>
+<li>字面值:NSString,NSDictionary,NSArray和NSNumber字面值应该用在任何创建不可变的实力对象，nil不能放进NSArray和NSDictionary，否则将导致Crash。</li>
+</ul>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><ul>
+<li><p>类名: 类名应该加上三个大写字母作为前缀(两个字母的为Apple的类保留)，以减少Objective-C没有命名空间带来的问题</p>
+</li>
+<li><p>创建子类时应该把说明性部分放在前缀和父类名中间。</p>
+</li>
+<li><p>Initializer和dealloc初始化</p>
+<ul>
+<li><p>将dealloc方法放在实现问价你的最前面(@syntheize和@dynamic之后)</p>
+</li>
+<li><p>init应该放在dealloc之后</p>
+</li>
+<li><p>如果有多个初始化方法，designated initializer应该放在第一个，secondary initializer紧接其后</p>
+</li>
+<li><p>init方法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)init&#123;</span><br><span class="line">  self=[super init];</span><br><span class="line">  if(self)&#123;</span><br><span class="line">    //custom initialization</span><br><span class="line">  &#125;</span><br><span class="line">  return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>永远不在designated中调用secondary初始方法</p>
+</li>
+</ul>
+</li>
+<li><p>单例</p>
+</li>
+<li><p>属性</p>
+<ul>
+<li><p>尽可能描述性命名，避免缩写，小字母开头，驼峰</p>
+</li>
+<li><p>对象声明应为NSString *text;</p>
+</li>
+<li><p>除了init和dealloc方法，否则总是使用setter和getter访问属性</p>
+<p>setter</p>
+<ul>
+<li>使用setter会遵守内存管理语义</li>
+<li>KVO通知会被自动执行</li>
+<li>更容易debug</li>
+<li>允许一个单独的地方为设置值添加额外的逻辑</li>
+</ul>
+<p>getter</p>
+<ul>
+<li>对未来的变化有扩展能力</li>
+<li>允许子类化</li>
+<li>更简单的debug</li>
+<li>让意图更加清晰明确</li>
+<li>自动产生KVO通知</li>
+<li>消息发送添加的开销微不足道</li>
+</ul>
+</li>
+<li><p>init和dealloc</p>
+<p>永远不能在init等初始化函数和dealloc中使用getter和setter方法，而需要直接访问示例变量。</p>
+</li>
+<li><p>尽量使用点符号来访问和设置属性。这有助于区分属性访问和方法调用</p>
+</li>
+</ul>
+</li>
+<li><p>属性定义</p>
+<ul>
+<li>属性参数顺序应为原子性，读写，内存管理，这样做属性的修改更容易修改正确，并且更好阅读。</li>
+<li>必须使用nonatomic，除非特别需要的情况。因为iOS中，atomic带来的锁特别影响性能，并且不能保证线程安全。</li>
+<li>block必须使用copy(到堆上)，以保证其存活到结束</li>
+<li>为完成一个公有的getter和私有的setter，应声明公开的属性为readonly并在类扩展中重新定义通用的属性为readwrite</li>
+<li>BOOL类型的描述性属性建议通过getter=修改访问方法</li>
+</ul>
+</li>
+<li><p>可变对象</p>
+<ul>
+<li>任何可以用一个可变对象设置的属性(如NSString，NSArray，NSURLRequest)的内存管理类型必须是copy的，这可以用来确保包装，并且在对象不知道的情况下避免改变值。</li>
+<li>避免在公开的接口中暴露可变的对象，可以提供只读属性来返回对象的不可变副本。</li>
+</ul>
+</li>
+<li><p>懒加载(争议)</p>
+<ul>
+<li>getter方法不应该有副作用</li>
+<li>第一次访问的时候改变了初始化的小号，产生了副作用</li>
+<li>不是KVO友好的</li>
+</ul>
+</li>
+<li><p>参数断言</p>
+<p>若要求参数满足特定条件，最好使用NSParameterAssert()来断言条件</p>
+</li>
+<li><p>私有方法</p>
+<p>永远不要在私有方法前加上_前缀，_前缀为Apple保留</p>
+</li>
+<li><p>相等性</p>
+</li>
+</ul>
+<h2 id="Categories"><a href="#Categories" class="headerlink" title="Categories"></a>Categories</h2><p>应该在category方法前加上自己的小写前缀和下划线</p>
+<h2 id="Protocols"><a href="#Protocols" class="headerlink" title="Protocols"></a>Protocols</h2><h2 id="NSNotification"><a href="#NSNotification" class="headerlink" title="NSNotification"></a>NSNotification</h2><p>定义自己的NSNotification时应把通知的名字定义为字符串常量。并在公开的接口文件将其声明为extern，并且在对应的实现文件里面定义。</p>
+<h2 id="代码美化"><a href="#代码美化" class="headerlink" title="代码美化"></a>代码美化</h2><ul>
+<li>空格<ul>
+<li>设置tab为四个空格</li>
+</ul>
+</li>
+<li>冒号对齐</li>
+<li>line breaks换行</li>
+<li>控制语句使用Egyptian风格括号，类的实现、方法的实现使用非Egyptian风格括号</li>
+</ul>
+<h2 id="代码组织"><a href="#代码组织" class="headerlink" title="代码组织"></a>代码组织</h2><ul>
+<li><p>利用代码块</p>
+<p>GCC和Clang特性:代码块如果在闭合的圆括号内的话，返回最后语句的值</p>
+<p>该方法非常适合组织小块的代码，能让读者聚焦于关键的变量和函数。</p>
+<p>所有的变量都在代码块中，可以减少对其他作用域的命名污染。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSURL *url = (&#123;</span><br><span class="line">    NSString *urlString = [NSString stringWithFormat:@&quot;%@/%@&quot;, baseURLString, endpoint];</span><br><span class="line">    [NSURL URLWithString:urlString];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pragma</p>
+<ul>
+<li><p>用于分离</p>
+<ul>
+<li>不同功能组的方法</li>
+<li>protocols的实现</li>
+<li>对父类方法的重写</li>
+</ul>
+</li>
+<li><p>忽略未使用变量的编译警告</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)giveMeFive</span><br><span class="line">&#123;</span><br><span class="line">    NSString *foo;</span><br><span class="line">    #pragma unused (foo)</span><br><span class="line"></span><br><span class="line">    return 5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>明确编译器警告和错误:#error,#warning</p>
+</li>
+<li><p>字符串文档(除非函数非公开，短或者显而易见，否则都需要)，用于描述函数的调用符号和语义</p>
+<ul>
+<li><p>单行注释用//</p>
+</li>
+<li><p>多行用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">一行总结.</span><br><span class="line">空行</span><br><span class="line">详细介绍</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="对象之间通讯"><a href="#对象之间通讯" class="headerlink" title="对象之间通讯"></a>对象之间通讯</h2><ul>
+<li>Block<ul>
+<li>是在栈上创建的</li>
+<li>可以复制堆上</li>
+<li>有自己的私有的栈变量的常量复制</li>
+<li>可变的站上的变量和指针必须用__block关键字声明</li>
+<li>strongSelf?</li>
+</ul>
+</li>
+<li>委托和数据源</li>
+<li>继承</li>
+<li>多重委托</li>
+</ul>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/基础知识之Foundation基础集合类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/15/基础知识之Foundation基础集合类/" itemprop="url">基础知识之Foundation基础集合类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T16:37:10+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Foundation之基础集合类"><a href="#Foundation之基础集合类" class="headerlink" title="Foundation之基础集合类"></a>Foundation之基础集合类</h1><h2 id="NSArray"><a href="#NSArray" class="headerlink" title="NSArray"></a>NSArray</h2><h3 id="性能特征"><a href="#性能特征" class="headerlink" title="性能特征"></a>性能特征</h3><h4 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h4><p>基于存储对象的多少，使用多种内部变种，对于个别对象的访问并不保证O(1)的访问时间;</p>
+<p>对于NSArray中值的访问时间，保证在任何一种实现下最坏情况是O(lgN)，通常是O(1)，</p>
+<h4 id="线性搜索"><a href="#线性搜索" class="headerlink" title="线性搜索"></a>线性搜索</h4><p>最坏情况下的复杂度为O(N*lgN)</p>
+<h4 id="插入删除"><a href="#插入删除" class="headerlink" title="插入删除"></a>插入删除</h4><p>耗时通常和数据中的值的数量成线性关系，某些实现的最坏情况下为O(N*lgN)</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>没有对于性能上特别有优势的数据位置</p>
+<h3 id="相关方法"><a href="#相关方法" class="headerlink" title="相关方法"></a>相关方法</h3><h5 id="isEqual"><a href="#isEqual" class="headerlink" title="isEqual:"></a>isEqual:</h5><p>大多数方法使用该方法来判断对象间的关系如containsObject</p>
+<h4 id="indexOfObjectIdentialTo"><a href="#indexOfObjectIdentialTo" class="headerlink" title="indexOfObjectIdentialTo:"></a>indexOfObjectIdentialTo:</h4><p>检查指针是否相等</p>
+<h4 id="firstObject-lastObject-iOS7"><a href="#firstObject-lastObject-iOS7" class="headerlink" title="firstObject/lastObject(iOS7)"></a>firstObject/lastObject(iOS7)</h4><p>空数组放回nil，而常规访问方法抛NSRangeException</p>
+<h4 id="通过数组构造可变数组"><a href="#通过数组构造可变数组" class="headerlink" title="通过数组构造可变数组:"></a>通过数组构造可变数组:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSMutableArray *mutableObjects=[array mutableCopy];</span><br><span class="line">if(!mutableObjects)&#123;</span><br><span class="line">  mutableObjects=[NSMutableArray array];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSMutableArray *mutableObjects=[NSMutableArray arrayWithArray:array];</span><br></pre></td></tr></table></figure>
+<h4 id="逆序数组"><a href="#逆序数组" class="headerlink" title="逆序数组:"></a>逆序数组:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.reverseObjectEnumerator.allObjects返回一个新的数组，每个NSEnumerator都实现了allObjects</span><br></pre></td></tr></table></figure>
+<h4 id="排序-没有太大的性能差别"><a href="#排序-没有太大的性能差别" class="headerlink" title="排序(没有太大的性能差别):"></a>排序(没有太大的性能差别):</h4><h5 id="NSString"><a href="#NSString" class="headerlink" title="NSString:"></a>NSString:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[array sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];</span><br></pre></td></tr></table></figure>
+<h5 id="NSNumber"><a href="#NSNumber" class="headerlink" title="NSNumber:"></a>NSNumber:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[array sortedArrayUsingSelector:@selector(compare:)];</span><br></pre></td></tr></table></figure>
+<h5 id="基于函数指针的排序方法"><a href="#基于函数指针的排序方法" class="headerlink" title="基于函数指针的排序方法:"></a>基于函数指针的排序方法:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (NSData *)sortedArrayHint;</span><br><span class="line">- (NSArray *)sortedArrayUsingFunction:(NSInteger (*)(id, id, void *))comparator</span><br><span class="line">                          context:(void *)context;</span><br><span class="line">- (NSArray *)sortedArrayUsingFunction:(NSInteger (*)(id, id, void *))comparator</span><br><span class="line">                          context:(void *)context hint:(NSData *)hint;</span><br></pre></td></tr></table></figure>
+<h5 id="基于block的排序方法"><a href="#基于block的排序方法" class="headerlink" title="基于block的排序方法"></a>基于block的排序方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (NSArray *)sortedArrayUsingComparator:(NSComparator)cmptr;</span><br><span class="line">- (NSArray *)sortedArrayWithOptions:(NSSortOptions)opts</span><br><span class="line">                usingComparator:(NSComparator)cmptr;</span><br></pre></td></tr></table></figure>
+<h4 id="枚举"><a href="#枚举" class="headerlink" title="枚举:"></a>枚举:</h4><h5 id="indexesOfObjectsWithOptions-passingTest"><a href="#indexesOfObjectsWithOptions-passingTest" class="headerlink" title="indexesOfObjectsWithOptions:passingTest:"></a>indexesOfObjectsWithOptions:passingTest:</h5><p>​    使用并发的情况下最快，数量少的情况下开并发可能由于线程管理导致更慢</p>
+<h5 id="filteredArrayUsingPredicate"><a href="#filteredArrayUsingPredicate" class="headerlink" title="filteredArrayUsingPredicate:"></a>filteredArrayUsingPredicate:</h5><p>​    最慢</p>
+<h5 id="enumerateObjectsUsingBlock"><a href="#enumerateObjectsUsingBlock" class="headerlink" title="enumerateObjectsUsingBlock:"></a>enumerateObjectsUsingBlock:</h5><h5 id="for-id-obj-in-array"><a href="#for-id-obj-in-array" class="headerlink" title="for(id obj in array):"></a>for(id obj in array):</h5><p>​    最快</p>
+<h5 id="使用NSEnumerator"><a href="#使用NSEnumerator" class="headerlink" title="使用NSEnumerator"></a>使用NSEnumerator</h5><h4 id="NSFastEnumeration"><a href="#NSFastEnumeration" class="headerlink" title="NSFastEnumeration(?):"></a>NSFastEnumeration(?):</h4><p>NSEnumeration每次迭代都有运行时开销</p>
+<p>而NSFastEnumeration通过CountByEnumeratingWithState:objects:count:返回一个数据块，数据块被解析成id类型的C数组</p>
+<h4 id="arrayWithCapacity"><a href="#arrayWithCapacity" class="headerlink" title="arrayWithCapacity:"></a>arrayWithCapacity:</h4><p>效率无差别，无明显作用</p>
+<h2 id="NSDictionary"><a href="#NSDictionary" class="headerlink" title="NSDictionary"></a>NSDictionary</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.[NSDictionary dictionaryWithObjectsAndKeys:object,key,nil]</span><br><span class="line">2.@&#123;key:value,...&#125;</span><br><span class="line">key-value顺序不同</span><br></pre></td></tr></table></figure>
+<p>key是被拷贝的并且需要是不变的，如果一个key被用于在字典中放入一个值后被改变的话，那么该值将无法获得。</p>
+<p>NSDictionary中的key是copy的，但是(使用CFDcitionarySetValue()时)CFDictionary中的key是retain的。原因是CoreFoundation没有通用的拷贝对象的方法。(使用setObject:forKey时)CFDictionary会增加额外的处理逻辑使key被拷贝。</p>
+<h3 id="性能特征-1"><a href="#性能特征-1" class="headerlink" title="性能特征:"></a>性能特征:</h3><h4 id="访问-1"><a href="#访问-1" class="headerlink" title="访问:"></a>访问:</h4><p>任何一种实现下最坏的情况是O(N)，通常是O(1)</p>
+<h4 id="插入删除-1"><a href="#插入删除-1" class="headerlink" title="插入删除"></a>插入删除</h4><p>一般来说是O(1)，某些实现中的最坏情况是O(N*N)，通过键来访问将比直接访问值要快，但是需要花费多很多的内存空间。</p>
+<h4 id="枚举-1"><a href="#枚举-1" class="headerlink" title="枚举:"></a>枚举:</h4><h5 id="keysOfEntiresWithOptions-passingTest"><a href="#keysOfEntiresWithOptions-passingTest" class="headerlink" title="keysOfEntiresWithOptions:passingTest:"></a>keysOfEntiresWithOptions:passingTest:</h5><p>开并发最快，不开并发也很快</p>
+<h5 id="enumerateKeysAndObjectsUsingBlock"><a href="#enumerateKeysAndObjectsUsingBlock" class="headerlink" title="enumerateKeysAndObjectsUsingBlock:"></a>enumerateKeysAndObjectsUsingBlock:</h5><p>可以高效地提前获取value</p>
+<h5 id="for-id-key-in-dict"><a href="#for-id-key-in-dict" class="headerlink" title="for(id key in dict)"></a>for(id key in dict)</h5><p>快速枚举只能枚举key，必须每次自己获取value</p>
+<h5 id="使用NSEnumerator-1"><a href="#使用NSEnumerator-1" class="headerlink" title="使用NSEnumerator"></a>使用NSEnumerator</h5><h5 id="基于C数组，通过getObjects-andKeys-枚举"><a href="#基于C数组，通过getObjects-andKeys-枚举" class="headerlink" title="基于C数组，通过getObjects:andKeys:枚举"></a>基于C数组，通过getObjects:andKeys:枚举</h5><p>最快，在数组元素很多时会崩溃</p>
+<h4 id="dictionaryWithCapacity"><a href="#dictionaryWithCapacity" class="headerlink" title="dictionaryWithCapacity:"></a>dictionaryWithCapacity:</h4><p>同array，capacity参数无意义</p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>只能对键数组排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (NSArray *)keysSortedByValueUsingSelector:(SEL)comparator;</span><br><span class="line">- (NSArray *)keysSortedByValueUsingComparator:(NSComparator)cmptr;</span><br><span class="line">- (NSArray *)keysSortedByValueWithOptions:(NSSortOptions)opts</span><br><span class="line">                      usingComparator:(NSComparator)cmptr;</span><br></pre></td></tr></table></figure>
+<h3 id="共享键"><a href="#共享键" class="headerlink" title="共享键(?)"></a>共享键(?)</h3><h2 id="NSSet"><a href="#NSSet" class="headerlink" title="NSSet"></a>NSSet</h2><p>检查对象存在通常是O(1)操作，比NSArray快很多。</p>
+<p>只在被使用的哈希方法平衡的情况下能高效工作。</p>
+<p>NSSet会retain其中的对象，并且对象应该是不可变的，否则会出现问题。</p>
+<h5 id="allObjects"><a href="#allObjects" class="headerlink" title="allObjects"></a>allObjects</h5><p>​    方法能将对象转化为NSArray，</p>
+<h5 id="anyObject"><a href="#anyObject" class="headerlink" title="anyObject"></a>anyObject</h5><p>​    返回任一对象</p>
+<h3 id="相关操作"><a href="#相关操作" class="headerlink" title="相关操作"></a>相关操作</h3><h5 id="intersectSet"><a href="#intersectSet" class="headerlink" title="intersectSet:"></a>intersectSet:</h5><h5 id="minusSet"><a href="#minusSet" class="headerlink" title="minusSet"></a>minusSet</h5><h5 id="unionSet"><a href="#unionSet" class="headerlink" title="unionSet"></a>unionSet</h5><h3 id="setWithCapacity"><a href="#setWithCapacity" class="headerlink" title="setWithCapacity"></a>setWithCapacity</h3><p>没有明显差距</p>
+<h3 id="性能特征-2"><a href="#性能特征-2" class="headerlink" title="性能特征:"></a>性能特征:</h3><p>因为NSSet在每个被添加的对象上执行hash和isEqual方法并管理一系列哈希值，因此在添加元素时耗费了很多时间。</p>
+<h2 id="NSOrderedSet"><a href="#NSOrderedSet" class="headerlink" title="NSOrderedSet"></a>NSOrderedSet</h2><h2 id="NSHashTable"><a href="#NSHashTable" class="headerlink" title="NSHashTable"></a>NSHashTable</h2><h2 id="NSMapTable"><a href="#NSMapTable" class="headerlink" title="NSMapTable"></a>NSMapTable</h2><h2 id="NSPointerArray"><a href="#NSPointerArray" class="headerlink" title="NSPointerArray"></a>NSPointerArray</h2><h2 id="NSCache"><a href="#NSCache" class="headerlink" title="NSCache"></a>NSCache</h2><p>线程安全，适合缓存那些创建起来代价高昂的对象，能自动对内存警告做出反应并基于可设置的“成本”清理自己，其键是retain的(NSDictionary是copy的).</p>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>加入的线程安全带来耗时成本，元素的添加慢，因为要多维护一个决定何时回收对象的成本系数。</p>
+<h2 id="NSIndexSet"><a href="#NSIndexSet" class="headerlink" title="NSIndexSet"></a>NSIndexSet</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/基础知识之Foundation知识点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/15/基础知识之Foundation知识点/" itemprop="url">基础知识之Foundation知识点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T16:33:27+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Foundation基础"><a href="#Foundation基础" class="headerlink" title="Foundation基础"></a>Foundation基础</h1><h2 id="NSObject"><a href="#NSObject" class="headerlink" title="NSObject"></a>NSObject</h2><ul>
+<li>几乎是所有类的基类或协议</li>
+<li>isKindOfClass(是否是某一类)/isMemberOfClass(是否是某一类或其子类)</li>
+<li>respondsToSelector</li>
+<li>description</li>
+<li>encodeWithCoder，initWithCoder NSCoding仅有成员</li>
+<li>conformsToProtocol</li>
+<li>类对象中的isa指向的类结构被称为metaclass，与[object class]有区别，比如KVO时</li>
+<li>__weak如何实现对象值自动设置为nil</li>
+</ul>
+<h2 id="NSString-amp-NSMutableString"><a href="#NSString-amp-NSMutableString" class="headerlink" title="NSString &amp; NSMutableString"></a>NSString &amp; NSMutableString</h2><ul>
+<li>属性用copy/strong</li>
+</ul>
+<h2 id="NSArray-amp-NSMutableArray"><a href="#NSArray-amp-NSMutableArray" class="headerlink" title="NSArray &amp; NSMutableArray"></a>NSArray &amp; NSMutableArray</h2><ul>
+<li>遍历方式，倒序遍历方式(reverseObjectEnumerator)</li>
+<li>初始化方法</li>
+<li>浅拷贝:使用copy、arrayWithArray，copyWithZone均为浅拷贝，数组元素均为就对象</li>
+<li>深拷贝[[NSArray alloc] initWithArray:someArray copyItems:YES];且item必须实现NSCopying协议</li>
+<li>拷贝<ul>
+<li>对非集合对象拷贝<ul>
+<li>[immutableObject copy] 浅拷贝</li>
+<li>[immutableObject mutableCopy] 深拷贝</li>
+<li>[mutableObject copy] 深拷贝</li>
+<li>[mutableObject mutableCopy] 深拷贝</li>
+</ul>
+</li>
+<li>对集合对象拷贝<ul>
+<li>[immutableObject copy] 浅拷贝</li>
+<li>[immutableObject mutableCopy] 单层深拷贝</li>
+<li>[mutableObject copy] 单层深拷贝</li>
+<li>[mutableObject mutableCopy] 单层深拷贝</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="NSDictionary-amp-NSMutableDictionary"><a href="#NSDictionary-amp-NSMutableDictionary" class="headerlink" title="NSDictionary &amp; NSMutableDictionary"></a>NSDictionary &amp; NSMutableDictionary</h2><p>取值时最好判断object的类型</p>
+<h2 id="NSNumber-amp-NSInteger-amp-NSRange"><a href="#NSNumber-amp-NSInteger-amp-NSRange" class="headerlink" title="NSNumber &amp; NSInteger &amp; NSRange"></a>NSNumber &amp; NSInteger &amp; NSRange</h2><p>NSNumber专门用来封装基础类型，包括整型，单精度，双精度和字符类型</p>
+<h2 id="NSNull"><a href="#NSNull" class="headerlink" title="NSNull"></a>NSNull</h2><p>用于处理Model中可能出现的空值。不同于nil</p>
+<h2 id="NSData"><a href="#NSData" class="headerlink" title="NSData"></a>NSData</h2><p>字节缓冲区:datawithContentsOfURL</p>
+<h2 id="NSUserDefaults"><a href="#NSUserDefaults" class="headerlink" title="NSUserDefaults"></a>NSUserDefaults</h2><p>用于APP setting</p>
+<h2 id="NSDate-amp-NSDateFormatter-amp-NSCalendar"><a href="#NSDate-amp-NSDateFormatter-amp-NSCalendar" class="headerlink" title="NSDate &amp; NSDateFormatter &amp; NSCalendar"></a>NSDate &amp; NSDateFormatter &amp; NSCalendar</h2><p>判断获取时间:components:fromDate:toDate:options:</p>
+<p>获取时间戳</p>
+<h2 id="NSCoding-amp-NSCoder"><a href="#NSCoding-amp-NSCoder" class="headerlink" title="NSCoding &amp; NSCoder"></a>NSCoding &amp; NSCoder</h2><p>仅有的两个方法，进行数据的序列化和反序列化</p>
+<p>encodeWithCoder:(NSCoder *)aCoder;</p>
+<p>initWithCoder:(NSCoder *)aDecoder;</p>
+<h2 id="NSCopying-amp-NSZone"><a href="#NSCopying-amp-NSZone" class="headerlink" title="NSCopying &amp; NSZone"></a>NSCopying &amp; NSZone</h2><p>alllocWithZone:深拷贝，NSCopying唯一required方法</p>
+<h2 id="NSAutoreleasePool"><a href="#NSAutoreleasePool" class="headerlink" title="NSAutoreleasePool"></a>NSAutoreleasePool</h2><p>降低内存峰值，在Runloop休眠前释放自动释放池中的对象</p>
+<h2 id="NSFileManager"><a href="#NSFileManager" class="headerlink" title="NSFileManager"></a>NSFileManager</h2><p>删除文件之前先判断是否存在</p>
+<h2 id="NSTimer"><a href="#NSTimer" class="headerlink" title="NSTimer"></a>NSTimer</h2><p>并不精确，若错过则等下一趟</p>
+<h2 id="NSLog"><a href="#NSLog" class="headerlink" title="NSLog"></a>NSLog</h2><h2 id="NSClassFromString-amp-NSStringFromClass"><a href="#NSClassFromString-amp-NSStringFromClass" class="headerlink" title="NSClassFromString &amp; NSStringFromClass"></a>NSClassFromString &amp; NSStringFromClass</h2><h2 id="NSIndexPath"><a href="#NSIndexPath" class="headerlink" title="NSIndexPath"></a>NSIndexPath</h2><p>用于tableview</p>
+<h2 id="NSError"><a href="#NSError" class="headerlink" title="NSError"></a>NSError</h2><h2 id="NSException"><a href="#NSException" class="headerlink" title="NSException"></a>NSException</h2><h2 id="NSStringEncoding"><a href="#NSStringEncoding" class="headerlink" title="NSStringEncoding"></a>NSStringEncoding</h2><h2 id="NSProgressIndicator"><a href="#NSProgressIndicator" class="headerlink" title="NSProgressIndicator"></a>NSProgressIndicator</h2><h2 id="NSBundle"><a href="#NSBundle" class="headerlink" title="NSBundle"></a>NSBundle</h2><p>项目资源包</p>
+<h2 id="NSNetServiceBrowser"><a href="#NSNetServiceBrowser" class="headerlink" title="NSNetServiceBrowser"></a>NSNetServiceBrowser</h2><h2 id="NSValue"><a href="#NSValue" class="headerlink" title="NSValue"></a>NSValue</h2><p>可以包装任意对象，可以用NSValue将struct存到NSArray和NSDictionary中</p>
+<h2 id="NSURLConnection"><a href="#NSURLConnection" class="headerlink" title="NSURLConnection"></a>NSURLConnection</h2><h2 id="NSURLSession-amp-NSURLSessionTask"><a href="#NSURLSession-amp-NSURLSessionTask" class="headerlink" title="NSURLSession &amp; NSURLSessionTask"></a>NSURLSession &amp; NSURLSessionTask</h2><h2 id="NSURLRequest"><a href="#NSURLRequest" class="headerlink" title="NSURLRequest"></a>NSURLRequest</h2><h2 id="NSInputStream-amp-NSOutputStream"><a href="#NSInputStream-amp-NSOutputStream" class="headerlink" title="NSInputStream &amp; NSOutputStream"></a>NSInputStream &amp; NSOutputStream</h2><h2 id="NSPredicate"><a href="#NSPredicate" class="headerlink" title="NSPredicate"></a>NSPredicate</h2><h2 id="NSLayoutConstraint"><a href="#NSLayoutConstraint" class="headerlink" title="NSLayoutConstraint"></a>NSLayoutConstraint</h2><h2 id="NSLock-amp-NSRecursiveLock-amp-NSCondition"><a href="#NSLock-amp-NSRecursiveLock-amp-NSCondition" class="headerlink" title="NSLock &amp; NSRecursiveLock &amp; NSCondition"></a>NSLock &amp; NSRecursiveLock &amp; NSCondition</h2><h2 id="NSMethodSignature"><a href="#NSMethodSignature" class="headerlink" title="NSMethodSignature"></a>NSMethodSignature</h2><h2 id="NSInvocation"><a href="#NSInvocation" class="headerlink" title="NSInvocation"></a>NSInvocation</h2><h2 id="NSSet"><a href="#NSSet" class="headerlink" title="NSSet"></a>NSSet</h2><h2 id="NSUrl"><a href="#NSUrl" class="headerlink" title="NSUrl"></a>NSUrl</h2><h2 id="AVPlayer"><a href="#AVPlayer" class="headerlink" title="AVPlayer"></a>AVPlayer</h2><h2 id="NSNotificationCenter"><a href="#NSNotificationCenter" class="headerlink" title="NSNotificationCenter"></a>NSNotificationCenter</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/31/RunTime/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1065,7 +2381,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

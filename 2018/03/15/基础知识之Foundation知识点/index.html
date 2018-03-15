@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Foundation基础NSObject 几乎是所有类的基类或协议 isKindOfClass(是否是某一类)/isMemberOfClass(是否是某一类或其子类) respondsToSelector description encodeWithCoder，initWithCoder NSCoding仅有成员 conformsToProtocol 类对象中的isa指向的类结构被称为metacl">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础知识之Foundation知识点">
+<meta property="og:url" content="http://yoursite.com/2018/03/15/基础知识之Foundation知识点/index.html">
+<meta property="og:site_name" content="Road To Coder">
+<meta property="og:description" content="Foundation基础NSObject 几乎是所有类的基类或协议 isKindOfClass(是否是某一类)/isMemberOfClass(是否是某一类或其子类) respondsToSelector description encodeWithCoder，initWithCoder NSCoding仅有成员 conformsToProtocol 类对象中的isa指向的类结构被称为metacl">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-15T08:36:02.265Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基础知识之Foundation知识点">
+<meta name="twitter:description" content="Foundation基础NSObject 几乎是所有类的基类或协议 isKindOfClass(是否是某一类)/isMemberOfClass(是否是某一类或其子类) respondsToSelector description encodeWithCoder，initWithCoder NSCoding仅有成员 conformsToProtocol 类对象中的isa指向的类结构被称为metacl">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/15/基础知识之Foundation知识点/"/>
+
+
+
+
+
+  <title>基础知识之Foundation知识点 | Road To Coder</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Road To Coder</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/基础知识之Foundation知识点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基础知识之Foundation知识点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T16:33:27+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Foundation基础"><a href="#Foundation基础" class="headerlink" title="Foundation基础"></a>Foundation基础</h1><h2 id="NSObject"><a href="#NSObject" class="headerlink" title="NSObject"></a>NSObject</h2><ul>
+<li>几乎是所有类的基类或协议</li>
+<li>isKindOfClass(是否是某一类)/isMemberOfClass(是否是某一类或其子类)</li>
+<li>respondsToSelector</li>
+<li>description</li>
+<li>encodeWithCoder，initWithCoder NSCoding仅有成员</li>
+<li>conformsToProtocol</li>
+<li>类对象中的isa指向的类结构被称为metaclass，与[object class]有区别，比如KVO时</li>
+<li>__weak如何实现对象值自动设置为nil</li>
+</ul>
+<h2 id="NSString-amp-NSMutableString"><a href="#NSString-amp-NSMutableString" class="headerlink" title="NSString &amp; NSMutableString"></a>NSString &amp; NSMutableString</h2><ul>
+<li>属性用copy/strong</li>
+</ul>
+<h2 id="NSArray-amp-NSMutableArray"><a href="#NSArray-amp-NSMutableArray" class="headerlink" title="NSArray &amp; NSMutableArray"></a>NSArray &amp; NSMutableArray</h2><ul>
+<li>遍历方式，倒序遍历方式(reverseObjectEnumerator)</li>
+<li>初始化方法</li>
+<li>浅拷贝:使用copy、arrayWithArray，copyWithZone均为浅拷贝，数组元素均为就对象</li>
+<li>深拷贝[[NSArray alloc] initWithArray:someArray copyItems:YES];且item必须实现NSCopying协议</li>
+<li>拷贝<ul>
+<li>对非集合对象拷贝<ul>
+<li>[immutableObject copy] 浅拷贝</li>
+<li>[immutableObject mutableCopy] 深拷贝</li>
+<li>[mutableObject copy] 深拷贝</li>
+<li>[mutableObject mutableCopy] 深拷贝</li>
+</ul>
+</li>
+<li>对集合对象拷贝<ul>
+<li>[immutableObject copy] 浅拷贝</li>
+<li>[immutableObject mutableCopy] 单层深拷贝</li>
+<li>[mutableObject copy] 单层深拷贝</li>
+<li>[mutableObject mutableCopy] 单层深拷贝</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="NSDictionary-amp-NSMutableDictionary"><a href="#NSDictionary-amp-NSMutableDictionary" class="headerlink" title="NSDictionary &amp; NSMutableDictionary"></a>NSDictionary &amp; NSMutableDictionary</h2><p>取值时最好判断object的类型</p>
+<h2 id="NSNumber-amp-NSInteger-amp-NSRange"><a href="#NSNumber-amp-NSInteger-amp-NSRange" class="headerlink" title="NSNumber &amp; NSInteger &amp; NSRange"></a>NSNumber &amp; NSInteger &amp; NSRange</h2><p>NSNumber专门用来封装基础类型，包括整型，单精度，双精度和字符类型</p>
+<h2 id="NSNull"><a href="#NSNull" class="headerlink" title="NSNull"></a>NSNull</h2><p>用于处理Model中可能出现的空值。不同于nil</p>
+<h2 id="NSData"><a href="#NSData" class="headerlink" title="NSData"></a>NSData</h2><p>字节缓冲区:datawithContentsOfURL</p>
+<h2 id="NSUserDefaults"><a href="#NSUserDefaults" class="headerlink" title="NSUserDefaults"></a>NSUserDefaults</h2><p>用于APP setting</p>
+<h2 id="NSDate-amp-NSDateFormatter-amp-NSCalendar"><a href="#NSDate-amp-NSDateFormatter-amp-NSCalendar" class="headerlink" title="NSDate &amp; NSDateFormatter &amp; NSCalendar"></a>NSDate &amp; NSDateFormatter &amp; NSCalendar</h2><p>判断获取时间:components:fromDate:toDate:options:</p>
+<p>获取时间戳</p>
+<h2 id="NSCoding-amp-NSCoder"><a href="#NSCoding-amp-NSCoder" class="headerlink" title="NSCoding &amp; NSCoder"></a>NSCoding &amp; NSCoder</h2><p>仅有的两个方法，进行数据的序列化和反序列化</p>
+<p>encodeWithCoder:(NSCoder *)aCoder;</p>
+<p>initWithCoder:(NSCoder *)aDecoder;</p>
+<h2 id="NSCopying-amp-NSZone"><a href="#NSCopying-amp-NSZone" class="headerlink" title="NSCopying &amp; NSZone"></a>NSCopying &amp; NSZone</h2><p>alllocWithZone:深拷贝，NSCopying唯一required方法</p>
+<h2 id="NSAutoreleasePool"><a href="#NSAutoreleasePool" class="headerlink" title="NSAutoreleasePool"></a>NSAutoreleasePool</h2><p>降低内存峰值，在Runloop休眠前释放自动释放池中的对象</p>
+<h2 id="NSFileManager"><a href="#NSFileManager" class="headerlink" title="NSFileManager"></a>NSFileManager</h2><p>删除文件之前先判断是否存在</p>
+<h2 id="NSTimer"><a href="#NSTimer" class="headerlink" title="NSTimer"></a>NSTimer</h2><p>并不精确，若错过则等下一趟</p>
+<h2 id="NSLog"><a href="#NSLog" class="headerlink" title="NSLog"></a>NSLog</h2><h2 id="NSClassFromString-amp-NSStringFromClass"><a href="#NSClassFromString-amp-NSStringFromClass" class="headerlink" title="NSClassFromString &amp; NSStringFromClass"></a>NSClassFromString &amp; NSStringFromClass</h2><h2 id="NSIndexPath"><a href="#NSIndexPath" class="headerlink" title="NSIndexPath"></a>NSIndexPath</h2><p>用于tableview</p>
+<h2 id="NSError"><a href="#NSError" class="headerlink" title="NSError"></a>NSError</h2><h2 id="NSException"><a href="#NSException" class="headerlink" title="NSException"></a>NSException</h2><h2 id="NSStringEncoding"><a href="#NSStringEncoding" class="headerlink" title="NSStringEncoding"></a>NSStringEncoding</h2><h2 id="NSProgressIndicator"><a href="#NSProgressIndicator" class="headerlink" title="NSProgressIndicator"></a>NSProgressIndicator</h2><h2 id="NSBundle"><a href="#NSBundle" class="headerlink" title="NSBundle"></a>NSBundle</h2><p>项目资源包</p>
+<h2 id="NSNetServiceBrowser"><a href="#NSNetServiceBrowser" class="headerlink" title="NSNetServiceBrowser"></a>NSNetServiceBrowser</h2><h2 id="NSValue"><a href="#NSValue" class="headerlink" title="NSValue"></a>NSValue</h2><p>可以包装任意对象，可以用NSValue将struct存到NSArray和NSDictionary中</p>
+<h2 id="NSURLConnection"><a href="#NSURLConnection" class="headerlink" title="NSURLConnection"></a>NSURLConnection</h2><h2 id="NSURLSession-amp-NSURLSessionTask"><a href="#NSURLSession-amp-NSURLSessionTask" class="headerlink" title="NSURLSession &amp; NSURLSessionTask"></a>NSURLSession &amp; NSURLSessionTask</h2><h2 id="NSURLRequest"><a href="#NSURLRequest" class="headerlink" title="NSURLRequest"></a>NSURLRequest</h2><h2 id="NSInputStream-amp-NSOutputStream"><a href="#NSInputStream-amp-NSOutputStream" class="headerlink" title="NSInputStream &amp; NSOutputStream"></a>NSInputStream &amp; NSOutputStream</h2><h2 id="NSPredicate"><a href="#NSPredicate" class="headerlink" title="NSPredicate"></a>NSPredicate</h2><h2 id="NSLayoutConstraint"><a href="#NSLayoutConstraint" class="headerlink" title="NSLayoutConstraint"></a>NSLayoutConstraint</h2><h2 id="NSLock-amp-NSRecursiveLock-amp-NSCondition"><a href="#NSLock-amp-NSRecursiveLock-amp-NSCondition" class="headerlink" title="NSLock &amp; NSRecursiveLock &amp; NSCondition"></a>NSLock &amp; NSRecursiveLock &amp; NSCondition</h2><h2 id="NSMethodSignature"><a href="#NSMethodSignature" class="headerlink" title="NSMethodSignature"></a>NSMethodSignature</h2><h2 id="NSInvocation"><a href="#NSInvocation" class="headerlink" title="NSInvocation"></a>NSInvocation</h2><h2 id="NSSet"><a href="#NSSet" class="headerlink" title="NSSet"></a>NSSet</h2><h2 id="NSUrl"><a href="#NSUrl" class="headerlink" title="NSUrl"></a>NSUrl</h2><h2 id="AVPlayer"><a href="#AVPlayer" class="headerlink" title="AVPlayer"></a>AVPlayer</h2><h2 id="NSNotificationCenter"><a href="#NSNotificationCenter" class="headerlink" title="NSNotificationCenter"></a>NSNotificationCenter</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/31/RunTime/" rel="next" title="RunTime">
+                <i class="fa fa-chevron-left"></i> RunTime
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/15/基础知识之Foundation基础集合类/" rel="prev" title="基础知识之Foundation基础集合类">
+                基础知识之Foundation基础集合类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Bokice</p>
+              <p class="site-description motion-element" itemprop="description">记录学习历程，向开源大神看齐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Foundation基础"><span class="nav-number">1.</span> <span class="nav-text">Foundation基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NSObject"><span class="nav-number">1.1.</span> <span class="nav-text">NSObject</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSString-amp-NSMutableString"><span class="nav-number">1.2.</span> <span class="nav-text">NSString &amp; NSMutableString</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSArray-amp-NSMutableArray"><span class="nav-number">1.3.</span> <span class="nav-text">NSArray &amp; NSMutableArray</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSDictionary-amp-NSMutableDictionary"><span class="nav-number">1.4.</span> <span class="nav-text">NSDictionary &amp; NSMutableDictionary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSNumber-amp-NSInteger-amp-NSRange"><span class="nav-number">1.5.</span> <span class="nav-text">NSNumber &amp; NSInteger &amp; NSRange</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSNull"><span class="nav-number">1.6.</span> <span class="nav-text">NSNull</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSData"><span class="nav-number">1.7.</span> <span class="nav-text">NSData</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSUserDefaults"><span class="nav-number">1.8.</span> <span class="nav-text">NSUserDefaults</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSDate-amp-NSDateFormatter-amp-NSCalendar"><span class="nav-number">1.9.</span> <span class="nav-text">NSDate &amp; NSDateFormatter &amp; NSCalendar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSCoding-amp-NSCoder"><span class="nav-number">1.10.</span> <span class="nav-text">NSCoding &amp; NSCoder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSCopying-amp-NSZone"><span class="nav-number">1.11.</span> <span class="nav-text">NSCopying &amp; NSZone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSAutoreleasePool"><span class="nav-number">1.12.</span> <span class="nav-text">NSAutoreleasePool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSFileManager"><span class="nav-number">1.13.</span> <span class="nav-text">NSFileManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSTimer"><span class="nav-number">1.14.</span> <span class="nav-text">NSTimer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSLog"><span class="nav-number">1.15.</span> <span class="nav-text">NSLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSClassFromString-amp-NSStringFromClass"><span class="nav-number">1.16.</span> <span class="nav-text">NSClassFromString &amp; NSStringFromClass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSIndexPath"><span class="nav-number">1.17.</span> <span class="nav-text">NSIndexPath</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSError"><span class="nav-number">1.18.</span> <span class="nav-text">NSError</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSException"><span class="nav-number">1.19.</span> <span class="nav-text">NSException</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSStringEncoding"><span class="nav-number">1.20.</span> <span class="nav-text">NSStringEncoding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSProgressIndicator"><span class="nav-number">1.21.</span> <span class="nav-text">NSProgressIndicator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSBundle"><span class="nav-number">1.22.</span> <span class="nav-text">NSBundle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSNetServiceBrowser"><span class="nav-number">1.23.</span> <span class="nav-text">NSNetServiceBrowser</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSValue"><span class="nav-number">1.24.</span> <span class="nav-text">NSValue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSURLConnection"><span class="nav-number">1.25.</span> <span class="nav-text">NSURLConnection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSURLSession-amp-NSURLSessionTask"><span class="nav-number">1.26.</span> <span class="nav-text">NSURLSession &amp; NSURLSessionTask</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSURLRequest"><span class="nav-number">1.27.</span> <span class="nav-text">NSURLRequest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSInputStream-amp-NSOutputStream"><span class="nav-number">1.28.</span> <span class="nav-text">NSInputStream &amp; NSOutputStream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSPredicate"><span class="nav-number">1.29.</span> <span class="nav-text">NSPredicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSLayoutConstraint"><span class="nav-number">1.30.</span> <span class="nav-text">NSLayoutConstraint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSLock-amp-NSRecursiveLock-amp-NSCondition"><span class="nav-number">1.31.</span> <span class="nav-text">NSLock &amp; NSRecursiveLock &amp; NSCondition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSMethodSignature"><span class="nav-number">1.32.</span> <span class="nav-text">NSMethodSignature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSInvocation"><span class="nav-number">1.33.</span> <span class="nav-text">NSInvocation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSSet"><span class="nav-number">1.34.</span> <span class="nav-text">NSSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSUrl"><span class="nav-number">1.35.</span> <span class="nav-text">NSUrl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AVPlayer"><span class="nav-number">1.36.</span> <span class="nav-text">AVPlayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSNotificationCenter"><span class="nav-number">1.37.</span> <span class="nav-text">NSNotificationCenter</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bokice</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="禅与Objective-c编程艺术条件语句 使用大括号  不用尤达表达式  nil和bool的检查使用！而不是==  避免将方法重要的部分嵌套到分支上  复杂表达式赋值给变量  三元运算符:object?:[self createObject];  错误处理:先对方法返回值进行判断而不是处理错误变量，因为成功情况下会对error参数写入垃圾值，此时如果检查error将导致错误。 1234NSErr">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="禅与Objective-C编程艺术笔记">
+<meta property="og:url" content="http://yoursite.com/2018/03/15/禅与Objective-C编程艺术笔记/index.html">
+<meta property="og:site_name" content="Road To Coder">
+<meta property="og:description" content="禅与Objective-c编程艺术条件语句 使用大括号  不用尤达表达式  nil和bool的检查使用！而不是==  避免将方法重要的部分嵌套到分支上  复杂表达式赋值给变量  三元运算符:object?:[self createObject];  错误处理:先对方法返回值进行判断而不是处理错误变量，因为成功情况下会对error参数写入垃圾值，此时如果检查error将导致错误。 1234NSErr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-15T08:39:11.963Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="禅与Objective-C编程艺术笔记">
+<meta name="twitter:description" content="禅与Objective-c编程艺术条件语句 使用大括号  不用尤达表达式  nil和bool的检查使用！而不是==  避免将方法重要的部分嵌套到分支上  复杂表达式赋值给变量  三元运算符:object?:[self createObject];  错误处理:先对方法返回值进行判断而不是处理错误变量，因为成功情况下会对error参数写入垃圾值，此时如果检查error将导致错误。 1234NSErr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/15/禅与Objective-C编程艺术笔记/"/>
+
+
+
+
+
+  <title>禅与Objective-C编程艺术笔记 | Road To Coder</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Road To Coder</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/禅与Objective-C编程艺术笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bokice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Road To Coder">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">禅与Objective-C编程艺术笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T16:38:35+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="禅与Objective-c编程艺术"><a href="#禅与Objective-c编程艺术" class="headerlink" title="禅与Objective-c编程艺术"></a>禅与Objective-c编程艺术</h1><h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><ul>
+<li><p>使用大括号</p>
+</li>
+<li><p>不用尤达表达式</p>
+</li>
+<li><p>nil和bool的检查使用！而不是==</p>
+</li>
+<li><p>避免将方法重要的部分嵌套到分支上</p>
+</li>
+<li><p>复杂表达式赋值给变量</p>
+</li>
+<li><p>三元运算符:object?:[self createObject];</p>
+</li>
+<li><p>错误处理:先对方法返回值进行判断而不是处理错误变量，因为成功情况下会对error参数写入垃圾值，此时如果检查error将导致错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSError *error=nil;</span><br><span class="line">if(![self trySomethingWithError:&amp;error])&#123;</span><br><span class="line">  //handle Error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Case语句"><a href="#Case语句" class="headerlink" title="Case语句"></a>Case语句</h2><ul>
+<li>多行语句时需要加大括号</li>
+<li>使用enum时使用NS_ENUM</li>
+</ul>
+<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h2><ul>
+<li>推荐使用长的，描述性的方法和变量名</li>
+<li>Constants常量应该使用驼峰命名法，并用相关类名作为前缀，推荐使用 static const 声明</li>
+<li>方法<ul>
+<li>方法类型后应有一个空格</li>
+<li>方法段之间应有一个空格</li>
+<li>参数名称之前应该有一个描述性关键词</li>
+<li>and不应用作阐明有多个参数</li>
+</ul>
+</li>
+<li>字面值:NSString,NSDictionary,NSArray和NSNumber字面值应该用在任何创建不可变的实力对象，nil不能放进NSArray和NSDictionary，否则将导致Crash。</li>
+</ul>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><ul>
+<li><p>类名: 类名应该加上三个大写字母作为前缀(两个字母的为Apple的类保留)，以减少Objective-C没有命名空间带来的问题</p>
+</li>
+<li><p>创建子类时应该把说明性部分放在前缀和父类名中间。</p>
+</li>
+<li><p>Initializer和dealloc初始化</p>
+<ul>
+<li><p>将dealloc方法放在实现问价你的最前面(@syntheize和@dynamic之后)</p>
+</li>
+<li><p>init应该放在dealloc之后</p>
+</li>
+<li><p>如果有多个初始化方法，designated initializer应该放在第一个，secondary initializer紧接其后</p>
+</li>
+<li><p>init方法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)init&#123;</span><br><span class="line">  self=[super init];</span><br><span class="line">  if(self)&#123;</span><br><span class="line">    //custom initialization</span><br><span class="line">  &#125;</span><br><span class="line">  return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>永远不在designated中调用secondary初始方法</p>
+</li>
+</ul>
+</li>
+<li><p>单例</p>
+</li>
+<li><p>属性</p>
+<ul>
+<li><p>尽可能描述性命名，避免缩写，小字母开头，驼峰</p>
+</li>
+<li><p>对象声明应为NSString *text;</p>
+</li>
+<li><p>除了init和dealloc方法，否则总是使用setter和getter访问属性</p>
+<p>setter</p>
+<ul>
+<li>使用setter会遵守内存管理语义</li>
+<li>KVO通知会被自动执行</li>
+<li>更容易debug</li>
+<li>允许一个单独的地方为设置值添加额外的逻辑</li>
+</ul>
+<p>getter</p>
+<ul>
+<li>对未来的变化有扩展能力</li>
+<li>允许子类化</li>
+<li>更简单的debug</li>
+<li>让意图更加清晰明确</li>
+<li>自动产生KVO通知</li>
+<li>消息发送添加的开销微不足道</li>
+</ul>
+</li>
+<li><p>init和dealloc</p>
+<p>永远不能在init等初始化函数和dealloc中使用getter和setter方法，而需要直接访问示例变量。</p>
+</li>
+<li><p>尽量使用点符号来访问和设置属性。这有助于区分属性访问和方法调用</p>
+</li>
+</ul>
+</li>
+<li><p>属性定义</p>
+<ul>
+<li>属性参数顺序应为原子性，读写，内存管理，这样做属性的修改更容易修改正确，并且更好阅读。</li>
+<li>必须使用nonatomic，除非特别需要的情况。因为iOS中，atomic带来的锁特别影响性能，并且不能保证线程安全。</li>
+<li>block必须使用copy(到堆上)，以保证其存活到结束</li>
+<li>为完成一个公有的getter和私有的setter，应声明公开的属性为readonly并在类扩展中重新定义通用的属性为readwrite</li>
+<li>BOOL类型的描述性属性建议通过getter=修改访问方法</li>
+</ul>
+</li>
+<li><p>可变对象</p>
+<ul>
+<li>任何可以用一个可变对象设置的属性(如NSString，NSArray，NSURLRequest)的内存管理类型必须是copy的，这可以用来确保包装，并且在对象不知道的情况下避免改变值。</li>
+<li>避免在公开的接口中暴露可变的对象，可以提供只读属性来返回对象的不可变副本。</li>
+</ul>
+</li>
+<li><p>懒加载(争议)</p>
+<ul>
+<li>getter方法不应该有副作用</li>
+<li>第一次访问的时候改变了初始化的小号，产生了副作用</li>
+<li>不是KVO友好的</li>
+</ul>
+</li>
+<li><p>参数断言</p>
+<p>若要求参数满足特定条件，最好使用NSParameterAssert()来断言条件</p>
+</li>
+<li><p>私有方法</p>
+<p>永远不要在私有方法前加上_前缀，_前缀为Apple保留</p>
+</li>
+<li><p>相等性</p>
+</li>
+</ul>
+<h2 id="Categories"><a href="#Categories" class="headerlink" title="Categories"></a>Categories</h2><p>应该在category方法前加上自己的小写前缀和下划线</p>
+<h2 id="Protocols"><a href="#Protocols" class="headerlink" title="Protocols"></a>Protocols</h2><h2 id="NSNotification"><a href="#NSNotification" class="headerlink" title="NSNotification"></a>NSNotification</h2><p>定义自己的NSNotification时应把通知的名字定义为字符串常量。并在公开的接口文件将其声明为extern，并且在对应的实现文件里面定义。</p>
+<h2 id="代码美化"><a href="#代码美化" class="headerlink" title="代码美化"></a>代码美化</h2><ul>
+<li>空格<ul>
+<li>设置tab为四个空格</li>
+</ul>
+</li>
+<li>冒号对齐</li>
+<li>line breaks换行</li>
+<li>控制语句使用Egyptian风格括号，类的实现、方法的实现使用非Egyptian风格括号</li>
+</ul>
+<h2 id="代码组织"><a href="#代码组织" class="headerlink" title="代码组织"></a>代码组织</h2><ul>
+<li><p>利用代码块</p>
+<p>GCC和Clang特性:代码块如果在闭合的圆括号内的话，返回最后语句的值</p>
+<p>该方法非常适合组织小块的代码，能让读者聚焦于关键的变量和函数。</p>
+<p>所有的变量都在代码块中，可以减少对其他作用域的命名污染。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSURL *url = (&#123;</span><br><span class="line">    NSString *urlString = [NSString stringWithFormat:@&quot;%@/%@&quot;, baseURLString, endpoint];</span><br><span class="line">    [NSURL URLWithString:urlString];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pragma</p>
+<ul>
+<li><p>用于分离</p>
+<ul>
+<li>不同功能组的方法</li>
+<li>protocols的实现</li>
+<li>对父类方法的重写</li>
+</ul>
+</li>
+<li><p>忽略未使用变量的编译警告</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)giveMeFive</span><br><span class="line">&#123;</span><br><span class="line">    NSString *foo;</span><br><span class="line">    #pragma unused (foo)</span><br><span class="line"></span><br><span class="line">    return 5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>明确编译器警告和错误:#error,#warning</p>
+</li>
+<li><p>字符串文档(除非函数非公开，短或者显而易见，否则都需要)，用于描述函数的调用符号和语义</p>
+<ul>
+<li><p>单行注释用//</p>
+</li>
+<li><p>多行用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">一行总结.</span><br><span class="line">空行</span><br><span class="line">详细介绍</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="对象之间通讯"><a href="#对象之间通讯" class="headerlink" title="对象之间通讯"></a>对象之间通讯</h2><ul>
+<li>Block<ul>
+<li>是在栈上创建的</li>
+<li>可以复制堆上</li>
+<li>有自己的私有的栈变量的常量复制</li>
+<li>可变的站上的变量和指针必须用__block关键字声明</li>
+<li>strongSelf?</li>
+</ul>
+</li>
+<li>委托和数据源</li>
+<li>继承</li>
+<li>多重委托</li>
+</ul>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/15/基础知识之Foundation基础集合类/" rel="next" title="基础知识之Foundation基础集合类">
+                <i class="fa fa-chevron-left"></i> 基础知识之Foundation基础集合类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/15/基础知识之Runtime/" rel="prev" title="基础知识之Runtime">
+                基础知识之Runtime <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Bokice</p>
+              <p class="site-description motion-element" itemprop="description">记录学习历程，向开源大神看齐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#禅与Objective-c编程艺术"><span class="nav-number">1.</span> <span class="nav-text">禅与Objective-c编程艺术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件语句"><span class="nav-number">1.1.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Case语句"><span class="nav-number">1.2.</span> <span class="nav-text">Case语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名"><span class="nav-number">1.3.</span> <span class="nav-text">命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类"><span class="nav-number">1.4.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Categories"><span class="nav-number">1.5.</span> <span class="nav-text">Categories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Protocols"><span class="nav-number">1.6.</span> <span class="nav-text">Protocols</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSNotification"><span class="nav-number">1.7.</span> <span class="nav-text">NSNotification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码美化"><span class="nav-number">1.8.</span> <span class="nav-text">代码美化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码组织"><span class="nav-number">1.9.</span> <span class="nav-text">代码组织</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象之间通讯"><span class="nav-number">1.10.</span> <span class="nav-text">对象之间通讯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP"><span class="nav-number">1.11.</span> <span class="nav-text">AOP</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bokice</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
